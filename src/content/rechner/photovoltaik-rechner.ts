@@ -24,7 +24,7 @@ export default defineGuide({
     slug: 'photovoltaik-rechner',
     nav: 'Photovoltaik-Rechner',
     card: 'Dachanlage mit Eigenverbrauch, Einspeisevergütung des Zeitraums und 60-%-Grenze, für Ihre Postleitzahl.',
-    title: 'Photovoltaik-Rechner 2026: Ertrag, Vergütung, Amortisation',
+    title: 'PV-Rechner 2026: Photovoltaik-Ertrag, Vergütung, Ersparnis',
     description: `Photovoltaik-Rechner 2026 nach PLZ: Ertrag laut PVGIS, Eigenverbrauch, Vergütung ${DE.ct(s10)} bis 10 kWp, 60-%-Grenze und Amortisation, ohne jede Anfrage.`,
     h1: 'Photovoltaik-Rechner 2026: was Ihre Dachanlage bringt',
     intro: `Eine 10-kWp-Anlage in Köln bringt ${DE.eur(ohne.nutzenJahr)} im Jahr und hat sich nach ${DE.num(ohne.amortisationJahre ?? 0, 1)} Jahren bezahlt, wenn sie ${DE.eur(15000)} kostet. Rechnen Sie Ihr Dach.`,

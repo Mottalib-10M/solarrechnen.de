@@ -1,0 +1,4 @@
+# Points d'appel d'API interrogés par les scripts de données (scripts/data/fetch-*.py) : ce ne sont pas
+# des sources citées, leurs requêtes figurent dans les réponses brutes gardées sous research/.
+https://re.jrc.ec.europa.eu/api/
+https://ec.europa.eu/eurostat/api/

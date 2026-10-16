@@ -61,3 +61,11 @@ erronés ou période fausse chez Enpal, clean-invoice ; rayonnement par région 
 inclinaison/orientation ; 74 profils de charge réels × 20 formes de production simulés au quart d'heure ;
 taux EEG par semestre ; comptages du Marktstammdatenregister par grande ville (Balkonkraftwerke, toits, orientation
 des toits, stockage) ; heures de prix négatifs SMARD 2024-2026.
+
+## Passe qualité du 2026-10-16 (brief BRIEF-QUALITE-2026-10-16)
+
+- Relu à la source : § 8 Abs. 5a EEG (2 kW / 800 VA), § 52 EEG (10 €/kW et mois, 2 € après régularisation), § 5 Abs. 5 MaStRV (un mois), § 3 Nr. 72 EStG (30 kWp, 100 kWp), § 12 Abs. 3 UStG (30 kWp), BT-Drucksache 21/7867 du 07.09.2026 (transitions 50/25/7 kW, 36 mois, plafonnement 50 %, bonus 1,5 ct sur 48 mois, compteur intelligent dès 2 kW) : tout concorde.
+- **Profils de charge** : aucun jeu officiel plus récent de foyers individuels ; le nouveau profil standard BDEW H25 (2025, données 2018/2019 de 62 gestionnaires) est un profil agrégé qui contient déjà de l'autoconsommation PV, donc impropre à simuler un foyer. Il sert désormais de contrôle : part 10 h - 16 h des jours ouvrés, HTW 2010 contre H25, écart ≤ 0,8 point d'avril à août (juin : 25,3 % contre 25,6 %), `scripts/data/compare-h25.py`, affiché sur la page méthode. Limite restante : pompes à chaleur et voitures électriques absentes des profils de 2010.
+- Simulateur testé dans Playwright contre PVGIS appelé à la main : 900 Wp vertical Berlin 688 kWh (PVGIS 689), 2 000 Wp 35° Munich 2 274 kWh (PVGIS 2 274), 10 kWp Cologne 10 292 kWh (PVGIS 10 337 au point voisin) ; économies, vergütung (7,70 ct), amortissements recalculés à la main, au centime.
+- Téléphone : listes « Neigung » et « Ausrichtung » sur toute la largeur sous 480 px (« 90° senkrecht » était tronqué), « Speicher : keiner ». Titres alignés sur « pv rechner » et « einspeisevergütung tabelle ».
+- Contrôles et indexnow.sh repris de la trame corrigée (7147b55), contournement local check-nombres retiré ; `scripts/api-racines.txt` écarte les points d'appel PVGIS/Eurostat que check-sources lisait dans les réponses brutes de research/ (défaut de trame signalé).

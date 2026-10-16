@@ -18,7 +18,7 @@ export const schattenOpt = (l: L) => [
   { value: '0.25', label: tx(l, 'mittel (−25 %)', 'moderate (−25%)') }, { value: '0.4', label: tx(l, 'stark (−40 %)', 'heavy (−40%)') },
 ];
 export const balkonSpeicherOpt = (l: L) => [
-  { value: '0', label: tx(l, 'ohne Speicher', 'no battery') }, { value: '1', label: '1 kWh' }, { value: '1.5', label: '1,5 kWh' },
+  { value: '0', label: tx(l, 'keiner', 'none') }, { value: '1', label: '1 kWh' }, { value: '1.5', label: '1,5 kWh' },
   { value: '2', label: '2 kWh' }, { value: '3', label: '3 kWh' }, { value: '4', label: '4 kWh' },
 ].map((o) => (l === 'en' ? { ...o, label: o.label.replace(',', '.') } : o));
 export const janeinOpt = (l: L) => [{ value: '0', label: tx(l, 'Nein', 'No') }, { value: '1', label: tx(l, 'Ja', 'Yes') }];

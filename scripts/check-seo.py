@@ -48,7 +48,7 @@ if _candidats:
 else:
     sortie = '' if os.path.isfile(f'{site}/index.html') else 'dist'
 verbose = '--verbose' in sys.argv
-PRIMAIRES = None  # renseigne plus bas, une fois `_sources_primaires` definie
+PRIMAIRES = []  # renseigne plus bas (sources_officielles.primaires_du_site)
 
 # Pages de service : pas de cible de longueur (plan §2.2, lignes 5 à 8).
 SERVICE = re.compile(
@@ -116,93 +116,15 @@ AMOUNT = re.compile(
 # la cible n'est pas un défaut, seul le contenu trop mince en est un.
 TARGETS = {'pilier': 2000, 'guide': 1200, 'montant': 500, 'index': 800, 'outil': 500}
 
-# Domaines officiels reconnus pour la section Sources de la page pilier.
-OFFICIAL = re.compile(
-    r'https?://[a-z0-9.-]*(?:'
-    # génériques
-    r'\.gov(?:\.[a-z]{2})?(?:/|\b)|\.gouv\.|\.govt\.nz|europa\.eu|'
-    # Mexique : administrations fédérales (.gob.mx : SAT, DOF, IMSS, Orden Jurídico Nacional) et INEGI
-    # (calcularsueldoneto.mx, 2026-10-03 : la page pilier ne trouvait aucune source officielle).
-    r'\.gob\.mx|inegi\.org\.mx|'
-    # organisations intergouvernementales de métrologie et de normalisation
-    r'bipm\.org|oiml\.org|'
-    # France
-    r'service-public\.|legifrance|unedic\.org|urssaf\.|impots\.gouv|francetravail\.'
-    r'|ameli\.fr|insee\.fr|anil\.org|lassuranceretraite\.fr|agirc-arrco\.fr|info-retraite\.fr|'
-    # caisses de retraite étrangères
-    r'deutsche-rentenversicherung\.de|pensionsmyndigheten\.se|nav\.no|nenkin\.go\.jp|nps\.or\.kr|'
-    # Allemagne / Autriche
-    r'arbeitsagentur\.de|gesetze-im-internet\.de|bundesfinanzministerium\.de'
-    r'|bundesregierung\.de|\.bund\.de|destatis\.de|sozialversicherung\.at|'
-    # bafin.de est l'autorite federale de surveillance financiere, au meme titre
-    # que l'ACPR et l'AMF deja listees ; bmas.de et bmfsfj.de sont des ministeres
-    # federaux ; familienportal.de est edite par le BMFSFJ et minijob-zentrale.de
-    # par la Knappschaft-Bahn-See, organisme officiel des minijobs
-    # (bruttonettorechnen.de, 2026-09-27).
-    r'bafin\.de|bmas\.de|bmfsfj\.de|familienportal\.de|minijob-zentrale\.de|'
-    # Suisse
-    r'admin\.ch|ahv-iv\.ch|estv|seco\.admin|bsv\.admin|'
-    # Pays-Bas / Belgique
-    r'uwv\.nl|rijksoverheid\.nl|belastingdienst\.nl|wetten\.overheid\.nl|socialsecurity\.be|'
-    # Espagne / Portugal / Italie
-    r'\.public\.lu|statec\.lu|adem\.lu|'
-    r'sepe\.es|boe\.es|seg-social\.es|agenciatributaria\.es|tesoro\.es|cnmv\.es|bde\.es|ine\.es|\.gob\.es|'
-    # banques centrales et autorités de marché
-    r'banque-france\.fr|bundesbank\.de|dnb\.nl|riksbank\.se|norges-bank\.no|amf-france\.org|acpr\.banque-france\.fr|'
-    # Portugal : l'INE est l'institut national de statistique, au meme titre que
-    # insee.fr et ine.es deja listes ; bportugal.pt est la banque centrale.
-    r'seg-social\.pt|portaldasfinancas|ine\.pt|bportugal\.pt|dgert\.gov|act\.gov\.pt'
-    r'|inps\.it|gazzettaufficiale\.it|agenziaentrate\.'
-    # Canada
-    r'|canada\.ca|justice\.gc\.ca|services\.gc\.ca|statcan\.gc\.ca|cra-arc\.'
-    # Australie / NZ
-    r'|fairwork\.gov\.au|ato\.gov\.au|servicesaustralia\.gov\.au|ird\.govt\.nz|'
-    # Irlande / Nordiques / Singapour / Maroc
-    r'citizensinformation\.ie|revenue\.ie|welfare\.ie|skatteetaten\.no|nav\.no'
-    r'|skat\.dk|borger\.dk|skatteverket\.se|iras\.gov\.sg|cnss\.ma|finances\.gov\.ma'
-    # Golfe : u.ae est le portail officiel du gouvernement fédéral des Émirats,
-    # au même titre que service-public.fr, mais son domaine ne contient pas « gov ».
-    r'|u\.ae/|mohre\.gov\.ae|dha\.gov\.ae|doh\.gov\.ae|mohap\.gov\.ae'
-    # Finlande (fi-laskurit, 2026-10-05) : Verohallinto, Kela, Finlex, Eläketurvakeskus, Työeläke.fi, TYJ, Työsuojelu, Tilastokeskus
-    r'|vero\.fi|kela\.fi|finlex\.fi|etk\.fi|tyoelake\.fi|tyj\.fi|tyosuojelu\.fi|stat\.fi|suomi\.fi'
-    r')[a-z0-9./_?=&#-]*', re.I)
-
-# La liste ci-dessus est celle des administrations : elle suppose que le sujet du
-# site releve d'une autorite publique, ce qui est vrai d'un bareme fiscal et faux
-# d'un intitule de poste ou d'une pratique professionnelle. Un site dont le sujet
-# n'a pas de regulateur ne peut pas satisfaire le §7 avec cette liste, et le
-# contourner reviendrait a supprimer la regle pour tout le monde.
-#
-# Un site declare donc ses propres sources primaires dans
-# `scripts/sources-primaires.txt` : un motif de domaine par ligne, chacun precede
-# d'une ligne de commentaire disant pourquoi ce domaine fait autorite sur ce
-# sujet. Le commentaire est obligatoire — sans lui, la liste redevient un moyen
-# de faire taire le controle.
-def _sources_primaires(racine):
-    chemin = os.path.join(racine, 'scripts', 'sources-primaires.txt')
-    if not os.path.isfile(chemin):
-        return None
-    motifs, justifie = [], False
-    for ligne in open(chemin, encoding='utf-8'):
-        ligne = ligne.strip()
-        if not ligne:
-            justifie = False
-            continue
-        if ligne.startswith('#'):
-            justifie = True
-            continue
-        if not justifie:
-            raise SystemExit(
-                f"{chemin} : « {ligne} » n'est precede d'aucun commentaire. "
-                "Chaque domaine declare doit dire pourquoi il fait autorite sur ce sujet.")
-        motifs.append(re.escape(ligne))
-        justifie = False
-    if not motifs:
-        return None
-    return re.compile(r'https?://[a-z0-9.-]*(?:' + '|'.join(motifs) + r')[a-z0-9./_?=&#-]*', re.I)
-
-
-PRIMAIRES = _sources_primaires(site)
+# Sources officielles de la page pilier (RECETTE §7, §26 du 2026-10-16) : la liste est
+# partagée avec check-regles.py — sources_officielles.py + sources-officielles.txt, à côté
+# de ce script. Libellés publics (gov, gouv, gob, govt, gv), suffixes publics (gc.ca, admin.ch,
+# bund.de, europa.eu…), liste par pays, et sources propres au site dans
+# `scripts/sources-primaires.txt` (un domaine par ligne, chacun précédé d'une ligne de
+# commentaire qui dit pourquoi il fait autorité — sans lui, le contrôle s'arrête).
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import sources_officielles
+PRIMAIRES = sources_officielles.primaires_du_site(site, strict=True)
 
 # La regle « le titre ne s'ouvre pas sur le pays » vise « France Salaire
 # Calculateur ». Elle se trompe quand l'adjectif de nationalite fait partie d'un
@@ -358,9 +280,7 @@ for f in _fichiers:
         flags.append(f'titre ouvert par un mot générique « {t.split()[0]} » : le terme-clé passe avant')
     # E-E-A-T : la page pilier cite au moins trois textes officiels.
     if k == 'pilier':
-        n_src = len({m.group(0) for m in OFFICIAL.finditer(doc)})
-        if PRIMAIRES is not None:
-            n_src += len({m.group(0) for m in PRIMAIRES.finditer(doc)})
+        n_src = len(sources_officielles.urls_officielles(doc, PRIMAIRES))
         if n_src < 3:
             flags.append(f'{n_src} source(s) officielle(s) < 3')
     # Une page parente est un index a toute profondeur, pas seulement a la racine :

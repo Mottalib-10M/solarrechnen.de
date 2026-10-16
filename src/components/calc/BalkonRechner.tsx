@@ -59,8 +59,8 @@ export default function BalkonRechner({ lang = 'de', methodHref, preset = {}, id
             <NumberField id={`${idp}-wp`} label={tx(lang, 'Modulleistung', 'Panel output')} value={wp} onChange={setWp} unit="Wp" max={10000} lang={lang} />
           </div>
           <div className="grid grid-cols-2 gap-x-4 gap-y-4">
-            <SelectField id={`${idp}-az`} label={tx(lang, 'Ausrichtung', 'Facing')} value={az} onChange={setAz} options={azimutOpt(lang)} />
-            <SelectField id={`${idp}-n`} label={tx(lang, 'Neigung', 'Tilt')} value={tilt} onChange={setTilt} options={neigungBalkonOpt(lang)} />
+            <SelectField id={`${idp}-az`} className="max-[479px]:col-span-2" label={tx(lang, 'Ausrichtung', 'Facing')} value={az} onChange={setAz} options={azimutOpt(lang)} />
+            <SelectField id={`${idp}-n`} className="max-[479px]:col-span-2" label={tx(lang, 'Neigung', 'Tilt')} value={tilt} onChange={setTilt} options={neigungBalkonOpt(lang)} />
           </div>
           <div className="grid grid-cols-2 gap-x-4 gap-y-4">
             <NumberField id={`${idp}-vb`} label={tx(lang, 'Stromverbrauch im Jahr', 'Annual consumption')} value={vb} onChange={setVb} unit="kWh" max={20000} lang={lang} />

@@ -287,6 +287,13 @@
         "de": "§ 15 MaStRV: öffentliche Zugänglichkeit der Registerdaten",
         "en": "Section 15 MaStRV: public access to register data"
       }
+    },
+    "bdewH25": {
+      "url": "https://www.bdew.de/energie/standardlastprofile-strom/",
+      "label": {
+        "de": "BDEW, Standardlastprofile Strom 2025 (H25, G25, L25, P25, S25) und Hinweise vom 17.03.2025",
+        "en": "BDEW, 2025 electricity standard load profiles (H25, G25, L25, P25, S25) and notes of 17 March 2025"
+      }
     }
   }
 }

@@ -35,7 +35,7 @@ export default defineGuide({
     slug: 'einspeiseverguetung',
     nav: 'Einspeisevergütung',
     card: 'Satz des Inbetriebnahme-Zeitraums nach Leistung, Teil- oder Volleinspeisung, Vergütung im Jahr und über 20 Jahre.',
-    title: 'Einspeisevergütung 2026: aktuelle Sätze, Mischsatz, Rechner',
+    title: 'Einspeisevergütung 2026: Tabelle der Sätze und Rechner',
     description: `Einspeisevergütung 2026 ab ${dDe(AKTUELL.von)}: ${DE.ct(AKTUELL.teil[0])} bis 10 kWp, ${DE.ct(AKTUELL.voll[0])} bei Volleinspeisung, alle Zeiträume seit 2023 und Mischsatz je Leistung.`,
     h1: 'Einspeisevergütung 2026: Sätze aller Zeiträume und Ihr Mischsatz',
     intro: `Für Anlagen, die vom ${dDe(AKTUELL.von)} bis zum ${dDe(AKTUELL.bis)} in Betrieb gehen, zahlt der Netzbetreiber ${DE.ct(AKTUELL.teil[0])} für den Überschuss bis 10 kWp und ${DE.ct(AKTUELL.voll[0])} bei Volleinspeisung, ${P.eeg.dauer_jahre} Jahre lang.`,

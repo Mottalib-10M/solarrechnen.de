@@ -33,8 +33,8 @@ def sortie_de(site: Path):
 
 
 def paragraphes(texte):
-    corps = re.sub(r'<(script|style|nav|footer|header|noscript)[\s\S]*?</\1>', ' ', texte, flags=re.I)
-    for m in re.finditer(r'<(p|li|td|dd)[^>]*>([\s\S]*?)</\1>', corps, flags=re.I):
+    corps = re.sub(r'<(script|style|nav|footer|header|noscript)\b[\s\S]*?</\1>', ' ', texte, flags=re.I)
+    for m in re.finditer(r'<(p|li|td|dd)\b[^>]*>([\s\S]*?)</\1>', corps, flags=re.I):
         t = re.sub(r'&[a-z#0-9]+;', ' ', re.sub(r'<[^>]+>', ' ', m.group(2)), flags=re.I)
         t = re.sub(r'\s+', ' ', t).strip()
         if len(t.split(' ')) >= 12:
@@ -52,7 +52,20 @@ def pages(sortie: Path):
             and not LEGAL.search('/' + f.relative_to(sortie).as_posix())]
 
 
+def _test():
+    """Non-régression (RECETTE §26, 2026-10-15) : `<path>`, `<pre>`, `<link>` ne sont pas des paragraphes."""
+    dix = ' '.join(['mot'] * 14)
+    doc = (f'<svg><path d="M0 0"/></svg><select>{dix} Ain Aisne Allier</select><p>vrai paragraphe {dix}</p>'
+           f'<pre>{dix}</pre><link rel="x"><li>élément de liste {dix}</li>')
+    trouves = list(paragraphes(doc))
+    ok = trouves == [f'vrai paragraphe {dix}', f'élément de liste {dix}']
+    print('check-portefeuille --test :', 'OK' if ok else f'ÉCHEC {trouves}')
+    sys.exit(0 if ok else 1)
+
+
 def main():
+    if sys.argv[1:] == ['--test']:
+        _test()
     site = Path(sys.argv[1]).resolve()
     verbose = '--verbose' in sys.argv
     sortie = sortie_de(site)

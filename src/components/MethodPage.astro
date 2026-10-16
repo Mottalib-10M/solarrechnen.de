@@ -11,6 +11,10 @@ import { breadcrumbSchema, webPageSchema } from '../lib/seo';
 import { CONTACT_EMAIL, REVIEW_CYCLE_MONTHS, LANG_TAGS } from '../data/site-config';
 import ST from '../data/staedte.json';
 import TESTS from '../../tests/referenz.json';
+import H25 from '../data/h25-vergleich.json';
+const H25M = Object.entries(H25.monate as Record<string, { htw: number; h25: number }>);
+const H25_SOMMER = Math.max(...H25M.filter(([m]) => +m >= 4 && +m <= 8).map(([, v]) => Math.abs(v.htw - v.h25)));
+const H25_JUNI = (H25.monate as Record<string, { htw: number; h25: number }>)['6'];
 interface Props { lang: Locale }
 const { lang } = Astro.props;
 const de = lang === 'de';
@@ -54,7 +58,7 @@ const neg = SMARD.years[SMARD_JAHR];
     <h2>Was die Rechner nicht können</h2>
     <ul>
       <li>Ihre eigene Verschattung messen: Bäume, Nachbarhäuser und Dachgauben sind nicht im Geländemodell; die Auswahl „Verschattung“ ist eine pauschale Minderung.</li>
-      <li>Ihr Lastprofil kennen: Ein Haushalt mit Homeoffice oder Wärmepumpe liegt anders als der Mittelwert. Wärmepumpen und Elektroautos sind in den Profilen von 2010 kaum enthalten.</li>
+      <li>Ihr Lastprofil kennen: Ein Haushalt mit Homeoffice oder Wärmepumpe liegt anders als der Mittelwert. Wärmepumpen und Elektroautos sind in den Profilen von 2010 kaum enthalten. Den Tagesverlauf haben wir gegen das neue Standardlastprofil H25 des BDEW (2025, aus Bilanzierungsdaten von 62 Netzbetreibern 2018/2019) geprüft: Werktags zwischen 10 und 16 Uhr fallen im Juni {pc(H25_JUNI.htw, 1)} des Tagesverbrauchs der 74 Haushalte an, im H25 {pc(H25_JUNI.h25, 1)}; von April bis August liegt die Abweichung bei höchstens {formatNumber(H25_SOMMER * 100, 1, lang)} Prozentpunkten (Skript scripts/data/compare-h25.py). Das H25 ersetzt die Einzelhaushalte nicht: Als Summenprofil glättet es die Spitzen, an denen der Eigenverbrauch hängt, und enthält schon etwas PV-Eigenversorgung.</li>
       <li>Kurze Wolkenlücken abbilden: Die Erzeugung liegt in Stundenwerten vor; Abregelung über {n(P.balkon.max_va)} VA und die 60-%-Grenze sind deshalb eher etwas unterschätzt.</li>
       <li>Künftiges Recht: Der Entwurf des EEG 2027 (Drucksache {P.eeg2027.drucksache}) wird beschrieben, aber in keinem Rechner als geltendes Recht angewendet.</li>
       <li>Steuerliche Einzelfälle, Mieterstrom, Gewerbe und Anlagen über 100 kWp.</li>
@@ -93,7 +97,7 @@ const neg = SMARD.years[SMARD_JAHR];
     <h2>What the calculators cannot do</h2>
     <ul>
       <li>Measure your own shading: trees, neighbouring buildings and dormers are not in the terrain model; the shading option is a flat reduction.</li>
-      <li>Know your load profile: a household with a home office or heat pump differs from the mean. Heat pumps and electric cars hardly appear in the 2010 profiles.</li>
+      <li>Know your load profile: a household with a home office or heat pump differs from the mean. Heat pumps and electric cars hardly appear in the 2010 profiles. We checked the daily pattern against BDEW’s new H25 standard load profile (2025, built from the settlement data of 62 grid operators for 2018/2019): on June weekdays, {pc(H25_JUNI.htw, 1)} of the 74 households’ daily use falls between 10:00 and 16:00, against {pc(H25_JUNI.h25, 1)} in H25; from April to August the gap is at most {formatNumber(H25_SOMMER * 100, 1, lang)} percentage points (script scripts/data/compare-h25.py). H25 does not replace the individual households: as an aggregate it smooths the peaks that self-consumption depends on, and it already contains some PV self-supply.</li>
       <li>Capture short gaps in the clouds: generation is hourly, so clipping above {n(P.balkon.max_va)} VA and the 60% limit are, if anything, slightly underestimated.</li>
       <li>Future law: the draft EEG 2027 (printed paper {P.eeg2027.drucksache}) is described but never applied as law in any calculator.</li>
       <li>Individual tax cases, tenant electricity schemes, businesses and systems above 100 kWp.</li>

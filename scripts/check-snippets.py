@@ -45,7 +45,30 @@ def exceptions():
 
 EXC = exceptions()
 PAYS = tuple(c.lower() for c in COUNTRY)
-GABARIT = re.compile(r'\{\{|\}\}|__[A-Z_]+__|%%|\$\{|undefined|\bnull\b|\bNaN\b')
+GABARIT = re.compile(r'\{\{|\}\}|__[A-Z_]+__|%%|\$\{|\bundefined\b|\bNaN\b|\[object Object\]')
+# « null » : marqueur de gabarit en anglais, français, etc., mais mot courant en allemand
+# (« null Euro », « Null-Prozent-Finanzierung ») et en norvégien (« null kroner ») — RECETTE §26 du
+# 2026-10-16, faux positif de zusatzbeitragrechner.de. Dans ces langues, seul « null » en contexte de
+# code (« = null », « (null) », « "null" », « null, null ») est un marqueur.
+NULL_MOT = re.compile(r'\bnull\b')
+NULL_CODE = re.compile(r'[=(\[{"]\s*null\b|\bnull\s*[)\]}"]|\bnull\s*[,;]\s*null\b|^\s*null\s*$')
+LANGUES_NULL = ('de', 'no', 'nb', 'nn')
+
+def gabarit(texte, lang):
+    if GABARIT.search(texte):
+        return True
+    return bool((NULL_CODE if lang in LANGUES_NULL else NULL_MOT).search(texte))
+
+if sys.argv[1:] == ['--test']:   # non-régression : python3 check-snippets.py --test
+    cas = [('Zusatzbeitrag 2026 : null Euro Aufschlag bei der Familienversicherung', 'de', False),
+           ('Null-Prozent-Finanzierung prüfen', 'de', False), ('null kroner i egenandel', 'no', False),
+           ('Beitrag = null €', 'de', True), ('Kasse (null) im Vergleich', 'de', True), ('null', 'de', True),
+           ('Salaire net null € par mois', 'fr', True), ('Net pay null', 'en', True),
+           ('Prix undefined €', 'fr', True), ('NaN € par mois', 'fr', True), ('Titre {{ titre }}', 'de', True),
+           ('Nullement obligatoire', 'fr', False), ('Annulled contract', 'en', False)]
+    rate = [(t, l) for t, l, att in cas if gabarit(t, l) != att]
+    print('check-snippets --test :', 'OK' if not rate else f'ÉCHEC {rate}', f'({len(cas)} cas)')
+    sys.exit(1 if rate else 0)
 
 def meta_description(doc):
     for tag in re.findall(r'<meta\b[^>]*>', doc, re.I):
@@ -93,7 +116,7 @@ for f in sorted(glob.glob(os.path.join(sortie, '**', '*.html'), recursive=True))
         pb.append('tiret cadratin')
     if lang and lang != 'fr' and re.search(r'[   ][:;!?](\s|$)', t + ' ' + d):
         pb.append('espace avant la ponctuation hors du francais')
-    if GABARIT.search(t + ' ' + d):
+    if gabarit(t, lang) or gabarit(d, lang):
         pb.append('marqueur de gabarit')
     if t:
         titres[t].append(rel)

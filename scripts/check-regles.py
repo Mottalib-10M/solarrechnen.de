@@ -19,7 +19,9 @@ import concurrent.futures as cf, glob, html, os, re, sys, time, urllib.request, 
 site = sys.argv[1] if len(sys.argv) > 1 else '.'
 ROOT = os.path.expanduser('~/Documents/GitHub')
 DOMAINES = [l.strip() for l in open(os.path.join(ROOT, '_trame/domaines-ovh.txt')) if l.strip() and not l.startswith('#')]
-OFFICIEL = re.compile(r"(\.gouv\.|\.gov(\.|/|$)|\.gob\.|\.gc\.ca|admin\.ch|europa\.eu|service-public|urssaf|impots|france-travail|legifrance|ameli|caf\.fr|bundesfinanzministerium|bundesagentur|arbeitsagentur|bmf|elster|agenziaentrate|inps|belastingdienst|uwv|rijksoverheid|skatteverket|skatteetaten|nav\.no|revenue\.ie|citizensinformation|ato\.gov|servicesaustralia|fairwork|iras\.gov|cpf\.gov|ird\.govt|workandincome|canada\.ca|cra-arc|seg-social|sepe\.es|agenciatributaria|boe\.es|portaldasfinancas|receita|gov\.br|mohre|zatca|hmrc|gov\.uk|irs\.gov|ssa\.gov|bls\.gov|dol\.gov|ec\.europa|vero\.fi|kela\.fi|finlex\.fi|etk\.fi|tyoelake\.fi|tyj\.fi|tyosuojelu\.fi|stat\.fi)", re.I)  # Finlande ajoutée le 2026-10-05 (fi-laskurit)
+# Sources officielles : liste partagée avec check-seo.py (sources_officielles.py, RECETTE §26 du 2026-10-16).
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import sources_officielles
 RE_A_PROPOS = re.compile(r"/(about|about-us|a-propos|qui-sommes-nous|ueber-uns|uber-uns|sobre|sobre-nosotros|sobre-nos|chi-siamo|over-ons|om-oss|om-os|om|quem-somos|tietoa|meista|o-nas|sxetika|chi-siamo|despre)\b", re.I)
 RE_METHODE = re.compile(r"(method|methodo|méthodo|methodik|metodolog|metode|berekening|calcul-|how-we-calculate|comment-calcul|sources|laskentatapa|menetelma|metod)", re.I)
 RE_MAJ = re.compile(r"(mis à jour|mise à jour|updated|last updated|aktualisiert|stand:|actualizado|aggiornat|bijgewerkt|oppdatert|uppdaterad|atualizad|opdateret|päivitetty|zaktualizowano|aktualizacja|ενημερώθηκε|ενημέρωση|aggiornato)", re.I)
@@ -94,8 +96,8 @@ pct = round(proche[1] * 100)
 res['trame'] = ('inconnu' if len(s) < 5 else 'ko' if pct >= 80 else 'a-verifier' if pct >= 60 else 'ok', f'site le plus proche : {proche[0]} ({pct} % de blocs en commun)')
 # Chiffres
 visible = re.sub(r"<[^>]+>", " ", re.sub(r"<(script|style)[\s\S]*?</\1>", " ", h, flags=re.I))
-prim = [l.strip() for l in lire(os.path.join(site, 'scripts/sources-primaires.txt')).splitlines() if l.strip() and not l.startswith('#')]
-offi = {re.sub(r'^https?://([^/]+).*', r'\1', u) for u in liens(h) if OFFICIEL.search(u) or any(p in u for p in prim)}
+prim = sources_officielles.primaires_du_site(site, strict=False)
+offi = {re.sub(r'^https?://([^/]+).*', r'\1', u) for u in liens(h) if sources_officielles.est_officielle(u, prim)}
 maj = bool(RE_MAJ.search(html.unescape(visible)))
 res['chiffres'] = ('ok' if maj and offi else 'a-verifier' if maj or offi else 'ko', f"{'date de mise à jour visible' if maj else 'PAS de date de mise à jour visible'} · {len(offi)} source(s) officielle(s) liée(s)")
 # Crédibilité
