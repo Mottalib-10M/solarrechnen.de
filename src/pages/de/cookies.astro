@@ -1,0 +1,19 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { CONTACT_EMAIL, LAST_UPDATED } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'de';
+---
+<PageLayout title="Cookies: keine, auch nicht im Balkonkraftwerk- oder PV-Rechner" description="Keine Cookies und kein Banner: Balkonkraftwerk-, Photovoltaik- und Speicherrechner merken sich nichts. Gemessen wird höchstens anonym, ob eine Seite ohne Fehler lädt." lang={lang} noindex={true} breadcrumbs={[{ label: 'Cookies' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Cookies</h1>
+    <p>Diese Seite <strong>setzt keine Cookies</strong> und braucht deshalb kein Einwilligungsbanner. Einzelheiten in der <a href={route('privacy', lang)}>Datenschutzerklärung</a>.</p>
+    <h2>Ihre Postleitzahl bleibt auf Ihrem Gerät</h2>
+    <p>Was Sie zu Standort, Verbrauch und Preisen eingeben, landet weder in einem Cookie noch im Browserspeicher. Schließen Sie den Tab, ist es weg; nur ein Link, den Sie selbst kopieren, enthält die Werte.</p>
+    <h2>Anonyme Fehlermessung</h2>
+    <p>Ist sie eingeschaltet, prüft Microsoft Clarity im Modus <strong>ohne Cookies</strong>, ob Seiten fehlerfrei laden. Cookies wie <code>_clck</code>, <code>_clsk</code>, <code>MUID</code> oder <code>CLID</code> entstehen nicht, Eingaben werden maskiert. Anbieter: Microsoft Ireland Operations Limited, Dublin, Irland; Löschung nach 30 Tagen; Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO.</p>
+    <h2>Eingebettete Rechner</h2>
+    <p>Die iframe-Fassungen laden keine Messung und setzen keine Cookies.</p>
+    <p>Fragen an <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Stand: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

@@ -1,0 +1,99 @@
+{
+  "_lisezmoi": "Alle Rechtswerte und Annahmen des Rechners. Jeder Block nennt seine Quelle (_quelle) und wurde am retrieved_at dort gelesen. Einspeisevergütung: eeg-saetze.json (Skript fetch-eeg.py), Strompreis: strompreis.json, Erträge: standort.json, Eigenverbrauch: eigenverbrauch.json. Nie eine Zahl fest in Seiten oder Code schreiben (RECETTE §4, §17.4 Punkt 7).",
+  "year": 2026,
+  "retrieved_at": "2026-10-15",
+  "valid_from": "2026-08-01",
+  "valid_to": "2026-12-31",
+  "eeg_stand": "EEG 2023, zuletzt geändert durch Art. 23 G v. 18.12.2025 (BGBl. 2025 I Nr. 347)",
+  "balkon": {
+    "_quelle": "§ 8 Abs. 5a, § 9 Abs. 1 Satz 3, § 10a Abs. 3 EEG 2023; § 554 Abs. 1 BGB; § 20 Abs. 2 Nr. 5 WEG",
+    "max_wp": 2000,
+    "max_va": 800,
+    "netzbetreiber_meldung": false,
+    "alter_zaehler_erlaubt": true
+  },
+  "mastr": {
+    "_quelle": "§ 5 Abs. 5 MaStRV (Frist), § 52 Abs. 1 Nr. 11, Abs. 2, Abs. 3 EEG 2023 (Zahlung bei Pflichtverstoß)",
+    "frist_monate": 1,
+    "zahlung_eur_kw_monat": 10,
+    "zahlung_nach_nachholung_eur_kw_monat": 2
+  },
+  "solarspitzen": {
+    "_quelle": "§ 9 Abs. 2 Satz 1 Nr. 2 Buchst. b und Nr. 3, § 51, § 51a, § 100 Abs. 3b und 46 EEG 2023 (Solarspitzengesetz, in Kraft am 25.02.2025)",
+    "stichtag": "2025-02-25",
+    "begrenzung_anteil": 0.6,
+    "begrenzung_bis_kw": 100,
+    "neg_preis_bis_kw": 100,
+    "verlaengerung_faktor": 0.5,
+    "steckersolar_ausgenommen": true
+  },
+  "eeg": {
+    "_quelle": "§§ 48, 49, 53 Abs. 1 EEG 2023; Fördersätze der Bundesnetzagentur (eeg-saetze.json)",
+    "dauer_jahre": 20,
+    "abzug_einspeiseverguetung_ct": 0.4,
+    "degression_halbjahr": 0.01,
+    "anwendbar_bis": "2026-12-31"
+  },
+  "steuer": {
+    "_quelle": "§ 3 Nr. 72 EStG; § 12 Abs. 1 und 3 UStG",
+    "estg_kwp_je_einheit": 30,
+    "estg_kwp_gesamt": 100,
+    "ust_null_bis_kwp": 30,
+    "ust_regelsatz": 0.19
+  },
+  "eeg2027": {
+    "_quelle": "Gesetzentwurf der Bundesregierung, BT-Drucksache 21/7867 vom 07.09.2026 (Entwurf, nicht in Kraft)",
+    "drucksache": "21/7867",
+    "datum": "2026-09-07",
+    "uebergang_lt50_inbetrieb_vor": "2028-01-01",
+    "uebergang_lt25_inbetrieb_vor": "2029-01-01",
+    "uebergang_lt7_inbetrieb_vor": "2031-01-01",
+    "uebergang_kw": [50, 25, 7],
+    "uebergang_monate": 36,
+    "uebergang_abzug_ct": 1,
+    "kappung_anteil": 0.5,
+    "dv_bonus_ct": 1.5,
+    "dv_bonus_monate": 48,
+    "smgw_ab_kw": 2
+  },
+  "speicher": {
+    "_quelle": "Annahme der Simulation (scripts/data/build-eigenverbrauch.py): Wirkungsgrad je Richtung, Leistung",
+    "eta_richtung": 0.949,
+    "leistung_kw_je_kwh": 0.5,
+    "leistung_min_kw": 0.8
+  },
+  "pvgis": {
+    "_quelle": "PVGIS 5.3 (JRC), PVcalc, kristallines Silizium, 14 % Systemverluste, Horizont aus Geländemodell",
+    "verluste_pct": 14
+  },
+  "sources": {
+    "pvgis": { "url": "https://re.jrc.ec.europa.eu/pvg_tools/en/", "label": { "de": "PVGIS 5.3, Gemeinsame Forschungsstelle (JRC) der Europäischen Kommission", "en": "PVGIS 5.3, Joint Research Centre of the European Commission" } },
+    "pvgis_doku": { "url": "https://joint-research-centre.ec.europa.eu/photovoltaic-geographical-information-system-pvgis/getting-started-pvgis/api-non-interactive-service_en", "label": { "de": "PVGIS: Schnittstelle für automatische Abfragen (JRC)", "en": "PVGIS non-interactive service (JRC)" } },
+    "bnetza_saetze": { "url": "https://www.bundesnetzagentur.de/DE/Fachthemen/ElektrizitaetundGas/ErneuerbareEnergien/EEG_Foerderung/artikel.html", "label": { "de": "Bundesnetzagentur: EEG-Förderung und Fördersätze für Solaranlagen", "en": "Federal Network Agency: EEG support rates for solar installations" } },
+    "bnetza_archiv": { "url": "https://www.bundesnetzagentur.de/DE/Fachthemen/ElektrizitaetundGas/ErneuerbareEnergien/EEG_Foerderung/Archiv_VergSaetze/start.html", "label": { "de": "Bundesnetzagentur: Fördersätze früherer Zeiträume (Archiv)", "en": "Federal Network Agency: rates for earlier periods (archive)" } },
+    "bnetza_solar": { "url": "https://www.bundesnetzagentur.de/DE/Fachthemen/ElektrizitaetundGas/ErneuerbareEnergien/Solaranlagen/start.html", "label": { "de": "Bundesnetzagentur: Fragen und Antworten zu Solaranlagen und Steckersolargeräten", "en": "Federal Network Agency: questions and answers on solar and plug-in solar" } },
+    "mastr": { "url": "https://www.marktstammdatenregister.de/MaStR", "label": { "de": "Marktstammdatenregister der Bundesnetzagentur", "en": "Market Master Data Register (Marktstammdatenregister), Federal Network Agency" } },
+    "mastr_einheiten": { "url": "https://www.marktstammdatenregister.de/MaStR/Einheit/Einheiten/ErweiterteOeffentlicheEinheitenuebersicht", "label": { "de": "Marktstammdatenregister: öffentliche Einheitenübersicht", "en": "Market Master Data Register: public list of units" } },
+    "eeg_8": { "url": "https://www.gesetze-im-internet.de/eeg_2014/__8.html", "label": { "de": "§ 8 EEG 2023: Anschluss, Steckersolargeräte (Abs. 5a)", "en": "Section 8 EEG 2023: grid connection, plug-in solar (para. 5a)" } },
+    "eeg_9": { "url": "https://www.gesetze-im-internet.de/eeg_2014/__9.html", "label": { "de": "§ 9 EEG 2023: technische Vorgaben, 60-Prozent-Begrenzung", "en": "Section 9 EEG 2023: technical rules, 60 per cent feed-in limit" } },
+    "eeg_10a": { "url": "https://www.gesetze-im-internet.de/eeg_2014/__10a.html", "label": { "de": "§ 10a EEG 2023: Messstellenbetrieb, Übergangsregel für Steckersolargeräte", "en": "Section 10a EEG 2023: metering, transitional rule for plug-in solar" } },
+    "eeg_21": { "url": "https://www.gesetze-im-internet.de/eeg_2014/__21.html", "label": { "de": "§ 21 EEG 2023: Einspeisevergütung", "en": "Section 21 EEG 2023: feed-in tariff" } },
+    "eeg_48": { "url": "https://www.gesetze-im-internet.de/eeg_2014/__48.html", "label": { "de": "§ 48 EEG 2023: Solaranlagen, anzulegende Werte, Volleinspeisung", "en": "Section 48 EEG 2023: solar installations, reference values, full feed-in" } },
+    "eeg_49": { "url": "https://www.gesetze-im-internet.de/eeg_2014/__49.html", "label": { "de": "§ 49 EEG 2023: Absenkung um 1 Prozent alle sechs Monate", "en": "Section 49 EEG 2023: 1 per cent reduction every six months" } },
+    "eeg_51": { "url": "https://www.gesetze-im-internet.de/eeg_2014/__51.html", "label": { "de": "§ 51 EEG 2023: keine Vergütung bei negativen Preisen", "en": "Section 51 EEG 2023: no payment at negative prices" } },
+    "eeg_51a": { "url": "https://www.gesetze-im-internet.de/eeg_2014/__51a.html", "label": { "de": "§ 51a EEG 2023: Verlängerung des Vergütungszeitraums", "en": "Section 51a EEG 2023: extension of the payment period" } },
+    "eeg_52": { "url": "https://www.gesetze-im-internet.de/eeg_2014/__52.html", "label": { "de": "§ 52 EEG 2023: Zahlungen bei Pflichtverstößen", "en": "Section 52 EEG 2023: payments for breaches of duty" } },
+    "eeg_100": { "url": "https://www.gesetze-im-internet.de/eeg_2014/__100.html", "label": { "de": "§ 100 EEG 2023: Übergangsbestimmungen", "en": "Section 100 EEG 2023: transitional provisions" } },
+    "mastrv_5": { "url": "https://www.gesetze-im-internet.de/mastrv/__5.html", "label": { "de": "§ 5 MaStRV: Registrierung innerhalb eines Monats", "en": "Section 5 MaStRV: registration within one month" } },
+    "estg_3": { "url": "https://www.gesetze-im-internet.de/estg/__3.html", "label": { "de": "§ 3 Nr. 72 EStG: Steuerfreiheit kleiner Photovoltaikanlagen", "en": "Section 3 no. 72 Income Tax Act: tax exemption for small PV" } },
+    "ustg_12": { "url": "https://www.gesetze-im-internet.de/ustg_1980/__12.html", "label": { "de": "§ 12 Abs. 3 UStG: Nullsteuersatz für Photovoltaik und Speicher", "en": "Section 12(3) VAT Act: zero VAT rate for PV and batteries" } },
+    "bgb_554": { "url": "https://www.gesetze-im-internet.de/bgb/__554.html", "label": { "de": "§ 554 BGB: bauliche Veränderungen durch Mieter, Steckersolargeräte", "en": "Section 554 Civil Code: tenant alterations, plug-in solar" } },
+    "weg_20": { "url": "https://www.gesetze-im-internet.de/woeigg/__20.html", "label": { "de": "§ 20 WEG: bauliche Veränderungen, Steckersolargeräte", "en": "Section 20 Condominium Act: alterations, plug-in solar" } },
+    "smard": { "url": "https://www.smard.de/home", "label": { "de": "SMARD, Strommarktdaten der Bundesnetzagentur", "en": "SMARD, electricity market data of the Federal Network Agency" } },
+    "eurostat_strom": { "url": "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table", "label": { "de": "Eurostat nrg_pc_204: Strompreise für Haushalte", "en": "Eurostat nrg_pc_204: electricity prices for households" } },
+    "destatis_gv": { "url": "https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/Archiv/GVAuszugQ/AuszugGV2QAktuell.html", "label": { "de": "Destatis: Gemeindeverzeichnis mit Postleitzahl und Koordinaten", "en": "Destatis: municipality register with postcode and coordinates" } },
+    "htw_lastprofile": { "url": "https://solar.htw-berlin.de/elektrische-lastprofile-fuer-wohngebaeude/", "label": { "de": "HTW Berlin: repräsentative elektrische Lastprofile für Wohngebäude (74 Haushalte)", "en": "HTW Berlin: representative household load profiles (74 households)" } },
+    "bt_eeg2027": { "url": "https://dserver.bundestag.de/btd/21/078/2107867.pdf", "label": { "de": "Bundestag, Drucksache 21/7867: Regierungsentwurf zum EEG 2027", "en": "Bundestag printed paper 21/7867: government draft of the EEG 2027" } },
+    "geonames": { "url": "https://www.geonames.org/", "label": { "de": "GeoNames: Postleitzahlen und Koordinaten (CC BY 4.0)", "en": "GeoNames: postcodes and coordinates (CC BY 4.0)" } }
+  }
+}

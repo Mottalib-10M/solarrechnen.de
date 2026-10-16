@@ -1,0 +1,27 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LegalIdentity from '../../components/LegalIdentity.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, SITE_URL } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'de';
+---
+<PageLayout title="Impressum: Herausgeber der Solarrechner und Hoster der Seite" description="Impressum nach § 5 DDG und § 18 MStV: wer die Rechner zu Balkonkraftwerk, Photovoltaik, Stromspeicher und Einspeisevergütung herausgibt, verantwortet und hostet." lang={lang} noindex={true} breadcrumbs={[{ label: 'Impressum' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Impressum</h1>
+    <p>Angaben nach § 5 Digitale-Dienste-Gesetz (DDG) für {SITE_URL}.</p>
+    <h2>Herausgeber</h2>
+    <LegalIdentity lang={lang} />
+    <h2>Inhaltlich verantwortlich (§ 18 Abs. 2 MStV)</h2>
+    <p>{AUTHOR_NAME}, Anschrift wie oben, E-Mail <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    <h2>Hosting</h2>
+    <LegalIdentity mode="hosting" lang={lang} />
+    <h2>Gegenstand der Seite</h2>
+    <p>Die Seite schätzt den Ertrag von Balkonkraftwerken und Photovoltaikanlagen mit den Strahlungsdaten von PVGIS (Europäische Kommission), den Eigenverbrauch mit gemessenen Haushaltsprofilen der HTW Berlin und die Einspeisevergütung nach den Veröffentlichungen der Bundesnetzagentur. Sie ist kein Angebot eines Netzbetreibers, Energieversorgers, Händlers oder Installateurs, keine Energie-, Steuer- oder Rechtsberatung und keine Behörde. Die Rechenwege stehen unter <a href={route('method', lang)}>So rechnen wir</a>.</p>
+    <h2>Haftung</h2>
+    <p>Die Werte werden vor jeder Veröffentlichung automatisch geprüft und bei jeder Änderung der Quellen abgeglichen; eine Gewähr für den Ertrag einer konkreten Anlage übernehmen wir nicht. Für verlinkte fremde Seiten sind deren Anbieter verantwortlich. Fehler melden Sie bitte über die <a href={route('contact', lang)}>Kontaktseite</a>.</p>
+    <h2>Einbindung</h2>
+    <p>Der Balkonkraftwerk-Rechner und der Photovoltaik-Rechner dürfen kostenlos per iframe genutzt werden, solange der Quellenlink sichtbar bleibt: <a href={route('widget', lang)}>Rechner einbinden</a>.</p>
+    <h2>Verbraucherschlichtung</h2>
+    <p>Zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle sind wir weder bereit noch verpflichtet. Zum Datenschutz: <a href={route('privacy', lang)}>Datenschutzerklärung</a> und <a href={route('cookies', lang)}>Cookies</a>. Stand: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

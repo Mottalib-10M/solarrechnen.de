@@ -1,0 +1,310 @@
+{
+ "source": "Marktstammdatenregister der Bundesnetzagentur, öffentliche Einheitenübersicht (dl-de/by-2-0)",
+ "url": "https://www.marktstammdatenregister.de/MaStR/Einheit/Einheiten/ErweiterteOeffentlicheEinheitenuebersicht",
+ "retrieved_at": "2026-10-15",
+ "bund": {
+  "balkon": 1532438,
+  "gebaeude": 4857639,
+  "speicher": 2825524,
+  "voll": 1074940,
+  "ausrichtung": {
+   "N": 36978,
+   "NO": 46094,
+   "O": 265809,
+   "SO": 611088,
+   "S": 2153044,
+   "SW": 879655,
+   "W": 333067,
+   "NW": 39056,
+   "nachgefuehrt": 4136,
+   "OW": 403387
+  }
+ },
+ "staedte": {
+  "berlin": {
+   "ags": "11000000",
+   "balkon": 27237,
+   "gebaeude": 37500,
+   "speicher": 30883,
+   "voll": 4738,
+   "ausrichtung": {
+    "N": 380,
+    "NO": 534,
+    "O": 2467,
+    "SO": 4898,
+    "S": 13116,
+    "SW": 6799,
+    "W": 2265,
+    "NW": 485,
+    "nachgefuehrt": 36,
+    "OW": 4783
+   }
+  },
+  "hamburg": {
+   "ags": "02000000",
+   "balkon": 11994,
+   "gebaeude": 21347,
+   "speicher": 18448,
+   "voll": 1866,
+   "ausrichtung": {
+    "N": 181,
+    "NO": 221,
+    "O": 1675,
+    "SO": 2221,
+    "S": 8445,
+    "SW": 3192,
+    "W": 1763,
+    "NW": 184,
+    "nachgefuehrt": 16,
+    "OW": 2759
+   }
+  },
+  "muenchen": {
+   "ags": "09162000",
+   "balkon": 9905,
+   "gebaeude": 19458,
+   "speicher": 14394,
+   "voll": 2825,
+   "ausrichtung": {
+    "N": 333,
+    "NO": 282,
+    "O": 1437,
+    "SO": 1683,
+    "S": 8564,
+    "SW": 2421,
+    "W": 1598,
+    "NW": 228,
+    "nachgefuehrt": 11,
+    "OW": 2600
+   }
+  },
+  "koeln": {
+   "ags": "05315000",
+   "balkon": 7774,
+   "gebaeude": 16777,
+   "speicher": 13579,
+   "voll": 1554,
+   "ausrichtung": {
+    "N": 151,
+    "NO": 415,
+    "O": 1166,
+    "SO": 2251,
+    "S": 4574,
+    "SW": 3563,
+    "W": 1457,
+    "NW": 286,
+    "nachgefuehrt": 25,
+    "OW": 2605
+   }
+  },
+  "frankfurt": {
+   "ags": "06412000",
+   "balkon": 4613,
+   "gebaeude": 7437,
+   "speicher": 5697,
+   "voll": 1048,
+   "ausrichtung": {
+    "N": 74,
+    "NO": 178,
+    "O": 499,
+    "SO": 931,
+    "S": 2209,
+    "SW": 1281,
+    "W": 510,
+    "NW": 128,
+    "nachgefuehrt": 25,
+    "OW": 1499
+   }
+  },
+  "stuttgart": {
+   "ags": "08111000",
+   "balkon": 6604,
+   "gebaeude": 11313,
+   "speicher": 8377,
+   "voll": 1981,
+   "ausrichtung": {
+    "N": 184,
+    "NO": 135,
+    "O": 709,
+    "SO": 1418,
+    "S": 4571,
+    "SW": 1719,
+    "W": 738,
+    "NW": 121,
+    "nachgefuehrt": 6,
+    "OW": 1475
+   }
+  },
+  "duesseldorf": {
+   "ags": "05111000",
+   "balkon": 3789,
+   "gebaeude": 8346,
+   "speicher": 7188,
+   "voll": 860,
+   "ausrichtung": {
+    "N": 97,
+    "NO": 161,
+    "O": 672,
+    "SO": 939,
+    "S": 2726,
+    "SW": 1534,
+    "W": 820,
+    "NW": 118,
+    "nachgefuehrt": 9,
+    "OW": 1068
+   }
+  },
+  "leipzig": {
+   "ags": "14713000",
+   "balkon": 6360,
+   "gebaeude": 8766,
+   "speicher": 6913,
+   "voll": 869,
+   "ausrichtung": {
+    "N": 75,
+    "NO": 61,
+    "O": 707,
+    "SO": 824,
+    "S": 4054,
+    "SW": 1160,
+    "W": 732,
+    "NW": 58,
+    "nachgefuehrt": 5,
+    "OW": 880
+   }
+  },
+  "dresden": {
+   "ags": "14612000",
+   "balkon": 6668,
+   "gebaeude": 8774,
+   "speicher": 6516,
+   "voll": 1575,
+   "ausrichtung": {
+    "N": 57,
+    "NO": 102,
+    "O": 500,
+    "SO": 1370,
+    "S": 2989,
+    "SW": 1516,
+    "W": 447,
+    "NW": 109,
+    "nachgefuehrt": 9,
+    "OW": 1202
+   }
+  },
+  "hannover": {
+   "ags": "03241001",
+   "balkon": 4150,
+   "gebaeude": 8400,
+   "speicher": 6549,
+   "voll": 1152,
+   "ausrichtung": {
+    "N": 137,
+    "NO": 139,
+    "O": 637,
+    "SO": 698,
+    "S": 3474,
+    "SW": 1137,
+    "W": 728,
+    "NW": 64,
+    "nachgefuehrt": 7,
+    "OW": 1267
+   }
+  },
+  "nuernberg": {
+   "ags": "09564000",
+   "balkon": 5095,
+   "gebaeude": 9681,
+   "speicher": 6929,
+   "voll": 1580,
+   "ausrichtung": {
+    "N": 130,
+    "NO": 120,
+    "O": 606,
+    "SO": 965,
+    "S": 4322,
+    "SW": 1472,
+    "W": 611,
+    "NW": 78,
+    "nachgefuehrt": 7,
+    "OW": 1185
+   }
+  },
+  "freiburg": {
+   "ags": "08311000",
+   "balkon": 3034,
+   "gebaeude": 6653,
+   "speicher": 4017,
+   "voll": 1522,
+   "ausrichtung": {
+    "N": 73,
+    "NO": 92,
+    "O": 424,
+    "SO": 798,
+    "S": 2747,
+    "SW": 1184,
+    "W": 393,
+    "NW": 69,
+    "nachgefuehrt": 3,
+    "OW": 760
+   }
+  },
+  "bremen": {
+   "ags": "04011000",
+   "balkon": 6978,
+   "gebaeude": 8762,
+   "speicher": 7863,
+   "voll": 1055,
+   "ausrichtung": {
+    "N": 94,
+    "NO": 127,
+    "O": 540,
+    "SO": 1271,
+    "S": 3081,
+    "SW": 1761,
+    "W": 506,
+    "NW": 148,
+    "nachgefuehrt": 1,
+    "OW": 1124
+   }
+  },
+  "dortmund": {
+   "ags": "05913000",
+   "balkon": 6942,
+   "gebaeude": 13711,
+   "speicher": 9957,
+   "voll": 1914,
+   "ausrichtung": {
+    "N": 107,
+    "NO": 186,
+    "O": 819,
+    "SO": 1589,
+    "S": 5282,
+    "SW": 2393,
+    "W": 1174,
+    "NW": 120,
+    "nachgefuehrt": 12,
+    "OW": 1811
+   }
+  },
+  "essen": {
+   "ags": "05113000",
+   "balkon": 6234,
+   "gebaeude": 9912,
+   "speicher": 7527,
+   "voll": 1348,
+   "ausrichtung": {
+    "N": 111,
+    "NO": 267,
+    "O": 625,
+    "SO": 1636,
+    "S": 3096,
+    "SW": 2124,
+    "W": 668,
+    "NW": 186,
+    "nachgefuehrt": 17,
+    "OW": 997
+   }
+  }
+ }
+}

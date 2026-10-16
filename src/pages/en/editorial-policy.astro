@@ -1,0 +1,29 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, REVIEW_CYCLE_MONTHS, SITE_NAMES } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'en';
+---
+<PageLayout title={`Editorial Policy of ${SITE_NAMES[lang]}: Sources and Checks`} description="Where radiation data, feed-in rates, electricity prices and register counts come from, how often they are checked, who is responsible and what happens when a figure is wrong." lang={lang} noindex={true} breadcrumbs={[{ label: 'Editorial policy' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Editorial policy and corrections</h1>
+    <p>Anyone who spends 500 euros on a balcony system or 15,000 euros on a roof after reading this site relies on our figures. So here is where each one comes from and what happens when one is wrong.</p>
+    <h2>Responsibility</h2><p>Content and calculators are the responsibility of {AUTHOR_NAME}. Contact: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    <h2>Primary sources only</h2>
+    <ul>
+      <li><strong>European Commission PVGIS</strong> (Joint Research Centre): radiation and yield at any location;</li>
+      <li><strong>Federal Network Agency</strong> (Bundesnetzagentur): feed-in rates by period, the Market Master Data Register, SMARD market data;</li>
+      <li><strong>gesetze-im-internet.de</strong>: EEG 2023, MaStRV, Income Tax Act, VAT Act, Civil Code and Condominium Act as in force;</li>
+      <li><strong>German Bundestag</strong>: bills as printed papers, never press reports about them;</li>
+      <li><strong>Eurostat and Destatis</strong>: household electricity prices, municipalities with coordinates and population;</li>
+      <li><strong>HTW Berlin</strong>: metered load profiles of 74 households.</li>
+    </ul>
+    <p>Retailer pages, installer blogs and other calculators are not sources, even when they rank first.</p>
+    <h2>Checks before every release</h2><p>Automated tests compare feed-in rates with the Federal Network Agency table and location values with direct PVGIS queries, and check the energy balance of every calculation. A deviating value stops the release.</p>
+    <h2>Rhythm</h2><p>A scheduled job reloads rates, prices, market data and register counts every week. All texts are reviewed at least every {REVIEW_CYCLE_MONTHS} months and whenever the law changes, at the latest when the EEG 2027 reform takes effect. Drafts are described as drafts and never calculated as law.</p>
+    <h2>Handling errors</h2>
+    <ol><li>Check against the primary source.</li><li>Fix in the data file or calculator, plus a new test that catches the error in future.</li><li>New date on every page; a substantive correction is noted on the page concerned.</li></ol>
+    <h2>Independence</h2><p>No money from panel makers, retailers, installers, energy suppliers or comparison portals. No product recommendations, no affiliate links.</p>
+    <p>See also <a href={route('method', lang)}>How we calculate</a>. Version: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

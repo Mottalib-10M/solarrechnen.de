@@ -1,0 +1,113 @@
+import { defineGuide } from '../../lib/guide-types';
+import { rechnePv } from '../../lib/engine/pv';
+import { P, DE, EN, STROMPREIS_CT } from '../../lib/fmt';
+
+/**
+ * Nulleinspeisung: was ohne Einspeisung verloren geht (Einspeisemenge und Vergütung aus dem Motor), was bleibt
+ * (Eigenverbrauch), mit und ohne Speicher. Bundesmittel, Süd 30°, 4 000 kWh. Rechtsstand EEG 2023, Ausblick Entwurf EEG 2027.
+ */
+const r = (kwp: number, sp: number) => rechnePv({ ort: null, kwp, neigung: 30, azimut: 0, verbrauchKwh: 4000, speicherKwh: sp, modus: 'teil', smartMeter: false, preisCt: STROMPREIS_CT, kostenEur: 15000 });
+const a0 = r(6, 0), a5 = r(6, 5), a10 = r(6, 10);
+const b0 = r(10, 0), b8 = r(10, 8);
+const k3 = r(3, 5);
+const J = P.eeg.dauer_jahre;
+const KW25 = Object.keys(P.eeg2027).filter((k) => /^uebergang_lt\d+_inbetrieb_vor$/.test(k)).map((k) => Number(k.match(/\d+/)![0])).sort((a, b) => b - a)[1];
+const verlAnteil = (x: ReturnType<typeof r>) => (x.ertrag ? x.einspeisung / x.ertrag : 0);
+
+export default defineGuide({
+  id: 'nulleinspeisung',
+  group: 'speicher',
+  order: 70,
+  mini: 'nulleinspeisung',
+  miniHref: 'stromspeicher-rechner',
+  related: ['stromspeicher-groesse', 'stromspeicher-rechner', 'einspeiseverguetung-2027', 'marktstammdatenregister-anmelden', 'balkonkraftwerk-mit-speicher'],
+  sources: ['eeg_9', 'eeg_21', 'mastr', 'bt_eeg2027', 'htw_lastprofile'],
+  de: {
+    slug: 'nulleinspeisung',
+    nav: 'Nulleinspeisung',
+    card: 'Photovoltaik ohne Einspeisung ins Netz: Technik, Pflichten, was an Vergütung verloren geht und wann es sich trotzdem rechnet.',
+    title: 'Nulleinspeisung 2026: was eine PV ohne Einspeisung kostet',
+    description: `Nulleinspeisung 2026: Eine 6-kWp-Anlage verschenkt ohne Netz rund ${DE.num(a0.einspeisung)} kWh im Jahr. Pflichten, Technik, Speicher und die Pläne im Entwurf zum EEG 2027.`,
+    h1: 'Nulleinspeisung 2026: Photovoltaik nur für den eigenen Bedarf',
+    intro: `Bei Nulleinspeisung bleiben von einer 6-kWp-Anlage ${DE.num(a0.selbst)} kWh im Haus, ${DE.num(a0.einspeisung)} kWh werden weggeregelt, und ${DE.eur(a0.verguetungJahr)} Vergütung im Jahr entfallen. Mit 5 kWh Speicher schrumpft der Verlust auf ${DE.num(a5.einspeisung)} kWh.`,
+    resume: `Nulleinspeisung heißt, dass eine Photovoltaikanlage keinen Strom ins öffentliche Netz abgibt. Ein Messgerät am Hausanschluss meldet dem Wechselrichter in jedem Moment den Verbrauch, und der Wechselrichter regelt seine Leistung so weit herunter, dass am Zähler nichts herausfließt. Wirtschaftlich verzichtet der Betreiber damit auf die Einspeisevergütung. Im Bundesmittel erzeugt eine 6-kWp-Anlage nach Süden ${DE.num(a0.ertrag)} kWh im Jahr; ein Haushalt mit 4 000 kWh nutzt davon ${DE.num(a0.selbst)} kWh selbst. Der Rest von ${DE.num(a0.einspeisung)} kWh, ${DE.pct(verlAnteil(a0))} des Ertrags, wäre zum Satz von ${DE.ct(a0.satzCt)} ${DE.eur(a0.verguetungJahr)} im Jahr wert, über ${J} Jahre ${DE.eur(a0.verguetungJahr * J)}. Ein Speicher von 5 kWh holt einen großen Teil davon ins Haus und lässt nur ${DE.num(a5.einspeisung)} kWh übrig. Nach geltendem Recht bleibt auch die Anlage ohne Einspeisung im Marktstammdatenregister meldepflichtig. Der Regierungsentwurf zum EEG 2027 würde solche Anlagen von technischen Pflichten befreien und kleine Neuanlagen nur noch kurz vergüten; dann wird Nulleinspeisung zur ernsthaften Option.`,
+    faqs: [
+      { q: 'Muss eine Anlage mit Nulleinspeisung ins Marktstammdatenregister?', a: `Ja. Die Registrierungspflicht hängt an der Stromerzeugung, nicht an der Einspeisung. Auch eine Anlage, die keine Kilowattstunde ins Netz gibt, wird innerhalb von ${P.mastr.frist_monate === 1 ? 'einem Monat' : `${P.mastr.frist_monate} Monaten`} nach Inbetriebnahme eingetragen, ein Speicher als eigene Einheit. Die Begründung zum Entwurf des EEG 2027 bestätigt ausdrücklich, dass diese Pflicht für Nulleinspeiseanlagen bestehen bleibt.` },
+      { q: 'Wie viel Strom verschenkt eine 10-kWp-Anlage ohne Einspeisung?', a: `Im Bundesmittel bei 4 000 kWh Verbrauch rund ${DE.num(b0.einspeisung)} kWh im Jahr, also ${DE.pct(verlAnteil(b0))} des Ertrags. Zum heutigen Satz wären das ${DE.eur(b0.verguetungJahr)} Vergütung. Mit 8 kWh Speicher bleiben noch ${DE.num(b8.einspeisung)} kWh, die weggeregelt werden. Eine so große Anlage lohnt sich mit Nulleinspeisung deshalb nur bei deutlich höherem Verbrauch, etwa mit Wärmepumpe oder Elektroauto.` },
+      { q: 'Braucht man für Nulleinspeisung einen Smart Meter?', a: `Nein. Die Regelung arbeitet mit einem eigenen Energiezähler am Hausanschluss, den der Wechselrichter oder ein Energiemanager mehrmals pro Sekunde abfragt. Der Zähler des Netzbetreibers bleibt, wie er ist. Weil kein Strom ins Netz fließt, spielen für eine solche Anlage auch die Begrenzung auf ${DE.pct(P.solarspitzen.begrenzung_anteil)} und die Regel zu negativen Preisen keine Rolle, denn beide betreffen nur vergütete Einspeisung.` },
+      { q: 'Ist ein Balkonkraftwerk mit Nulleinspeisung sinnvoll?', a: `Selten. Ein Steckersolargerät bis ${DE.num(P.balkon.max_va)} VA bekommt ohnehin keine Vergütung, sein Überschuss fließt unentgeltlich ins Netz und ist erlaubt. Eine Nulleinspeiseregelung kostet zusätzliche Technik und verhindert nur, dass der Nachbar den Überschuss nutzt. Sinnvoll ist sie allenfalls mit einem Speicher, der den Mittagsüberschuss für den Abend aufnimmt.` },
+      { q: 'Was ändert der Entwurf zum EEG 2027 für Nulleinspeiseanlagen?', a: `Er nimmt Anlagen, deren Strom nur zur Eigenversorgung dient und höchstens in technisch unvermeidbaren Kleinstmengen ins Netz gelangt, von den Vorgaben in § 9 Abs. 2 aus, einschließlich der geplanten Kappung auf ${DE.pct(P.eeg2027.kappung_anteil)}. Zugleich bekämen kleine Neuanlagen nur noch ${P.eeg2027.uebergang_monate} Monate Übergangszahlung. Der Entwurf ist nicht beschlossen.` },
+      { q: 'Kann ich eine Nulleinspeisung später auf Einspeisung umstellen?', a: `Technisch ja, es genügt meist eine geänderte Einstellung der Regelung. Die Änderung melden Sie dem Netzbetreiber und tragen sie im Register ein. Vergütet wird dann zum Satz des Zeitraums, in dem die Anlage ursprünglich in Betrieb ging, und die ${J} Jahre laufen nach § 25 EEG ab dieser Inbetriebnahme, nicht ab der Umstellung. Jedes Jahr ohne Einspeisung ist also ein verlorenes Förderjahr.` },
+    ],
+    body: (h) => `
+<h2>Wie Nulleinspeisung technisch funktioniert</h2>
+<p>Der Normalfall einer Dachanlage ist die Überschusseinspeisung: Was das Haus nicht braucht, fließt über den Zweirichtungszähler ins Netz und wird vergütet. Bei der Nulleinspeisung sitzt zusätzlich ein Energiezähler hinter dem Hausanschluss, der den Saldo aus Bezug und Abgabe misst. Sobald der Saldo Richtung Netz zeigt, drosselt der Wechselrichter, bis er auf null steht. Kurze Spitzen, etwa wenn der Wasserkocher abschaltet, lassen sich nicht ganz vermeiden; deshalb spricht der Gesetzentwurf von „technisch nicht vermeidbaren“ und „vernachlässigbar geringen Mengen“. Ein Speicher ändert das Prinzip nicht, er verschiebt nur, wann gedrosselt werden muss: Erst wenn er voll ist, regelt der Wechselrichter ab.</p>
+
+<h2>Was dabei verloren geht</h2>
+<p>Verloren geht der Teil des Ertrags, der weder sofort verbraucht noch gespeichert werden kann. Die Viertelstunden-Simulation mit den ${h.src('htw_lastprofile', '74 Haushaltslastprofilen der HTW Berlin')} zeigt für eine 6-kWp-Anlage im Bundesmittel:</p>
+${h.table(['6 kWp, 4 000 kWh', 'ohne Speicher', '5 kWh Speicher', '10 kWh Speicher'], [
+  ['Ertrag', `${h.num(a0.ertrag)} kWh`, `${h.num(a5.ertrag)} kWh`, `${h.num(a10.ertrag)} kWh`],
+  ['selbst genutzt', `${h.num(a0.selbst)} kWh`, `${h.num(a5.selbst)} kWh`, `${h.num(a10.selbst)} kWh`],
+  ['weggeregelt bei Nulleinspeisung', `${h.num(a0.einspeisung)} kWh`, `${h.num(a5.einspeisung)} kWh`, `${h.num(a10.einspeisung)} kWh`],
+  ['entgangene Vergütung im Jahr', h.eur(a0.verguetungJahr), h.eur(a5.verguetungJahr), h.eur(a10.verguetungJahr)],
+  ['Ersparnis am Strombezug', h.eur(a0.ersparnisJahr), h.eur(a5.ersparnisJahr), h.eur(a10.ersparnisJahr)],
+], `Süd 30°, Strompreis ${h.num(STROMPREIS_CT, 1)} ct/kWh, Vergütung ${h.ct(a0.satzCt)} als Vergleich.`, ['l', 'r', 'r', 'r'])}
+<p>Zwei Dinge fallen auf. Erstens verzichtet man ohne Speicher auf ${h.pct(verlAnteil(a0))} des Ertrags; die Anlage arbeitet an sonnigen Tagen nur einen Teil der Zeit mit voller Leistung. Zweitens ist der Verlust in Euro überschaubar, weil die Einspeisevergütung je Kilowattstunde nur einen Bruchteil des Strompreises beträgt. Die eigentliche Wirtschaftlichkeit steckt in der Ersparnis, und die ist bei Nulleinspeisung genauso hoch wie bei Einspeisung. Kleinere Anlagen verlieren anteilig weniger: 3 kWp mit 5 kWh Speicher regeln nur ${h.num(k3.einspeisung)} kWh im Jahr weg.</p>
+
+<h2>Für wen sich Nulleinspeisung rechnet</h2>
+<p>Die Rechnung ist schlicht: Nulleinspeisung kostet die Vergütung, die die Anlage sonst bekommen hätte, und spart allenfalls die Kosten für Zählertausch und Abrechnung. Bei der 6-kWp-Anlage mit 5 kWh Speicher sind das ${h.eur(a5.verguetungJahr)} im Jahr oder ${h.eur(a5.verguetungJahr * J)} über ${h.num(J)} Jahre, ohne Zinsen. Diesen Betrag müsste die gesparte Technik mindestens aufwiegen. Das gelingt am ehesten bei kleinen Anlagen, die auf den Grundverbrauch zugeschnitten sind, bei Häusern mit hohem Tagesverbrauch, etwa durch Homeoffice, Wärmepumpe oder Klimagerät, und bei Gebäuden, deren Anschluss keine zusätzliche Einspeisung verträgt. Wer dagegen eine große Dachfläche voll belegt, verschenkt mit Nulleinspeisung viel Strom und viel Geld. Die Faustregel lautet deshalb: Erst die Größe nach dem Verbrauch wählen, dann über die Einspeisung entscheiden, nicht umgekehrt.</p>
+
+<h2>Welche Pflichten bleiben</h2>
+<p>Auch ohne Einspeisung ist die Anlage mit dem Netz verbunden, denn das Haus bezieht weiter Strom. Deshalb gilt nach heutigem Recht: Ein eingetragener Elektroinstallateur meldet die Anlage beim Netzbetreiber an, der prüft sie nach seinen technischen Anschlussbedingungen und kann einen Nachweis verlangen, dass die Regelung wirklich auf null begrenzt. Die Eintragung im ${h.src('mastr', 'Marktstammdatenregister')} bleibt Pflicht, für Anlage und Speicher; die Schritte stehen unter ${h.a('marktstammdatenregister-anmelden', 'Marktstammdatenregister anmelden')}. Die technischen Vorgaben aus ${h.src('eeg_9', '§ 9 EEG')} gelten heute grundsätzlich unabhängig von der Einspeisung. Die Begrenzung auf ${h.pct(P.solarspitzen.begrenzung_anteil)} der Leistung betrifft dagegen nur Anlagen, die der Einspeisevergütung zugeordnet sind, und hat bei einer Anlage ohne Abgabe ohnehin keine Wirkung.</p>
+
+<h2>Nulleinspeisung oder Einspeisung ohne Geld</h2>
+<p>Das EEG kennt neben der Vergütung die unentgeltliche Abnahme (${h.src('eeg_21', '§ 21 Abs. 1 Satz 1 Nr. 2 EEG')}): Der Überschuss fließt ins Netz, der Netzbetreiber zahlt nichts. Finanziell ist das für den Betreiber gleichwertig mit der Nulleinspeisung, technisch aber einfacher, weil keine Regelung am Hausanschluss nötig ist, und der Strom wird genutzt statt verworfen. Nulleinspeisung hat ihren Platz dort, wo der Netzbetreiber eine Einspeisung nicht oder nur nach langem Netzausbau zulässt, bei Anlagen auf Nebengebäuden mit schwachem Anschluss oder wenn der Betreiber den Abrechnungsaufwand ganz vermeiden will.</p>
+
+<h2>Warum das Thema mit dem EEG 2027 wächst</h2>
+<p>Der ${h.src('bt_eeg2027', 'Regierungsentwurf zum EEG 2027')} rechnet selbst damit, dass mehr Anlagen ohne Einspeisung gebaut werden. Neue Anlagen unter ${h.num(KW25)} kW erhielten nach einer Übergangszahlung von ${h.num(P.eeg2027.uebergang_monate)} Monaten keine EEG-Förderung mehr; danach bleiben Direktvermarktung, unentgeltliche Abnahme oder Nulleinspeisung. Gleichzeitig nimmt der Entwurf Nulleinspeiseanlagen von den Vorgaben des neuen § 9 Abs. 2 und von der dauerhaften Kappung auf ${h.pct(P.eeg2027.kappung_anteil)} aus. Für eine Anlage, die ${P.eeg.anwendbar_bis.slice(0, 4)} ans Netz geht, ändert das nichts: Sie behält die Vergütung des EEG 2023. Wer heute plant, rechnet deshalb besser mit Einspeisung und behält die Nulleinspeisung als spätere Option, denn der Wechsel ist eine Frage der Regelung, nicht der Module. Wie groß der Speicher dafür sein sollte, zeigt ${h.a('stromspeicher-groesse', 'Speichergröße')}, die Einzelheiten zum Entwurf ${h.a('einspeiseverguetung-2027', 'Einspeisevergütung 2027')}.</p>`,
+  },
+  en: {
+    slug: 'zero-export-solar',
+    nav: 'Zero export',
+    card: 'Solar without grid export: how it works, which duties remain, what feed-in income is lost and when it still pays.',
+    title: 'Zero Export Solar Germany 2026: What You Really Give Up',
+    description: `Zero export solar (Nulleinspeisung) 2026: a 6 kWp system throws away about ${EN.num(a0.einspeisung)} kWh a year. Duties, technology, batteries and the EEG 2027 draft plans.`,
+    h1: 'Zero export 2026: solar power for your own use only',
+    intro: `With zero export, a 6 kWp system keeps ${EN.num(a0.selbst)} kWh in the house, throttles away ${EN.num(a0.einspeisung)} kWh and forgoes ${EN.eur(a0.verguetungJahr)} of feed-in payment a year. A 5 kWh battery cuts the loss to ${EN.num(a5.einspeisung)} kWh.`,
+    resume: `Zero export (Nulleinspeisung) means a PV system sends no power into the public grid. A meter at the house connection tells the inverter the household load at every moment, and the inverter throttles its output so that nothing flows out through the meter. Financially, the owner gives up the feed-in tariff. On the national average, a south-facing 6 kWp system produces ${EN.num(a0.ertrag)} kWh a year; a household using 4,000 kWh consumes ${EN.num(a0.selbst)} kWh of it. The remaining ${EN.num(a0.einspeisung)} kWh, ${EN.pct(verlAnteil(a0))} of output, would be worth ${EN.eur(a0.verguetungJahr)} a year at ${EN.ct(a0.satzCt)}, or ${EN.eur(a0.verguetungJahr * J)} over ${J} years. A 5 kWh battery brings much of it into the house and leaves only ${EN.num(a5.einspeisung)} kWh. Under current law, a system without export must still be entered in the Market Master Data Register. The government draft of the EEG 2027 would free such systems from technical duties and pay small new systems only briefly; zero export would then become a serious option.`,
+    faqs: [
+      { q: 'Does a zero-export system have to be registered in the MaStR?', a: `Yes. The registration duty depends on generating power, not on exporting it. Even a system that never sends a kilowatt-hour to the grid is entered within ${P.mastr.frist_monate === 1 ? 'one month' : `${P.mastr.frist_monate} months`} of commissioning, with a battery as a separate unit. The explanatory notes to the EEG 2027 draft expressly confirm that this duty remains for zero-export systems.` },
+      { q: 'How much power does a 10 kWp system waste without export?', a: `On the national average with 4,000 kWh consumption, about ${EN.num(b0.einspeisung)} kWh a year, or ${EN.pct(verlAnteil(b0))} of output. At today’s rate that would be ${EN.eur(b0.verguetungJahr)} of feed-in payment. With an 8 kWh battery, ${EN.num(b8.einspeisung)} kWh are still throttled away. A system that large only makes sense with zero export if consumption is much higher, for example with a heat pump or an electric car.` },
+      { q: 'Do I need a smart meter for zero export?', a: `No. The control uses its own energy meter at the house connection, which the inverter or an energy manager reads several times a second. The grid operator’s meter stays as it is. Because no power flows into the grid, the ${EN.pct(P.solarspitzen.begrenzung_anteil)} cap and the negative-price rule do not matter for such a system, since both concern paid exports only.` },
+      { q: 'Does zero export make sense for a balcony solar kit?', a: `Rarely. A plug-in device up to ${EN.num(P.balkon.max_va)} VA is not paid for exports anyway, and its surplus may legally flow into the grid unpaid. A zero-export control costs extra hardware and only stops your neighbours using the surplus. It makes sense at most with a battery that takes the midday surplus for the evening.` },
+      { q: 'What would the EEG 2027 draft change for zero-export systems?', a: `It exempts systems whose power serves only self-supply and reaches the grid at most in technically unavoidable tiny amounts from the requirements of section 9(2), including the planned cap at ${EN.pct(P.eeg2027.kappung_anteil)}. At the same time, small new systems would get only ${P.eeg2027.uebergang_monate} months of transition payment. The draft has not been passed.` },
+      { q: 'Can I switch a zero-export system to exporting later?', a: `Technically yes; usually a changed control setting is enough. You notify the grid operator and update the register entry. Payment is then made at the rate for the period in which the system was originally commissioned, and under section 25 EEG the ${J} years run from that commissioning date, not from the switch. Every year without export is therefore a lost year of support.` },
+    ],
+    body: (h) => `
+<h2>How zero export works technically</h2>
+<p>The normal case for a rooftop system is surplus export: whatever the house does not need flows through the bidirectional meter into the grid and is paid for. With zero export, an additional energy meter sits behind the house connection and measures the balance of import and export. As soon as the balance points towards the grid, the inverter throttles until it is back at zero. Short spikes, for instance when a kettle switches off, cannot be avoided entirely; that is why the draft bill speaks of “technically unavoidable” and “negligibly small amounts”. A battery does not change the principle, it only shifts when throttling has to start: the inverter curtails only once the battery is full.</p>
+
+<h2>What is lost</h2>
+<p>What is lost is the part of output that can neither be used immediately nor stored. The quarter-hour simulation with the ${h.src('htw_lastprofile', '74 household load profiles from HTW Berlin')} shows for a 6 kWp system on the national average:</p>
+${h.table(['6 kWp, 4,000 kWh', 'no battery', '5 kWh battery', '10 kWh battery'], [
+  ['Output', `${h.num(a0.ertrag)} kWh`, `${h.num(a5.ertrag)} kWh`, `${h.num(a10.ertrag)} kWh`],
+  ['Used at home', `${h.num(a0.selbst)} kWh`, `${h.num(a5.selbst)} kWh`, `${h.num(a10.selbst)} kWh`],
+  ['Throttled with zero export', `${h.num(a0.einspeisung)} kWh`, `${h.num(a5.einspeisung)} kWh`, `${h.num(a10.einspeisung)} kWh`],
+  ['Feed-in income forgone per year', h.eur(a0.verguetungJahr), h.eur(a5.verguetungJahr), h.eur(a10.verguetungJahr)],
+  ['Saving on grid power', h.eur(a0.ersparnisJahr), h.eur(a5.ersparnisJahr), h.eur(a10.ersparnisJahr)],
+], `South 30°, electricity price ${h.num(STROMPREIS_CT, 1)} ct/kWh, feed-in tariff ${h.ct(a0.satzCt)} for comparison.`, ['l', 'r', 'r', 'r'])}
+<p>Two things stand out. First, without a battery you give up ${h.pct(verlAnteil(a0))} of the output; on sunny days the system runs at full power for only part of the time. Second, the loss in euros is modest, because the feed-in tariff per kilowatt-hour is only a fraction of the electricity price. The real economics lie in the saving, and that is just as high with zero export as with export. Smaller systems lose proportionally less: 3 kWp with a 5 kWh battery throttle away only ${h.num(k3.einspeisung)} kWh a year.</p>
+
+<h2>Who zero export pays off for</h2>
+<p>The calculation is simple: zero export costs the feed-in payment the system would otherwise have earned, and saves at most the cost of the meter change and billing. For the 6 kWp system with a 5 kWh battery, that is ${h.eur(a5.verguetungJahr)} a year or ${h.eur(a5.verguetungJahr * J)} over ${h.num(J)} years, without interest. The equipment you avoid would have to be worth at least that. This works best for small systems sized to the base load, for homes with high daytime consumption, for instance from home working, a heat pump or air conditioning, and for buildings whose connection cannot take additional export. If you fill a large roof, zero export throws away a lot of power and a lot of money. The rule of thumb is therefore: size the system to your consumption first, then decide on export, not the other way round.</p>
+
+<h2>Which duties remain</h2>
+<p>Even without export, the system is connected to the grid, because the house still draws power. Under current law, therefore, a registered electrician notifies the grid operator, who checks the system against its technical connection conditions and may ask for proof that the control really limits export to zero. Entry in the ${h.src('mastr', 'Market Master Data Register')} remains compulsory, for system and battery; the steps are under ${h.a('marktstammdatenregister-anmelden', 'Market Master Data Register')}. The technical requirements of ${h.src('eeg_9', 'section 9 EEG')} apply today in principle regardless of export. The ${h.pct(P.solarspitzen.begrenzung_anteil)} cap, by contrast, only concerns systems on the feed-in tariff and has no effect on a system that exports nothing anyway.</p>
+
+<h2>Zero export or unpaid export</h2>
+<p>Besides the tariff, the EEG provides for free acceptance (unentgeltliche Abnahme, ${h.src('eeg_21', 'section 21(1) sentence 1 no. 2 EEG')}): the surplus flows into the grid and the grid operator pays nothing. Financially this is the same for the owner as zero export, but technically simpler, as no control at the house connection is needed, and the power gets used rather than discarded. Zero export has its place where the grid operator does not allow export, or only after lengthy grid reinforcement, on outbuildings with a weak connection, or where the owner wants to avoid billing altogether.</p>
+
+<h2>Why the topic grows with the EEG 2027</h2>
+<p>The ${h.src('bt_eeg2027', 'government draft of the EEG 2027')} itself expects more systems to be built without export. New systems below ${h.num(KW25)} kW would receive no EEG support after a ${h.num(P.eeg2027.uebergang_monate)}-month transition payment; after that, direct marketing, free acceptance or zero export remain. At the same time, the draft exempts zero-export systems from the requirements of the new section 9(2) and from the permanent cap at ${h.pct(P.eeg2027.kappung_anteil)}. For a system connected in ${P.eeg.anwendbar_bis.slice(0, 4)}, nothing changes: it keeps the EEG 2023 tariff. If you are planning now, it is better to calculate with export and keep zero export as a later option, since switching is a matter of control settings, not of panels. How big the battery should be is shown under ${h.a('stromspeicher-groesse', 'battery size')}, the details of the draft under ${h.a('einspeiseverguetung-2027', 'feed-in tariff 2027')}.</p>`,
+  },
+});

@@ -1,0 +1,27 @@
+# Domaines des sources primaires de solarrechnen.de (lu par check-regles.py et check-seo.py)
+
+# Commission européenne, Centre commun de recherche : PVGIS
+re.jrc.ec.europa.eu
+# Documentation officielle de l'API PVGIS (JRC)
+joint-research-centre.ec.europa.eu
+# Eurostat : prix de l'électricité des ménages
+ec.europa.eu
+
+# Bundesnetzagentur : taux EEG, Marktstammdatenregister, SMARD
+bundesnetzagentur.de
+# Registre officiel des installations tenu par la Bundesnetzagentur
+marktstammdatenregister.de
+# Données de marché de la Bundesnetzagentur (prix négatifs, production solaire)
+smard.de
+
+# Textes de loi consolidés (EEG, MaStRV, EStG, UStG, BGB, WEG)
+gesetze-im-internet.de
+
+# Bundestag : projet de loi EEG 2027 (Drucksache 21/7867)
+dserver.bundestag.de
+
+# Destatis : Gemeindeverzeichnis
+destatis.de
+
+# HTW Berlin : profils de charge mesurés (université publique)
+solar.htw-berlin.de

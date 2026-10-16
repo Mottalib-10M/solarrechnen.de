@@ -1,0 +1,176 @@
+{
+ "pvgis": [
+  {
+   "plz": "10115",
+   "exakt": 1056.58,
+   "raster": 1056.5,
+   "plz_wert": 1058
+  },
+  {
+   "plz": "20095",
+   "exakt": 989.87,
+   "raster": 977.2,
+   "plz_wert": 990
+  },
+  {
+   "plz": "80331",
+   "exakt": 1137.36,
+   "raster": 1144.2,
+   "plz_wert": 1137
+  },
+  {
+   "plz": "50667",
+   "exakt": 1038.15,
+   "raster": 1020.3,
+   "plz_wert": 1038
+  },
+  {
+   "plz": "60311",
+   "exakt": 1080.52,
+   "raster": 1098.0,
+   "plz_wert": 1080
+  },
+  {
+   "plz": "70173",
+   "exakt": 1125.34,
+   "raster": 1080.0,
+   "plz_wert": 1127
+  },
+  {
+   "plz": "01067",
+   "exakt": 1070.64,
+   "raster": 1071.6,
+   "plz_wert": 1071
+  },
+  {
+   "plz": "04109",
+   "exakt": 1078.14,
+   "raster": 1092.3,
+   "plz_wert": 1078
+  },
+  {
+   "plz": "30159",
+   "exakt": 1010.92,
+   "raster": 1012.1,
+   "plz_wert": 1011
+  },
+  {
+   "plz": "90402",
+   "exakt": 1070.21,
+   "raster": 1045.8,
+   "plz_wert": 1070
+  },
+  {
+   "plz": "79098",
+   "exakt": 1121.21,
+   "raster": 1105.5,
+   "plz_wert": 1121
+  },
+  {
+   "plz": "24103",
+   "exakt": 987.6,
+   "raster": 1013.6,
+   "plz_wert": 988
+  },
+  {
+   "plz": "18055",
+   "exakt": 1028.8,
+   "raster": 1022.7,
+   "plz_wert": 1029
+  },
+  {
+   "plz": "66111",
+   "exakt": 1080.77,
+   "raster": 1060.5,
+   "plz_wert": 1080
+  },
+  {
+   "plz": "87561",
+   "exakt": 1074.91,
+   "raster": 905.6,
+   "plz_wert": 1075
+  },
+  {
+   "plz": "26721",
+   "exakt": 1020.91,
+   "raster": 1007.7,
+   "plz_wert": 1021
+  }
+ ],
+ "ausrichtung": [
+  {
+   "plz": "10115",
+   "neigung": 90,
+   "azimut": 0,
+   "exakt": 766.28
+  },
+  {
+   "plz": "10115",
+   "neigung": 35,
+   "azimut": -90,
+   "exakt": 836.73
+  },
+  {
+   "plz": "10115",
+   "neigung": 90,
+   "azimut": 90,
+   "exakt": 519.16
+  },
+  {
+   "plz": "10115",
+   "neigung": 10,
+   "azimut": 0,
+   "exakt": 952.47
+  },
+  {
+   "plz": "20095",
+   "neigung": 90,
+   "azimut": 0,
+   "exakt": 706.42
+  },
+  {
+   "plz": "20095",
+   "neigung": 35,
+   "azimut": -90,
+   "exakt": 780.93
+  },
+  {
+   "plz": "20095",
+   "neigung": 90,
+   "azimut": 90,
+   "exakt": 483.73
+  },
+  {
+   "plz": "20095",
+   "neigung": 10,
+   "azimut": 0,
+   "exakt": 885.55
+  },
+  {
+   "plz": "80331",
+   "neigung": 90,
+   "azimut": 0,
+   "exakt": 812.52
+  },
+  {
+   "plz": "80331",
+   "neigung": 35,
+   "azimut": -90,
+   "exakt": 896.74
+  },
+  {
+   "plz": "80331",
+   "neigung": 90,
+   "azimut": 90,
+   "exakt": 560.31
+  },
+  {
+   "plz": "80331",
+   "neigung": 10,
+   "azimut": 0,
+   "exakt": 1039.76
+  }
+ ],
+ "pvgis_max_abw": 0.0014751097446106254,
+ "plz_anzahl": 10815
+}

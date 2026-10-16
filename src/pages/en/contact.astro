@@ -1,0 +1,20 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { CONTACT_EMAIL, SITE_NAMES } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+import { contactPageSchema } from '../../lib/seo';
+const lang = 'en';
+const description = 'Write to us if a feed-in rate is out of date, your meter shows more or less than the calculator, a postcode is mapped wrongly or you would like to embed a calculator.';
+---
+<PageLayout title={`Contact ${SITE_NAMES[lang]}: report an error, embed a calculator`} description={description} lang={lang} noindex={true} jsonLd={[contactPageSchema({ name: 'Contact', description, path: route('contact', lang), lang })]} breadcrumbs={[{ label: 'Contact' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Contact</h1>
+    <p>Email: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. We usually reply within a week.</p>
+    <h2>Your yield differs from the calculator</h2>
+    <p>Send the share link from the calculator and the annual figures from your app or meter, ideally with a photo of the mounting. Common causes are afternoon shade, an inverter with 600 rather than 800 VA, or a year with little sun. If the error is ours, we correct it and add the case as a test.</p>
+    <h2>Embedding</h2>
+    <p>Energy agencies, tenant associations, solar clubs and newsrooms may embed the calculators free of charge: <a href={route('widget', lang)}>Embed a calculator</a>.</p>
+    <h2>What we do not offer</h2>
+    <p>No quotes, no installer referrals, no roof surveys, no tax advice. For independent advice on site, contact the energy advice service of your consumer centre (Verbraucherzentrale).</p>
+  </div>
+</PageLayout>

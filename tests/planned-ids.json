@@ -1,0 +1,347 @@
+[
+ {
+  "id": "balkonkraftwerk-mit-speicher",
+  "dir": "rechner",
+  "group": "balkon",
+  "de": "balkonkraftwerk-mit-speicher",
+  "en": "plug-in-solar-with-battery",
+  "tool": "balkonspeicher",
+  "kp": "balkonkraftwerk mit speicher"
+ },
+ {
+  "id": "photovoltaik-rechner",
+  "dir": "rechner",
+  "group": "pv",
+  "de": "photovoltaik-rechner",
+  "en": "solar-pv-calculator",
+  "tool": "pv",
+  "kp": "photovoltaik rechner, pv rechner, solarrechner"
+ },
+ {
+  "id": "stromspeicher-rechner",
+  "dir": "rechner",
+  "group": "speicher",
+  "de": "stromspeicher-rechner",
+  "en": "home-battery-calculator",
+  "tool": "speicher",
+  "kp": "stromspeicher lohnt sich, pv speicher rechner"
+ },
+ {
+  "id": "einspeiseverguetung",
+  "dir": "rechner",
+  "group": "recht",
+  "de": "einspeiseverguetung",
+  "en": "feed-in-tariff",
+  "tool": "eeg",
+  "kp": "einspeisevergütung, einspeisevergütung 2026"
+ },
+ {
+  "id": "pv-ertrag-plz",
+  "dir": "rechner",
+  "group": "pv",
+  "de": "pv-ertrag-postleitzahl",
+  "en": "pv-yield-by-postcode",
+  "tool": "ertrag",
+  "kp": "photovoltaik ertrag pro kwp, balkonkraftwerk ertrag (Postleitzahl)"
+ },
+ {
+  "id": "wie-viel-kwp",
+  "dir": "rechner",
+  "group": "pv",
+  "de": "wie-viel-kwp",
+  "en": "how-many-kwp",
+  "tool": "groesse",
+  "kp": "wie viel kwp brauche ich"
+ },
+ {
+  "id": "balkonkraftwerk-anmelden",
+  "dir": "guides",
+  "group": "balkon",
+  "de": "balkonkraftwerk-anmelden",
+  "en": "register-plug-in-solar",
+  "mini": "anmeldung",
+  "kp": "balkonkraftwerk anmelden"
+ },
+ {
+  "id": "balkonkraftwerk-800-watt",
+  "dir": "guides",
+  "group": "balkon",
+  "de": "balkonkraftwerk-800-watt",
+  "en": "plug-in-solar-800-watt",
+  "mini": "abregelung",
+  "kp": "balkonkraftwerk 800 watt, 2000 watt"
+ },
+ {
+  "id": "balkonkraftwerk-lohnt-sich",
+  "dir": "guides",
+  "group": "balkon",
+  "de": "balkonkraftwerk-lohnt-sich",
+  "en": "is-plug-in-solar-worth-it",
+  "mini": "lohnt",
+  "kp": "balkonkraftwerk lohnt sich"
+ },
+ {
+  "id": "balkonkraftwerk-ertrag",
+  "dir": "guides",
+  "group": "balkon",
+  "de": "balkonkraftwerk-ertrag",
+  "en": "plug-in-solar-yield",
+  "mini": "ertragMonat",
+  "kp": "balkonkraftwerk ertrag"
+ },
+ {
+  "id": "balkonkraftwerk-ausrichtung",
+  "dir": "guides",
+  "group": "balkon",
+  "de": "balkonkraftwerk-ausrichtung",
+  "en": "plug-in-solar-orientation",
+  "mini": "ausrichtung",
+  "kp": "balkonkraftwerk ausrichtung, ost west, senkrecht"
+ },
+ {
+  "id": "balkonkraftwerk-mieter",
+  "dir": "guides",
+  "group": "balkon",
+  "de": "balkonkraftwerk-mieter",
+  "en": "plug-in-solar-for-tenants",
+  "mini": "mieter",
+  "kp": "balkonkraftwerk mietwohnung"
+ },
+ {
+  "id": "balkonkraftwerk-zaehler",
+  "dir": "guides",
+  "group": "balkon",
+  "de": "balkonkraftwerk-zaehler",
+  "en": "plug-in-solar-meter",
+  "mini": "zaehler",
+  "kp": "balkonkraftwerk zähler"
+ },
+ {
+  "id": "photovoltaik-lohnt-sich",
+  "dir": "guides",
+  "group": "pv",
+  "de": "photovoltaik-lohnt-sich",
+  "en": "is-solar-pv-worth-it",
+  "mini": "pvLohnt",
+  "kp": "photovoltaik lohnt sich"
+ },
+ {
+  "id": "photovoltaik-kosten",
+  "dir": "guides",
+  "group": "pv",
+  "de": "photovoltaik-kosten",
+  "en": "solar-pv-cost",
+  "mini": "kostenKwp",
+  "kp": "pv anlage kosten, photovoltaik kosten"
+ },
+ {
+  "id": "photovoltaik-ost-west",
+  "dir": "guides",
+  "group": "pv",
+  "de": "photovoltaik-ost-west",
+  "en": "east-west-solar-roof",
+  "mini": "ostWest",
+  "kp": "photovoltaik ost west"
+ },
+ {
+  "id": "volleinspeisung-teileinspeisung",
+  "dir": "guides",
+  "group": "pv",
+  "de": "volleinspeisung-oder-teileinspeisung",
+  "en": "full-or-surplus-feed-in",
+  "mini": "vollTeil",
+  "kp": "volleinspeisung oder teileinspeisung"
+ },
+ {
+  "id": "amortisation-photovoltaik",
+  "dir": "guides",
+  "group": "pv",
+  "de": "amortisation-photovoltaik",
+  "en": "solar-pv-payback",
+  "mini": "cashflow",
+  "kp": "amortisation photovoltaik"
+ },
+ {
+  "id": "photovoltaik-steuer",
+  "dir": "guides",
+  "group": "recht",
+  "de": "photovoltaik-steuer",
+  "en": "solar-pv-tax",
+  "mini": "steuer",
+  "kp": "photovoltaik steuer"
+ },
+ {
+  "id": "nulleinspeisung",
+  "dir": "guides",
+  "group": "speicher",
+  "de": "nulleinspeisung",
+  "en": "zero-export-solar",
+  "mini": "nulleinspeisung",
+  "kp": "nulleinspeisung"
+ },
+ {
+  "id": "stromspeicher-groesse",
+  "dir": "guides",
+  "group": "speicher",
+  "de": "stromspeicher-groesse",
+  "en": "home-battery-size",
+  "mini": "speicherGroesse",
+  "kp": "stromspeicher größe, wie groß speicher"
+ },
+ {
+  "id": "solarspitzengesetz",
+  "dir": "guides",
+  "group": "recht",
+  "de": "solarspitzengesetz",
+  "en": "solar-peak-law",
+  "mini": "sechzig",
+  "kp": "solarspitzengesetz"
+ },
+ {
+  "id": "einspeiseverguetung-2027",
+  "dir": "guides",
+  "group": "recht",
+  "de": "einspeiseverguetung-2027",
+  "en": "feed-in-tariff-2027",
+  "mini": "eeg2027",
+  "kp": "einspeisevergütung 2027"
+ },
+ {
+  "id": "marktstammdatenregister-anmelden",
+  "dir": "guides",
+  "group": "recht",
+  "de": "marktstammdatenregister-anmelden",
+  "en": "market-master-data-register",
+  "mini": "mastrStrafe",
+  "kp": "marktstammdatenregister anmelden"
+ },
+ {
+  "id": "negative-strompreise",
+  "dir": "guides",
+  "group": "recht",
+  "de": "negative-strompreise-photovoltaik",
+  "en": "negative-power-prices-solar",
+  "mini": "negPreise",
+  "kp": "dynamischer stromtarif pv, negative strompreise"
+ },
+ {
+  "id": "balkonkraftwerk-berlin",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-berlin",
+  "en": "plug-in-solar-berlin",
+  "tool": "balkon",
+  "preset_plz": "10178",
+  "kp": "balkonkraftwerk berlin"
+ },
+ {
+  "id": "balkonkraftwerk-hamburg",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-hamburg",
+  "en": "plug-in-solar-hamburg",
+  "tool": "balkon",
+  "preset_plz": "20038",
+  "kp": "balkonkraftwerk hamburg"
+ },
+ {
+  "id": "balkonkraftwerk-muenchen",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-muenchen",
+  "en": "plug-in-solar-munich",
+  "tool": "balkon",
+  "preset_plz": "80313",
+  "kp": "balkonkraftwerk münchen"
+ },
+ {
+  "id": "balkonkraftwerk-koeln",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-koeln",
+  "en": "plug-in-solar-cologne",
+  "tool": "balkon",
+  "preset_plz": "50667",
+  "kp": "balkonkraftwerk köln"
+ },
+ {
+  "id": "balkonkraftwerk-frankfurt",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-frankfurt",
+  "en": "plug-in-solar-frankfurt",
+  "tool": "balkon",
+  "preset_plz": "60311",
+  "kp": "balkonkraftwerk frankfurt"
+ },
+ {
+  "id": "balkonkraftwerk-stuttgart",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-stuttgart",
+  "en": "plug-in-solar-stuttgart",
+  "tool": "balkon",
+  "preset_plz": "70173",
+  "kp": "balkonkraftwerk stuttgart"
+ },
+ {
+  "id": "balkonkraftwerk-duesseldorf",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-duesseldorf",
+  "en": "plug-in-solar-duesseldorf",
+  "tool": "balkon",
+  "preset_plz": "40213",
+  "kp": "balkonkraftwerk düsseldorf"
+ },
+ {
+  "id": "balkonkraftwerk-leipzig",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-leipzig",
+  "en": "plug-in-solar-leipzig",
+  "tool": "balkon",
+  "preset_plz": "04109",
+  "kp": "balkonkraftwerk leipzig"
+ },
+ {
+  "id": "balkonkraftwerk-dresden",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-dresden",
+  "en": "plug-in-solar-dresden",
+  "tool": "balkon",
+  "preset_plz": "01067",
+  "kp": "balkonkraftwerk dresden"
+ },
+ {
+  "id": "balkonkraftwerk-hannover",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-hannover",
+  "en": "plug-in-solar-hanover",
+  "tool": "balkon",
+  "preset_plz": "30159",
+  "kp": "balkonkraftwerk hannover"
+ },
+ {
+  "id": "balkonkraftwerk-nuernberg",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-nuernberg",
+  "en": "plug-in-solar-nuremberg",
+  "tool": "balkon",
+  "preset_plz": "90403",
+  "kp": "balkonkraftwerk nürnberg"
+ },
+ {
+  "id": "balkonkraftwerk-freiburg",
+  "dir": "staedte",
+  "group": "stadt",
+  "de": "balkonkraftwerk-freiburg",
+  "en": "plug-in-solar-freiburg",
+  "tool": "balkon",
+  "preset_plz": "79098",
+  "kp": "balkonkraftwerk freiburg"
+ }
+]

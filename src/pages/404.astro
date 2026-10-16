@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { route } from '../i18n/routes';
+---
+<BaseLayout title="Seite nicht gefunden · Page not found" description="Unter dieser Adresse gibt es keine Seite. There is no page at this address." lang="de" noindex={true}>
+  <div class="mx-auto max-w-3xl px-4 py-16">
+    <h1 class="text-3xl font-bold text-navy-900">Diese Seite gibt es nicht (mehr)</h1>
+    <p class="mt-4 text-navy-700">Vielleicht wurde der Link beim Kopieren abgeschnitten. Die meisten Besucher wollen den <a class="underline" href={route('home', 'de')}>Ertrag ihres Balkonkraftwerks</a> für ihre Postleitzahl, den <a class="underline" href={route('photovoltaik-rechner', 'de')}>Photovoltaik-Rechner</a> oder die aktuelle <a class="underline" href={route('photovoltaik-rechner', 'de')}>Einspeisevergütung</a>.</p>
+    <p class="mt-6 text-navy-700" lang="en">This page does not exist. Most visitors want the <a class="underline" href={route('home', 'en')}>plug-in solar yield</a> for their postcode, the <a class="underline" href={route('photovoltaik-rechner', 'en')}>rooftop PV calculator</a> or the current <a class="underline" href={route('photovoltaik-rechner', 'en')}>German feed-in tariff</a>.</p>
+  </div>
+</BaseLayout>

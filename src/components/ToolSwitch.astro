@@ -1,0 +1,21 @@
+---
+/** Ein Ort, an dem jede Rechnerart ihrem Komponenten zugeordnet wird (Rechnerseiten, Städte, Einbettung). */
+import BalkonRechner from './calc/BalkonRechner';
+import BalkonSpeicherRechner from './calc/BalkonSpeicherRechner';
+import PvRechner from './calc/PvRechner';
+import SpeicherRechner from './calc/SpeicherRechner';
+import EegRechner from './calc/EegRechner';
+import ErtragRechner from './calc/ErtragRechner';
+import GroesseRechner from './calc/GroesseRechner';
+import type { Locale } from '../i18n/routes';
+import type { Tool } from '../lib/guide-types';
+interface Props { tool?: Tool; lang: Locale; methodHref?: string; preset?: Record<string, never> }
+const { tool, lang, methodHref, preset = {} } = Astro.props;
+---
+{tool === 'balkon' && <BalkonRechner client:load lang={lang} methodHref={methodHref} preset={preset} />}
+{tool === 'balkonspeicher' && <BalkonSpeicherRechner client:load lang={lang} methodHref={methodHref} preset={preset} />}
+{tool === 'pv' && <PvRechner client:load lang={lang} methodHref={methodHref} preset={preset} />}
+{tool === 'speicher' && <SpeicherRechner client:load lang={lang} methodHref={methodHref} preset={preset} />}
+{tool === 'eeg' && <EegRechner client:load lang={lang} methodHref={methodHref} preset={preset} />}
+{tool === 'ertrag' && <ErtragRechner client:load lang={lang} methodHref={methodHref} preset={preset} />}
+{tool === 'groesse' && <GroesseRechner client:load lang={lang} methodHref={methodHref} preset={preset} />}

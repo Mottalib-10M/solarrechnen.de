@@ -1,0 +1,19 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { CONTACT_EMAIL, LAST_UPDATED } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'en';
+---
+<PageLayout title="Cookies: none, not even in the plug-in solar or PV calculators" description="No cookies and no banner: the plug-in solar, rooftop PV and battery calculators remember nothing. At most we measure anonymously whether a page loads without errors." lang={lang} noindex={true} breadcrumbs={[{ label: 'Cookies' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Cookies</h1>
+    <p>This site <strong>sets no cookies</strong> and therefore needs no consent banner. Details in the <a href={route('privacy', lang)}>privacy policy</a>.</p>
+    <h2>Your postcode stays on your device</h2>
+    <p>What you enter about location, consumption and prices goes neither into a cookie nor into browser storage. Close the tab and it is gone; only a link you copy yourself contains the values.</p>
+    <h2>Anonymous error measurement</h2>
+    <p>When enabled, Microsoft Clarity checks in <strong>cookieless</strong> mode whether pages load correctly. Cookies such as <code>_clck</code>, <code>_clsk</code>, <code>MUID</code> or <code>CLID</code> are not created and inputs are masked. Provider: Microsoft Ireland Operations Limited, Dublin, Ireland; deletion after 30 days; legal basis Article 6(1)(f) GDPR.</p>
+    <h2>Embedded calculators</h2>
+    <p>The iframe versions load no measurement and set no cookies.</p>
+    <p>Questions to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. As of: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

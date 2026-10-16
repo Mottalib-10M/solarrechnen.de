@@ -1,0 +1,27 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LegalIdentity from '../../components/LegalIdentity.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, SITE_URL } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'en';
+---
+<PageLayout title="Legal Notice: Publisher of the Solar Calculators and Host" description="Legal notice under section 5 DDG and section 18 MStV: who publishes, answers for and hosts the calculators for plug-in solar, rooftop PV, batteries and the feed-in tariff." lang={lang} noindex={true} breadcrumbs={[{ label: 'Legal notice' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Legal notice (Impressum)</h1>
+    <p>Information under section 5 of the German Digital Services Act (DDG) for {SITE_URL}.</p>
+    <h2>Publisher</h2>
+    <LegalIdentity lang={lang} />
+    <h2>Responsible for content (section 18(2) MStV)</h2>
+    <p>{AUTHOR_NAME}, address as above, email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    <h2>Hosting</h2>
+    <LegalIdentity mode="hosting" lang={lang} />
+    <h2>Purpose of the site</h2>
+    <p>The site estimates the yield of plug-in solar devices and PV systems with PVGIS radiation data (European Commission), self-consumption with metered household profiles from HTW Berlin, and the feed-in tariff according to the Federal Network Agency's publications. It is not an offer from a grid operator, energy supplier, retailer or installer, not energy, tax or legal advice and not a public authority. Calculation steps are under <a href={route('method', lang)}>How we calculate</a>.</p>
+    <h2>Liability</h2>
+    <p>Values are checked automatically before every release and reconciled whenever a source changes; we give no guarantee for the yield of a specific system. Linked third-party sites are the responsibility of their operators. Please report errors via the <a href={route('contact', lang)}>contact page</a>.</p>
+    <h2>Embedding</h2>
+    <p>The plug-in solar and rooftop PV calculators may be embedded free of charge by iframe as long as the source link stays visible: <a href={route('widget', lang)}>Embed a calculator</a>.</p>
+    <h2>Consumer dispute resolution</h2>
+    <p>We are neither willing nor obliged to take part in dispute resolution before a consumer arbitration board. On data protection: <a href={route('privacy', lang)}>privacy policy</a> and <a href={route('cookies', lang)}>cookies</a>. As of: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

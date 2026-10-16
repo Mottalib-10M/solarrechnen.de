@@ -1,0 +1,20 @@
+{
+ "accent": "#A04A00",
+ "symbol": "PV",
+ "variants": [
+  {
+   "file": "og-de.png",
+   "title": "Balkonkraftwerk und PV\nErtrag nach Postleitzahl",
+   "subtitle": "PVGIS (EU-Kommission) · Einspeisevergütung BNetzA · 800 W",
+   "badge": "2026",
+   "brand": "Solarrechnen"
+  },
+  {
+   "file": "og-en.png",
+   "title": "Plug-in solar and PV\nyield by German postcode",
+   "subtitle": "PVGIS (European Commission) · BNetzA feed-in tariff · 800 W",
+   "badge": "2026",
+   "brand": "Solarrechnen"
+  }
+ ]
+}

@@ -1,0 +1,247 @@
+{
+ "source": "SMARD.de, Bundesnetzagentur (CC BY 4.0)",
+ "filters": {
+  "price": 4169,
+  "pv": 4068
+ },
+ "retrieved_at": "2026-10-15",
+ "years": {
+  "2024": {
+   "hours": 8784,
+   "neg_hours": 457,
+   "pv_mwh": 63148433,
+   "pv_neg_mwh": 11617455,
+   "pv_value_eur": 2919060732,
+   "months": {
+    "1": {
+     "neg_hours": 16,
+     "pv_mwh": 1433804,
+     "pv_neg_mwh": 50,
+     "pv_neg_share": 0.0
+    },
+    "2": {
+     "neg_hours": 4,
+     "pv_mwh": 2236906,
+     "pv_neg_mwh": 12,
+     "pv_neg_share": 0.0
+    },
+    "3": {
+     "neg_hours": 12,
+     "pv_mwh": 4876762,
+     "pv_neg_mwh": 264706,
+     "pv_neg_share": 0.0543
+    },
+    "4": {
+     "neg_hours": 50,
+     "pv_mwh": 6624393,
+     "pv_neg_mwh": 1348320,
+     "pv_neg_share": 0.2035
+    },
+    "5": {
+     "neg_hours": 78,
+     "pv_mwh": 8603726,
+     "pv_neg_mwh": 2652453,
+     "pv_neg_share": 0.3083
+    },
+    "6": {
+     "neg_hours": 64,
+     "pv_mwh": 8835625,
+     "pv_neg_mwh": 1874448,
+     "pv_neg_share": 0.2121
+    },
+    "7": {
+     "neg_hours": 81,
+     "pv_mwh": 9306818,
+     "pv_neg_mwh": 2320633,
+     "pv_neg_share": 0.2493
+    },
+    "8": {
+     "neg_hours": 68,
+     "pv_mwh": 8941072,
+     "pv_neg_mwh": 1911806,
+     "pv_neg_share": 0.2138
+    },
+    "9": {
+     "neg_hours": 40,
+     "pv_mwh": 6161327,
+     "pv_neg_mwh": 1041413,
+     "pv_neg_share": 0.169
+    },
+    "10": {
+     "neg_hours": 25,
+     "pv_mwh": 3561548,
+     "pv_neg_mwh": 203450,
+     "pv_neg_share": 0.0571
+    },
+    "11": {
+     "neg_hours": 11,
+     "pv_mwh": 1529686,
+     "pv_neg_mwh": 111,
+     "pv_neg_share": 0.0001
+    },
+    "12": {
+     "neg_hours": 8,
+     "pv_mwh": 1036766,
+     "pv_neg_mwh": 53,
+     "pv_neg_share": 0.0001
+    }
+   },
+   "pv_neg_share": 0.184,
+   "pv_marktwert_ct": 4.62
+  },
+  "2025": {
+   "hours": 8760,
+   "neg_hours": 573,
+   "pv_mwh": 73783830,
+   "pv_neg_mwh": 17807335,
+   "pv_value_eur": 3399342680,
+   "months": {
+    "1": {
+     "neg_hours": 14,
+     "pv_mwh": 1627465,
+     "pv_neg_mwh": 56664,
+     "pv_neg_share": 0.0348
+    },
+    "2": {
+     "neg_hours": 0,
+     "pv_mwh": 3018648,
+     "pv_neg_mwh": 0,
+     "pv_neg_share": 0.0
+    },
+    "3": {
+     "neg_hours": 30,
+     "pv_mwh": 6906317,
+     "pv_neg_mwh": 924908,
+     "pv_neg_share": 0.1339
+    },
+    "4": {
+     "neg_hours": 75,
+     "pv_mwh": 8951024,
+     "pv_neg_mwh": 2917211,
+     "pv_neg_share": 0.3259
+    },
+    "5": {
+     "neg_hours": 129,
+     "pv_mwh": 10217149,
+     "pv_neg_mwh": 4460792,
+     "pv_neg_share": 0.4366
+    },
+    "6": {
+     "neg_hours": 141,
+     "pv_mwh": 10536151,
+     "pv_neg_mwh": 4945755,
+     "pv_neg_share": 0.4694
+    },
+    "7": {
+     "neg_hours": 12,
+     "pv_mwh": 9056327,
+     "pv_neg_mwh": 468437,
+     "pv_neg_share": 0.0517
+    },
+    "8": {
+     "neg_hours": 64,
+     "pv_mwh": 9672275,
+     "pv_neg_mwh": 2142588,
+     "pv_neg_share": 0.2215
+    },
+    "9": {
+     "neg_hours": 60,
+     "pv_mwh": 6435898,
+     "pv_neg_mwh": 1575405,
+     "pv_neg_share": 0.2448
+    },
+    "10": {
+     "neg_hours": 48,
+     "pv_mwh": 3642613,
+     "pv_neg_mwh": 315576,
+     "pv_neg_share": 0.0866
+    },
+    "11": {
+     "neg_hours": 0,
+     "pv_mwh": 2210900,
+     "pv_neg_mwh": 0,
+     "pv_neg_share": 0.0
+    },
+    "12": {
+     "neg_hours": 0,
+     "pv_mwh": 1509064,
+     "pv_neg_mwh": 0,
+     "pv_neg_share": 0.0
+    }
+   },
+   "pv_neg_share": 0.2413,
+   "pv_marktwert_ct": 4.61
+  },
+  "2026": {
+   "hours": 6935,
+   "neg_hours": 460,
+   "pv_mwh": 79309055,
+   "pv_neg_mwh": 17239811,
+   "pv_value_eur": 4709176317,
+   "months": {
+    "1": {
+     "neg_hours": 2,
+     "pv_mwh": 1636839,
+     "pv_neg_mwh": 16040,
+     "pv_neg_share": 0.0098
+    },
+    "2": {
+     "neg_hours": 7,
+     "pv_mwh": 2535863,
+     "pv_neg_mwh": 211228,
+     "pv_neg_share": 0.0833
+    },
+    "3": {
+     "neg_hours": 33,
+     "pv_mwh": 7301717,
+     "pv_neg_mwh": 956282,
+     "pv_neg_share": 0.131
+    },
+    "4": {
+     "neg_hours": 123,
+     "pv_mwh": 10046422,
+     "pv_neg_mwh": 4659683,
+     "pv_neg_share": 0.4638
+    },
+    "5": {
+     "neg_hours": 77,
+     "pv_mwh": 11549035,
+     "pv_neg_mwh": 3438140,
+     "pv_neg_share": 0.2977
+    },
+    "6": {
+     "neg_hours": 49,
+     "pv_mwh": 11635870,
+     "pv_neg_mwh": 1674364,
+     "pv_neg_share": 0.1439
+    },
+    "7": {
+     "neg_hours": 79,
+     "pv_mwh": 12016317,
+     "pv_neg_mwh": 2976362,
+     "pv_neg_share": 0.2477
+    },
+    "8": {
+     "neg_hours": 54,
+     "pv_mwh": 10931382,
+     "pv_neg_mwh": 2147066,
+     "pv_neg_share": 0.1964
+    },
+    "9": {
+     "neg_hours": 36,
+     "pv_mwh": 8567381,
+     "pv_neg_mwh": 1160646,
+     "pv_neg_share": 0.1355
+    },
+    "10": {
+     "neg_hours": 0,
+     "pv_mwh": 3088228,
+     "pv_neg_mwh": 0,
+     "pv_neg_share": 0.0
+    }
+   },
+   "pv_neg_share": 0.2174,
+   "pv_marktwert_ct": 5.94
+  }
+ }
+}

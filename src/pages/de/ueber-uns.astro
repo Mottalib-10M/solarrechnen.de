@@ -1,0 +1,30 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { YEAR, LAST_UPDATED, AUTHOR_NAME, CONTACT_EMAIL, AUTHOR_ROLE, SITE_NAMES, LANG_TAGS } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+import { personSchema, organizationSchema, breadcrumbSchema, profilePageSchema } from '../../lib/seo';
+import { displayDate, formatNumber } from '../../lib/format';
+import { STANDORT } from '../../lib/engine/standort';
+import { EIGEN } from '../../lib/engine/eigen';
+const lang = 'de';
+---
+<PageLayout title="Solarrechnen: Herausgeber, Daten und Prüfung der Rechner" description="Wer hinter den Rechnern für Balkonkraftwerk, Photovoltaik, Speicher und Einspeisevergütung steht, woher die Daten kommen, wie geprüft wird, was wir nicht tun." lang={lang} jsonLd={[personSchema(lang), organizationSchema(lang), profilePageSchema({ path: route('about', lang), lang }), breadcrumbSchema([{ name: 'Start', path: route('home', lang) }, { name: 'Über uns', path: route('about', lang) }])]} breadcrumbs={[{ label: 'Über uns' }]}>
+  <header class="mb-6"><h1 class="text-3xl font-bold text-navy-900 md:text-4xl">Über {SITE_NAMES.de}</h1></header>
+  <div class="prose prose-slate max-w-none">
+    <div class="not-prose mb-6"><p class="text-lg font-semibold text-navy-900">{AUTHOR_NAME}</p><p class="text-navy-700">{AUTHOR_ROLE[lang]}</p></div>
+    <p>{SITE_NAMES.de} wird von Radif Partners herausgegeben. Der Anlass war ein Ärgernis, das jeder kennt, der ein Balkonkraftwerk kaufen will: Fast jeder Ertragsrechner im Netz gehört einem Händler, einem Installateur oder einem Vergleichsportal. Die einen rechnen mit einem Eigenverbrauch, der auf der Stromrechnung nie ankommt, die anderen geben das Ergebnis erst nach einer Angebotsanfrage heraus, und fast alle fragen nach einer Region statt nach dem Ort.</p>
+    <h2>Was diese Seite anders macht</h2>
+    <p>Sie rechnet mit den Strahlungsdaten der EU-Kommission (PVGIS) für {formatNumber(STANDORT.ey.length, 0, lang)} Rasterpunkte und jede Postleitzahl, mit {formatNumber(EIGEN.households, 0, lang)} gemessenen Haushalten statt eines Pauschalwerts und mit den Fördersätzen genau des Zeitraums, in dem eine Anlage in Betrieb geht. Das Ergebnis steht da, bevor Sie etwas eingeben, und es ändert sich mit jeder Eingabe.</p>
+    <h2>Wie geprüft wird</h2>
+    <p>Vor jeder Veröffentlichung laufen automatische Tests: die Fördersätze aller Zeiträume gegen die Tabelle der Bundesnetzagentur, Standortwerte gegen direkte PVGIS-Abfragen, die Energiebilanz jeder Rechnung. Wie jede Zahl entsteht, steht unter <a href={route('method', lang)}>So rechnen wir</a>.</p>
+    <h2>Was wir nicht sind</h2>
+    <p>Kein Händler, kein Installateur, kein Energieversorger, kein Netzbetreiber und keine Behörde. Wir verkaufen keine Module, vermitteln keine Angebote und erhalten von niemandem Geld für eine Empfehlung. Für eine Beratung vor Ort sind die Energieberatung der Verbraucherzentralen und Ihr Netzbetreiber zuständig.</p>
+    <h2>Finanzierung und Ihre Daten</h2>
+    <p>Die Rechner sind kostenlos und ohne Konto. Postleitzahl, Verbrauch und Preise bleiben in Ihrem Browser. Sollte die Seite einmal Werbung zeigen, steht sie nie über einem Rechner.</p>
+    <h2>Auf Englisch</h2>
+    <p>Jede Seite gibt es auf Englisch, geschrieben für Menschen, die in Deutschland wohnen und die deutschen Begriffe erst lernen: Marktstammdatenregister, Einspeisevergütung, Steckersolargerät werden erklärt, die Beträge bleiben in Euro.</p>
+    <h2>Kontakt</h2>
+    <p>Ein Wert stimmt nicht, ein Satz ist veraltet, Ihr Zähler zeigt etwas anderes? Schreiben Sie an <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Siehe auch die <a href={route('editorial', lang)}>Redaktionsgrundsätze</a> und das <a href={route('terms', lang)}>Impressum</a>.</p>
+    <p class="text-sm text-navy-600">Fördersätze {YEAR}, nachgelesen am <time datetime={LAST_UPDATED}>{displayDate(LAST_UPDATED, LANG_TAGS[lang])}</time>.</p>
+  </div>
+</PageLayout>

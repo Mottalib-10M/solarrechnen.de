@@ -1,0 +1,24 @@
+---
+/** Einbettbare Seite (iframe): Rechner ohne Navigation. noindex, nicht in der Sitemap. ?lang=en schaltet die Sprache um. */
+import '../../styles/global.css';
+import PvRechner from '../../components/calc/PvRechner';
+import { SITE_URL } from '../../data/site-config';
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photovoltaik-Rechner 2026</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={`${SITE_URL}/de/`} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="bg-white p-2 text-navy-900">
+    <div id="de-view"><PvRechner client:load lang="de" idp="emde" /></div>
+    <div id="en-view" hidden><PvRechner client:load lang="en" idp="emen" /></div>
+    <p class="mt-2 text-center text-xs text-navy-600"><a id="credit" href={`${SITE_URL}/de/`} target="_blank" rel="noopener" class="underline">Photovoltaik-Rechner 2026 · Solarrechnen</a></p>
+    <script is:inline>
+      if (new URLSearchParams(location.search).get('lang') === 'en') { document.getElementById('de-view').hidden = true; document.getElementById('en-view').hidden = false; document.documentElement.lang = 'en'; var c = document.getElementById('credit'); c.textContent = 'Rooftop PV calculator 2026 · Solarrechnen'; c.href = c.href.replace('/de/', '/en/'); }
+    </script>
+  </body>
+</html>

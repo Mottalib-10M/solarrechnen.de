@@ -1,0 +1,29 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, REVIEW_CYCLE_MONTHS, SITE_NAMES } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'de';
+---
+<PageLayout title={`Redaktionsgrundsätze von ${SITE_NAMES[lang]}: Quellen und Prüfung`} description="Woher Strahlung, Fördersätze, Strompreise und Registerzahlen kommen, wie oft sie geprüft werden, wer verantwortlich ist und was bei einem Fehler auf der Seite geschieht." lang={lang} noindex={true} breadcrumbs={[{ label: 'Redaktionsgrundsätze' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Redaktionsgrundsätze und Korrekturen</h1>
+    <p>Wer nach dieser Seite 500 Euro für ein Balkonkraftwerk oder 15 000 Euro für eine Dachanlage ausgibt, verlässt sich auf unsere Zahlen. Deshalb steht hier, woher jede kommt und was passiert, wenn eine nicht stimmt.</p>
+    <h2>Verantwortung</h2><p>Inhalte und Rechner verantwortet {AUTHOR_NAME}. Kontakt: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    <h2>Nur Primärquellen</h2>
+    <ul>
+      <li><strong>PVGIS der Europäischen Kommission</strong> (Gemeinsame Forschungsstelle): Strahlung und Ertrag an jedem Ort;</li>
+      <li><strong>Bundesnetzagentur</strong>: Fördersätze je Zeitraum, Marktstammdatenregister, Strommarktdaten SMARD;</li>
+      <li><strong>gesetze-im-internet.de</strong>: EEG 2023, MaStRV, EStG, UStG, BGB und WEG in der geltenden Fassung;</li>
+      <li><strong>Deutscher Bundestag</strong>: Gesetzentwürfe als Drucksache, nie Presseberichte darüber;</li>
+      <li><strong>Eurostat und Destatis</strong>: Strompreise der Haushalte, Gemeinden mit Koordinaten und Einwohnern;</li>
+      <li><strong>HTW Berlin</strong>: gemessene Lastprofile von 74 Haushalten.</li>
+    </ul>
+    <p>Händlerseiten, Installateursblogs und andere Rechner sind keine Quelle, auch wenn sie oben in den Suchergebnissen stehen.</p>
+    <h2>Prüfung vor jeder Veröffentlichung</h2><p>Automatische Tests vergleichen die Fördersätze mit der Tabelle der Bundesnetzagentur, Standortwerte mit direkten PVGIS-Abfragen und prüfen in jeder Rechnung die Energiebilanz. Ein abweichender Wert stoppt die Veröffentlichung.</p>
+    <h2>Rhythmus</h2><p>Ein geplanter Job lädt jede Woche Fördersätze, Strompreise, Börsendaten und Registerzahlen neu. Alle Texte werden mindestens alle {REVIEW_CYCLE_MONTHS} Monate und bei jeder Gesetzesänderung durchgesehen, spätestens zum Inkrafttreten der EEG-Novelle 2027. Entwürfe werden als Entwurf beschrieben und nie als geltendes Recht gerechnet.</p>
+    <h2>Umgang mit Fehlern</h2>
+    <ol><li>Prüfung an der Primärquelle.</li><li>Korrektur in der Datendatei oder im Rechner und ein neuer Test, der den Fehler künftig abfängt.</li><li>Neues Datum auf allen Seiten; eine inhaltliche Korrektur wird auf der betroffenen Seite vermerkt.</li></ol>
+    <h2>Unabhängigkeit</h2><p>Kein Geld von Modulherstellern, Händlern, Installateuren, Energieversorgern oder Vergleichsportalen. Keine Produktempfehlung, keine Partnerlinks.</p>
+    <p>Siehe auch <a href={route('method', lang)}>So rechnen wir</a>. Fassung: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

@@ -1,0 +1,26 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import LegalIdentity from '../../components/LegalIdentity.astro';
+import { CONTACT_EMAIL, LEGAL, SITE_URL, LAST_UPDATED } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+const lang = 'en';
+---
+<PageLayout title="Privacy Policy: Solar Yield Worked Out Without Sending Data" description="Privacy under the GDPR: postcode, consumption and prices stay in your browser, no cookies, only the host's access logs and an anonymous error measurement without any cookies." lang={lang} noindex={true} breadcrumbs={[{ label: 'Privacy' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Privacy policy</h1>
+    <p>A postcode and a consumption figure say where and how someone lives. The site is therefore built so that {SITE_URL} never receives them.</p>
+    <h2>1. Controller</h2>
+    <LegalIdentity lang={lang} />
+    <p>Email: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. A data protection officer is not required under Article 37 GDPR and has not been appointed.</p>
+    <h2>2. Your inputs</h2>
+    <p>Postcode, panel output, consumption, prices and battery size are processed only in your browser; the radiation data ship with the page. <strong>None of it is sent to us or anyone else, or stored.</strong> So that a result can be shared, the calculator writes the values into the address bar after your first input. That address stays on your device; whoever passes it on passes on the values in it.</p>
+    <h2>3. Processing</h2>
+    <h3>Host logs</h3><p>When a page is requested, GitHub processes technically necessary data (IP address, time, requested address, browser string, referrer) to deliver it and prevent abuse. Legal basis: Article 6(1)(f) GDPR; GitHub sets the retention period.</p>
+    <h3>No cookies</h3><p>The site sets no cookies and stores nothing in browser storage.</p>
+    <h3>Anonymous error measurement (Microsoft Clarity, cookieless)</h3><p>When enabled, Clarity in cookieless mode records loading errors, load times, dead clicks and scrolling so that we find broken calculators. Input fields are masked before sending, each page view receives a new identifier. Provider: Microsoft Ireland Operations Limited, One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Ireland. Legal basis: Article 6(1)(f) GDPR. Recordings are deleted after 30 days, aggregates after 13 months.</p>
+    <h2>4. Recipients</h2><p>We pass no data to retailers, installers, energy suppliers, comparison portals or ad networks. The only processors (Article 28 GDPR) are GitHub as host and Microsoft for the anonymous measurement.</p>
+    <h2>5. Third countries</h2><p>GitHub, Inc. and Microsoft Corporation are based in the United States and certified under the EU-US Data Privacy Framework; standard contractual clauses apply in addition.</p>
+    <h2>6. Your rights</h2><p>Access, rectification, erasure, restriction, objection and portability (Articles 15 to 22 GDPR): write to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>, we reply within one month. Complaints: {LEGAL.supervisoryAuthority} (<a href={LEGAL.supervisoryAuthorityUrl} rel="nofollow noopener" target="_blank">{LEGAL.supervisoryAuthorityUrl}</a>) or the data protection authority of your federal state.</p>
+    <p>See also <a href={route('cookies', lang)}>cookies</a>. As of: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

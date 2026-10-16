@@ -1,0 +1,108 @@
+---
+/** So rechnen wir (Vertrauensseite, RECETTE §8.2): Daten, Rechenschritte, Prüfungen, Grenzen, alle Quellen. */
+import PageLayout from '../layouts/PageLayout.astro';
+import { route, type Locale } from '../i18n/routes';
+import { P, EEG, STROM, STROMPREIS_CT, SMARD, SMARD_JAHR } from '../lib/engine/params';
+import { EIGEN } from '../lib/engine/eigen';
+import { STANDORT, EY_BUND, PLZ_ANZAHL } from '../lib/engine/standort';
+import { AKTUELL } from '../lib/engine/eeg';
+import { formatNumber, formatPercent, displayDate } from '../lib/format';
+import { breadcrumbSchema, webPageSchema } from '../lib/seo';
+import { CONTACT_EMAIL, REVIEW_CYCLE_MONTHS, LANG_TAGS } from '../data/site-config';
+import ST from '../data/staedte.json';
+import TESTS from '../../tests/referenz.json';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const de = lang === 'de';
+const n = (x: number, d = 0) => formatNumber(x, d, lang);
+const pc = (x: number, d = 0) => formatPercent(x, d, lang);
+const dt = (iso: string) => displayDate(iso, LANG_TAGS[lang]);
+const title = de ? 'Solarertrag berechnen 2026: Methode, Daten und Grenzen' : 'Solar Yield Method 2026: Data, Simulation and Known Limits';
+const description = de ? 'Berechnungsmethode 2026: PVGIS-Raster mit 838 Punkten, Ausrichtungsmatrix, Viertelstunden-Simulation mit 74 Haushalten, Einspeisevergütung, Tests und Grenzen.' : 'Calculation method 2026: PVGIS grid of 838 points, orientation matrix, quarter-hour simulation with 74 households, feed-in tariff, tests and known limits.';
+const h1 = de ? 'So rechnen wir' : 'How we calculate';
+const path = route('method', lang);
+const sources = Object.values(P.sources);
+const neg = SMARD.years[SMARD_JAHR];
+---
+<PageLayout title={title} description={description} lang={lang} jsonLd={[webPageSchema({ name: h1, description, path, lang }), breadcrumbSchema([{ name: de ? 'Start' : 'Home', path: route('home', lang) }, { name: h1, path }])]} breadcrumbs={[{ label: h1 }]}>
+  <header class="mb-6"><h1 class="text-3xl font-bold text-navy-900 md:text-4xl">{h1}</h1></header>
+  {de ? (
+  <div class="prose prose-slate max-w-none">
+    <p>Jede Zahl auf dieser Seite stammt aus einer von fünf Datendateien, die Skripte im Ordner <code>scripts/data</code> aus amtlichen Quellen erzeugen und datieren. Rechner und Texte lesen nur aus diesen Dateien. Ändert sich ein Fördersatz oder ein Strompreis, ändert er sich auf allen Seiten zugleich; die Beispiele in den Texten werden bei jedem Build neu gerechnet.</p>
+    <h2>1. Strahlung und Ertrag: PVGIS am Rasterpunkt</h2>
+    <p>Für {n(STANDORT.ey.length)} Rasterpunkte (alle 0,2 Grad Breite und 0,3 Grad Länge, rund 22 mal 20 Kilometer, überall dort, wo eine Postleitzahl liegt) haben wir am {dt(STANDORT.source.retrieved_at)} bei PVGIS 5.3 der Gemeinsamen Forschungsstelle der EU-Kommission den Jahresertrag einer Anlage mit 1 kWp abgefragt: kristallines Silizium, {n(P.pvgis.verluste_pct)} % Systemverluste, 35 Grad Neigung nach Süden, Strahlungsdaten {STANDORT.source.radiation_db} der Jahre {STANDORT.source.years[0]} bis {STANDORT.source.years[1]}, Horizont aus dem digitalen Geländemodell. Die Werte reichen von {n(STANDORT.min)} bis {n(STANDORT.max)} kWh je kWp; das Mittel nach Einwohnern liegt bei {n(EY_BUND)} kWh.</p>
+    <p>Zusätzlich haben wir PVGIS für jede der {n(PLZ_ANZAHL)} Postleitzahlen einzeln abgefragt, am Mittelpunkt aller Orte der PLZ laut GeoNames. Der Rechner nimmt diesen Wert; das Raster dient nur noch der Zuordnung zur Region (Ausrichtungsmatrix, Monatsverlauf) und dem Ortsnamen, der einwohnerstärksten Gemeinde der Rasterzelle laut Gemeindeverzeichnis von Destatis. In den Alpen weicht der Rasterwert sonst um bis zu ein Sechstel ab, weil Tal und Hang einen anderen Horizont haben.</p>
+    <h2>2. Neigung und Himmelsrichtung</h2>
+    <p>Deutschland ist in {n(STANDORT.matrix.length)} Großregionen von 1,5 mal 2 Grad geteilt. Für einen Bezugspunkt je Region liegen 81 weitere PVGIS-Abfragen vor: Neigung 0 bis 90 Grad, acht Himmelsrichtungen. Ihr Ertrag ist der Rasterwert bei 35 Grad Süd mal dem Verhältnis Ihrer Ausrichtung zu 35 Grad Süd in Ihrer Region, zwischen den Stützstellen linear gemittelt. Ost-West-Dächer werden je zur Hälfte nach Osten und Westen gerechnet.</p>
+    <h2>3. Eigenverbrauch: 74 Haushalte, Viertelstunde für Viertelstunde</h2>
+    <p>Grundlage sind die repräsentativen Lastprofile der HTW Berlin: {n(EIGEN.households)} Haushalte, im Jahr 2010 minütlich gemessen (IZES). Wir mitteln sie auf {n(EIGEN.resolution_min)} Minuten und skalieren jedes Profil auf den eingegebenen Jahresverbrauch. Die Erzeugung kommt aus PVGIS-Stundenwerten desselben Wetterjahres für einen Bezugsort in der Mitte Deutschlands (Kassel), für 20 Ausrichtungsformen. Für jede Kombination aus Ertrag, Verbrauch und Speicher wird das Jahr durchgerechnet; der Rechner zeigt den Mittelwert der 74 Haushalte und interpoliert zwischen den Stützstellen.</p>
+    <ul>
+      <li><strong>Balkonkraftwerk</strong>: Wechselrichter {n(P.balkon.max_va)} VA; Leistung darüber wird abgeregelt. Ein Speicher sitzt auf der Gleichstromseite, lädt den Überschuss einschließlich der Spitze über {n(P.balkon.max_va)} VA und gibt abends bis zur Wechselrichtergrenze ab.</li>
+      <li><strong>Dachanlage</strong>: Haushalt zuerst, dann Speicher, dann Netz. Ohne Smart Meter wird die Einspeisung von Neuanlagen ab dem {dt(P.solarspitzen.stichtag)} auf {pc(P.solarspitzen.begrenzung_anteil)} der Nennleistung begrenzt (§ 9 Abs. 2 EEG 2023), was darüber liegt und nicht gespeichert werden kann, geht verloren.</li>
+      <li><strong>Speicher</strong>: Wirkungsgrad {n(P.speicher.eta_richtung * 100, 1)} % je Richtung (rund 90 % hin und zurück), Leistung {n(P.speicher.leistung_kw_je_kwh, 1)} kW je kWh, mindestens {n(P.speicher.leistung_min_kw, 1)} kW. Angegeben wird die nutzbare Kapazität.</li>
+    </ul>
+    <h2>4. Geld: Ersparnis, Vergütung, Amortisation</h2>
+    <p>Selbst genutzter Strom spart den eingegebenen Strompreis; voreingestellt sind {n(STROMPREIS_CT, 1)} ct/kWh, der Eurostat-Durchschnitt für deutsche Haushalte mit 2 500 bis 4 999 kWh ({STROM.letztes_halbjahr}). Eingespeister Strom einer Dachanlage erhält die Einspeisevergütung des Zeitraums der Inbetriebnahme nach der Tabelle der Bundesnetzagentur ({EEG.perioden.length} Zeiträume seit {dt(EEG.perioden[0].von)}, aktuell {dt(AKTUELL.von)} bis {dt(AKTUELL.bis)}), über 10 kWp anteilig nach Leistung. Für Neuanlagen mit Smart Meter entfällt die Vergütung in Zeiten negativer Preise; den betroffenen Anteil schätzen wir mit dem Anteil des deutschen Solarstroms in Stunden mit negativem Preis ({SMARD_JAHR}: {n(neg.neg_hours)} Stunden, {pc(neg.pv_neg_share, 1)} des Solarstroms, SMARD). Strom aus einem Balkonkraftwerk wird nicht vergütet. Amortisation = Kaufpreis geteilt durch Nutzen des ersten Jahres; die 20-Jahres-Summe rechnet mit gleichem Strompreis, wenn Sie keine Preisänderung eintragen.</p>
+    <h2>5. Tests, ohne die nichts veröffentlicht wird</h2>
+    <ul>
+      <li><strong>Fördersätze</strong>: alle {EEG.perioden.length} Zeiträume gegen die Excel-Tabelle der Bundesnetzagentur, Mischsätze über 10 und 40 kWp von Hand nachgerechnet.</li>
+      <li><strong>Standorte</strong>: {n(TESTS.pvgis.length)} Postleitzahlen von Hamburg bis Oberstdorf gegen eine zweite, unabhängige PVGIS-Abfrage; größte Abweichung {pc(TESTS.pvgis_max_abw, 1)}.</li>
+      <li><strong>Ausrichtung</strong>: Rechenwerte für senkrecht, Ost, West und flach gegen eigene PVGIS-Abfragen am selben Ort.</li>
+      <li><strong>Energiebilanz</strong>: selbst genutzt + eingespeist + abgeregelt = Erzeugung, in jeder Kombination; Eigenverbrauch steigt mit dem Speicher und fällt mit der Anlagengröße.</li>
+      <li><strong>Recht</strong>: 2 000 Wp und 800 VA, 60-%-Grenze nach Stichtag und Smart Meter, negative Preise nach § 51 Abs. 2, Zahlung nach § 52 EEG.</li>
+    </ul>
+    <h2>Was die Rechner nicht können</h2>
+    <ul>
+      <li>Ihre eigene Verschattung messen: Bäume, Nachbarhäuser und Dachgauben sind nicht im Geländemodell; die Auswahl „Verschattung“ ist eine pauschale Minderung.</li>
+      <li>Ihr Lastprofil kennen: Ein Haushalt mit Homeoffice oder Wärmepumpe liegt anders als der Mittelwert. Wärmepumpen und Elektroautos sind in den Profilen von 2010 kaum enthalten.</li>
+      <li>Kurze Wolkenlücken abbilden: Die Erzeugung liegt in Stundenwerten vor; Abregelung über {n(P.balkon.max_va)} VA und die 60-%-Grenze sind deshalb eher etwas unterschätzt.</li>
+      <li>Künftiges Recht: Der Entwurf des EEG 2027 (Drucksache {P.eeg2027.drucksache}) wird beschrieben, aber in keinem Rechner als geltendes Recht angewendet.</li>
+      <li>Steuerliche Einzelfälle, Mieterstrom, Gewerbe und Anlagen über 100 kWp.</li>
+    </ul>
+    <h2>Aktualisierung</h2>
+    <p>Fördersätze der Bundesnetzagentur, Strompreise von Eurostat, Börsenpreise von SMARD und die Zählungen des Marktstammdatenregisters lädt ein geplanter Job jede Woche neu und baut die Seite neu, wenn sich etwas ändert. Eine vollständige Durchsicht aller Texte erfolgt mindestens alle {REVIEW_CYCLE_MONTHS} Monate und bei jeder Gesetzesänderung. Fehler bitte an <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    <h2>Quellen</h2>
+    <ul>{sources.map((s) => <li><a href={s.url} rel="nofollow noopener" target="_blank">{s.label.de}</a></li>)}</ul>
+    <p class="text-sm">Registerzahlen der Städte: Marktstammdatenregister, abgerufen am {dt(ST.source.mastr_retrieved_at)}, Datenlizenz Deutschland Namensnennung 2.0. Postleitzahlen: GeoNames, CC BY 4.0.</p>
+  </div>
+  ) : (
+  <div class="prose prose-slate max-w-none">
+    <p>Every figure on this site comes from one of five data files that scripts in <code>scripts/data</code> build from official sources and date. Calculators and texts read only from these files. When a feed-in rate or electricity price changes, it changes on every page at once; the worked examples in the texts are recalculated on every build.</p>
+    <h2>1. Radiation and yield: PVGIS at the grid point</h2>
+    <p>For {n(STANDORT.ey.length)} grid points (every 0.2 degrees of latitude and 0.3 degrees of longitude, about 22 by 20 kilometres, wherever a postcode lies) we queried PVGIS 5.3 of the European Commission's Joint Research Centre on {dt(STANDORT.source.retrieved_at)} for the annual yield of a 1 kWp system: crystalline silicon, {n(P.pvgis.verluste_pct)}% system losses, 35 degrees tilt facing south, {STANDORT.source.radiation_db} radiation data for {STANDORT.source.years[0]} to {STANDORT.source.years[1]}, horizon from the digital terrain model. Values range from {n(STANDORT.min)} to {n(STANDORT.max)} kWh per kWp; the population-weighted mean is {n(EY_BUND)} kWh.</p>
+    <p>In addition we queried PVGIS for each of the {n(PLZ_ANZAHL)} postcodes individually, at the centre of all places in the postcode according to GeoNames. The calculator uses that value; the grid now only assigns the region (orientation matrix, monthly profile) and the place name, the largest municipality in the grid cell according to the Destatis register. In the Alps the grid value would otherwise be off by up to a sixth, because valley and slope see a different horizon.</p>
+    <h2>2. Tilt and direction</h2>
+    <p>Germany is split into {n(STANDORT.matrix.length)} regions of 1.5 by 2 degrees. For one reference point per region there are 81 further PVGIS queries: tilt from 0 to 90 degrees, eight directions. Your yield is the grid value at 35° south times the ratio of your orientation to 35° south in your region, interpolated linearly between the support points. East-west roofs are taken as half east, half west.</p>
+    <h2>3. Self-consumption: 74 households, quarter-hour by quarter-hour</h2>
+    <p>The basis is the representative load profile set of HTW Berlin: {n(EIGEN.households)} households metered minute by minute in 2010 (IZES). We average them to {n(EIGEN.resolution_min)} minutes and scale each profile to the annual consumption you enter. Generation comes from PVGIS hourly values for the same weather year at a reference location in central Germany (Kassel), for 20 orientation shapes. For each combination of yield, consumption and battery, the full year is simulated; the calculator shows the mean of the 74 households and interpolates between support points.</p>
+    <ul>
+      <li><strong>Plug-in solar</strong>: {n(P.balkon.max_va)} VA inverter; output above that is clipped. A battery sits on the DC side, stores the surplus including the peak above {n(P.balkon.max_va)} VA and releases it in the evening up to the inverter limit.</li>
+      <li><strong>Rooftop system</strong>: home first, then battery, then grid. Without a smart meter, feed-in from systems commissioned from {dt(P.solarspitzen.stichtag)} is capped at {pc(P.solarspitzen.begrenzung_anteil)} of rated output (section 9(2) EEG 2023); what exceeds the cap and cannot be stored is lost.</li>
+      <li><strong>Battery</strong>: efficiency {n(P.speicher.eta_richtung * 100, 1)}% each way (about 90% round trip), power {n(P.speicher.leistung_kw_je_kwh, 1)} kW per kWh, at least {n(P.speicher.leistung_min_kw, 1)} kW. The usable capacity is what you enter.</li>
+    </ul>
+    <h2>4. Money: saving, feed-in payment, payback</h2>
+    <p>Self-used power saves the electricity price you enter; the default is {n(STROMPREIS_CT, 1)} ct/kWh, the Eurostat average for German households using 2,500 to 4,999 kWh ({STROM.letztes_halbjahr}). Power fed in from a rooftop system earns the feed-in tariff for its commissioning period from the Federal Network Agency table ({EEG.perioden.length} periods since {dt(EEG.perioden[0].von)}, currently {dt(AKTUELL.von)} to {dt(AKTUELL.bis)}), blended by capacity above 10 kWp. New systems with a smart meter receive nothing at negative prices; we estimate the share affected from the share of German solar power produced in hours with negative prices ({SMARD_JAHR}: {n(neg.neg_hours)} hours, {pc(neg.pv_neg_share, 1)} of solar output, SMARD). Power from plug-in devices is not paid for. Payback = purchase price divided by the first-year benefit; the 20-year total assumes a constant electricity price unless you enter a change.</p>
+    <h2>5. Tests that must pass before publishing</h2>
+    <ul>
+      <li><strong>Feed-in rates</strong>: all {EEG.perioden.length} periods against the Federal Network Agency spreadsheet; blended rates above 10 and 40 kWp recalculated by hand.</li>
+      <li><strong>Locations</strong>: {n(TESTS.pvgis.length)} postcodes from Hamburg to Oberstdorf against a second, independent PVGIS query; largest difference {pc(TESTS.pvgis_max_abw, 1)}.</li>
+      <li><strong>Orientation</strong>: values for upright, east, west and flat against our own PVGIS queries at the same place.</li>
+      <li><strong>Energy balance</strong>: self-used + fed in + clipped = generated, in every combination; self-consumption rises with the battery and falls with system size.</li>
+      <li><strong>Law</strong>: 2,000 Wp and 800 VA, the 60% limit by cut-off date and smart meter, negative prices under section 51(2), payments under section 52 EEG.</li>
+    </ul>
+    <h2>What the calculators cannot do</h2>
+    <ul>
+      <li>Measure your own shading: trees, neighbouring buildings and dormers are not in the terrain model; the shading option is a flat reduction.</li>
+      <li>Know your load profile: a household with a home office or heat pump differs from the mean. Heat pumps and electric cars hardly appear in the 2010 profiles.</li>
+      <li>Capture short gaps in the clouds: generation is hourly, so clipping above {n(P.balkon.max_va)} VA and the 60% limit are, if anything, slightly underestimated.</li>
+      <li>Future law: the draft EEG 2027 (printed paper {P.eeg2027.drucksache}) is described but never applied as law in any calculator.</li>
+      <li>Individual tax cases, tenant electricity schemes, businesses and systems above 100 kWp.</li>
+    </ul>
+    <h2>Updates</h2>
+    <p>A scheduled job reloads Federal Network Agency rates, Eurostat prices, SMARD market prices and the register counts every week and rebuilds the site when something changes. All texts are fully reviewed at least every {REVIEW_CYCLE_MONTHS} months and whenever the law changes. Please report errors to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    <h2>Sources</h2>
+    <ul>{sources.map((s) => <li><a href={s.url} rel="nofollow noopener" target="_blank">{s.label.en}</a></li>)}</ul>
+    <p class="text-sm">City register figures: Market Master Data Register, retrieved on {dt(ST.source.mastr_retrieved_at)}, Data licence Germany attribution 2.0. Postcodes: GeoNames, CC BY 4.0.</p>
+  </div>
+  )}
+</PageLayout>

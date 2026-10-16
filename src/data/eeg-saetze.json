@@ -1,0 +1,119 @@
+{
+ "source": "https://www.bundesnetzagentur.de/DE/Fachthemen/ElektrizitaetundGas/ErneuerbareEnergien/EEG_Foerderung/Archiv_VergSaetze/_DL/VergSaetzeAug26bisDez26.xlsx",
+ "page": "https://www.bundesnetzagentur.de/DE/Fachthemen/ElektrizitaetundGas/ErneuerbareEnergien/EEG_Foerderung/Archiv_VergSaetze/start.html",
+ "file": "VergSaetzeAug26bisDez26",
+ "retrieved_at": "2026-10-15",
+ "grenzen_kw": [
+  10,
+  40,
+  100
+ ],
+ "einheit": "ct/kWh",
+ "perioden": [
+  {
+   "von": "2023-01-01",
+   "bis": "2024-01-31",
+   "teil": [
+    8.2,
+    7.1,
+    5.8
+   ],
+   "sonstige": 6.6,
+   "voll": [
+    13.0,
+    10.9,
+    10.9
+   ]
+  },
+  {
+   "von": "2024-02-01",
+   "bis": "2024-07-31",
+   "teil": [
+    8.11,
+    7.03,
+    5.74
+   ],
+   "sonstige": 6.53,
+   "voll": [
+    12.87,
+    10.79,
+    10.79
+   ]
+  },
+  {
+   "von": "2024-08-01",
+   "bis": "2025-01-31",
+   "teil": [
+    8.03,
+    6.95,
+    5.68
+   ],
+   "sonstige": 6.46,
+   "voll": [
+    12.73,
+    10.68,
+    10.68
+   ]
+  },
+  {
+   "von": "2025-02-01",
+   "bis": "2025-07-31",
+   "teil": [
+    7.94,
+    6.88,
+    5.62
+   ],
+   "sonstige": 6.39,
+   "voll": [
+    12.6,
+    10.56,
+    10.56
+   ]
+  },
+  {
+   "von": "2025-08-01",
+   "bis": "2026-01-31",
+   "teil": [
+    7.86,
+    6.8,
+    5.56
+   ],
+   "sonstige": 6.32,
+   "voll": [
+    12.47,
+    10.45,
+    10.45
+   ]
+  },
+  {
+   "von": "2026-02-01",
+   "bis": "2026-07-31",
+   "teil": [
+    7.78,
+    6.73,
+    5.5
+   ],
+   "sonstige": 6.26,
+   "voll": [
+    12.34,
+    10.35,
+    10.35
+   ]
+  },
+  {
+   "von": "2026-08-01",
+   "bis": "2026-12-31",
+   "teil": [
+    7.7,
+    6.66,
+    5.44
+   ],
+   "sonstige": 6.19,
+   "voll": [
+    12.22,
+    10.24,
+    10.24
+   ]
+  }
+ ]
+}

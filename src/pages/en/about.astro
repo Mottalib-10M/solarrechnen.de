@@ -1,0 +1,30 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { YEAR, LAST_UPDATED, AUTHOR_NAME, CONTACT_EMAIL, AUTHOR_ROLE, SITE_NAMES, LANG_TAGS } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+import { personSchema, organizationSchema, breadcrumbSchema, profilePageSchema } from '../../lib/seo';
+import { displayDate, formatNumber } from '../../lib/format';
+import { STANDORT } from '../../lib/engine/standort';
+import { EIGEN } from '../../lib/engine/eigen';
+const lang = 'en';
+---
+<PageLayout title="Solarrechnen: Publisher, Data and Checks Behind the Tools" description="Who runs the calculators for plug-in solar, rooftop PV, batteries and the German feed-in tariff, where the data comes from, how it is checked and what we avoid." lang={lang} jsonLd={[personSchema(lang), organizationSchema(lang), profilePageSchema({ path: route('about', lang), lang }), breadcrumbSchema([{ name: 'Home', path: route('home', lang) }, { name: 'About', path: route('about', lang) }])]} breadcrumbs={[{ label: 'About' }]}>
+  <header class="mb-6"><h1 class="text-3xl font-bold text-navy-900 md:text-4xl">About {SITE_NAMES.en}</h1></header>
+  <div class="prose prose-slate max-w-none">
+    <div class="not-prose mb-6"><p class="text-lg font-semibold text-navy-900">{AUTHOR_NAME}</p><p class="text-navy-700">{AUTHOR_ROLE[lang]}</p></div>
+    <p>{SITE_NAMES.en} is published by Radif Partners. It started from a frustration anyone shopping for balcony solar in Germany will recognise: almost every yield calculator online belongs to a retailer, an installer or a comparison portal. Some assume a self-consumption share that never shows up on the electricity bill, some only reveal the result after a quote request, and nearly all ask for a region rather than a place.</p>
+    <h2>What this site does differently</h2>
+    <p>It uses the European Commission's PVGIS radiation data for {formatNumber(STANDORT.ey.length, 0, lang)} grid points and every postcode, {formatNumber(EIGEN.households, 0, lang)} metered households instead of a flat percentage, and the feed-in rates for exactly the period in which a system is commissioned. The result is there before you type anything and changes with every input.</p>
+    <h2>How it is checked</h2>
+    <p>Automated tests run before every release: feed-in rates for all periods against the Federal Network Agency table, location values against direct PVGIS queries, the energy balance of every calculation. How each figure is produced is explained under <a href={route('method', lang)}>How we calculate</a>.</p>
+    <h2>What we are not</h2>
+    <p>Not a retailer, installer, energy supplier, grid operator or public authority. We sell no panels, pass on no quote requests and take no money for recommendations. For advice on site, the energy advice service of the consumer centres (Verbraucherzentrale) and your grid operator are the right contacts.</p>
+    <h2>Funding and your data</h2>
+    <p>The calculators are free and need no account. Postcode, consumption and prices stay in your browser. Should the site ever show advertising, it will never sit above a calculator.</p>
+    <h2>Why in English</h2>
+    <p>Every page exists in German and English. The English version is written for people living in Germany who are still learning the German terms: Marktstammdatenregister, Einspeisevergütung and Steckersolargerät are explained, amounts stay in euros.</p>
+    <h2>Contact</h2>
+    <p>A value is wrong, a rate is out of date, your meter shows something else? Write to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. See also the <a href={route('editorial', lang)}>editorial policy</a> and the <a href={route('terms', lang)}>legal notice</a>.</p>
+    <p class="text-sm text-navy-600">Rates {YEAR}, read on <time datetime={LAST_UPDATED}>{displayDate(LAST_UPDATED, LANG_TAGS[lang])}</time>.</p>
+  </div>
+</PageLayout>

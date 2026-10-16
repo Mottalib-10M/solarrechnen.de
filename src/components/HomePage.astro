@@ -1,0 +1,99 @@
+---
+/**
+ * Startseite (Säule, RECETTE §5), eigene Trame: Kopfzeile mit Datenstand, sofort der Balkonkraftwerk-Rechner,
+ * zitierbarer Absatz (eingeklappt), Ertrag der Großstädte als Tabelle mit Registerdaten, die Regeln 2026 als
+ * Merkliste, Text mit Mini-Rechner, FAQ und Quellen.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import BalkonRechner from './calc/BalkonRechner';
+import MiniSim from './calc/MiniSim';
+import Clamp from './Clamp.astro';
+import { HOME } from '../content/home';
+import { route, ROUTES, type Locale } from '../i18n/routes';
+import { label } from '../i18n/nav';
+import { helpers } from '../lib/helpers';
+import { P, type SourceKey } from '../lib/engine/params';
+import { AKTUELL } from '../lib/engine/eeg';
+import { formatNumber, displayDate } from '../lib/format';
+import { faqSchema, organizationSchema, websiteSchema, webPageSchema, webApplicationSchema } from '../lib/seo';
+import { PAGES } from '../lib/guides';
+import ST from '../data/staedte.json';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const de = lang === 'de';
+const x = HOME[lang];
+const h = helpers(lang);
+const path = route('home', lang);
+const parts = x.body(h).split(/<!--mini:([A-Za-z0-9_]+)-->/);
+const faqs = x.faqs(h);
+const keys: SourceKey[] = ['pvgis', 'bnetza_saetze', 'eeg_8', 'eeg_9', 'eeg_10a', 'mastrv_5', 'bgb_554', 'ustg_12', 'estg_3', 'htw_lastprofile', 'mastr_einheiten', 'eurostat_strom'];
+const sources = keys.map((k) => ({ name: P.sources[k].label[lang], url: P.sources[k].url }));
+const jsonLd = [websiteSchema(lang), organizationSchema(lang), webPageSchema({ name: x.h1, description: x.description, path, lang }), webApplicationSchema({ name: x.h1, description: x.description, path, lang }), faqSchema(faqs, lang)];
+const n = (v: number, d = 0) => formatNumber(v, d, lang);
+const tag = de ? 'de-DE' : 'en-GB';
+const has = (id: string) => ROUTES.some((r) => r.id === id);
+const stadtSeite = (slug: string) => PAGES.find((p) => p.group === 'stadt' && p.id === `balkonkraftwerk-${slug}`);
+const staedte = Object.entries(ST.staedte as Record<string, { name: string; ey: number; ew: number; balkon: number }>)
+  .map(([slug, v]) => ({ slug, ...v, dichte: (v.balkon / v.ew) * 1000 }))
+  .filter((c) => stadtSeite(c.slug))
+  .sort((a, b) => b.ey - a.ey);
+const maxEy = Math.max(...staedte.map((c) => c.ey));
+const regeln = de ? [
+  { t: `${n(P.balkon.max_wp)} Wp und ${n(P.balkon.max_va)} VA`, d: 'So viel Modulleistung und Wechselrichterleistung erlaubt § 8 Abs. 5a EEG für ein Steckersolargerät.', id: 'balkonkraftwerk-800-watt' },
+  { t: 'Nur ins Marktstammdatenregister', d: `Innerhalb von ${P.mastr.frist_monate} Monat nach Inbetriebnahme; eine Meldung beim Netzbetreiber darf nicht verlangt werden.`, id: 'balkonkraftwerk-anmelden' },
+  { t: 'Alter Zähler bleibt', d: 'Bis der Zweirichtungszähler kommt, darf das Gerät am vorhandenen Zähler laufen (§ 10a Abs. 3 EEG).', id: 'balkonkraftwerk-zaehler' },
+  { t: 'Mieter dürfen verlangen', d: 'Seit Oktober 2024 ist das Steckersolargerät eine privilegierte bauliche Veränderung (§ 554 BGB, § 20 WEG).', id: 'balkonkraftwerk-mieter' },
+] : [
+  { t: `${n(P.balkon.max_wp)} Wp and ${n(P.balkon.max_va)} VA`, d: 'The panel and inverter output that section 8(5a) EEG allows for a plug-in solar device.', id: 'balkonkraftwerk-800-watt' },
+  { t: 'Register only in the MaStR', d: `Within ${P.mastr.frist_monate} month of commissioning; the grid operator may not ask for a separate notice.`, id: 'balkonkraftwerk-anmelden' },
+  { t: 'The old meter can stay', d: 'Until the bidirectional meter arrives, the device may run on the existing meter (section 10a(3) EEG).', id: 'balkonkraftwerk-zaehler' },
+  { t: 'Tenants can insist', d: 'Since October 2024 a plug-in device is a privileged alteration (section 554 Civil Code, section 20 Condominium Act).', id: 'balkonkraftwerk-mieter' },
+];
+---
+<PageLayout title={x.title} description={x.description} lang={lang} jsonLd={jsonLd} faqs={faqs} sources={sources}>
+  <header class="mb-4">
+    <p class="text-sm font-semibold uppercase tracking-wide text-accent-700">{de ? `PVGIS für jede Postleitzahl · Einspeisevergütung ab ${displayDate(AKTUELL.von, tag)}` : `PVGIS for every postcode · feed-in tariff from ${displayDate(AKTUELL.von, tag)}`}</p>
+    <h1 class="mt-1 text-3xl font-bold text-navy-900 md:text-[2.5rem] md:leading-tight">{x.h1}</h1>
+    <p class="mt-2 text-lg text-navy-700">{x.intro}</p>
+    <p class="mt-2 text-sm text-navy-700"><a class="underline" href={route('method', lang)}>{label('method', lang)}</a> · <a class="underline" href={route('about', lang)}>{label('about', lang)}</a></p>
+  </header>
+  <section id="rechner" data-outil aria-label={de ? 'Balkonkraftwerk-Rechner' : 'Plug-in solar calculator'}>
+    <BalkonRechner client:load lang={lang} methodHref={route('method', lang)} />
+  </section>
+  <section class="mt-8" aria-labelledby="kurz">
+    <h2 id="kurz" class="sr-only">{de ? 'Das Wichtigste in Kürze' : 'In short'}</h2>
+    <Clamp text={x.resume(h)} lang={lang} id="clamp-home" sentences={2} />
+  </section>
+  <section class="mt-10 border-t border-navy-200 pt-6" aria-labelledby="staedte" data-chrome>
+    <h2 id="staedte" class="text-2xl font-bold text-navy-900">{de ? 'Ertrag und Balkonkraftwerke in den Großstädten' : 'Yield and plug-in devices in major cities'}</h2>
+    <p class="mt-2 text-navy-700">{de ? `Ertrag je kWp bei 35° Süd laut PVGIS und Zahl der Balkonkraftwerke in Betrieb laut Marktstammdatenregister (${displayDate(ST.source.mastr_retrieved_at, tag)}), je 1 000 Einwohner.` : `Yield per kWp at 35° south according to PVGIS and number of plug-in devices in operation according to the Market Master Data Register (${displayDate(ST.source.mastr_retrieved_at, tag)}), per 1,000 residents.`}</p>
+    <div class="mt-4 overflow-x-auto">
+      <table class="journal w-full text-sm">
+        <thead><tr><th scope="col" class="py-2 text-left">{de ? 'Stadt' : 'City'}</th><th scope="col" class="py-2 text-left">{de ? 'kWh je kWp' : 'kWh per kWp'}</th><th scope="col" class="py-2 text-right">{de ? 'Balkonkraftwerke' : 'Plug-in devices'}</th><th scope="col" class="py-2 text-right">{de ? 'je 1 000 Einw.' : 'per 1,000'}</th></tr></thead>
+        <tbody>
+          {staedte.map((c) => { const s = stadtSeite(c.slug)!; return (
+            <tr>
+              <td class="border-b border-navy-100 py-2"><a class="text-navy-900 underline" href={route(s.id, lang)}>{c.name}</a></td>
+              <td class="border-b border-navy-100 py-2"><span class="flex items-center gap-2"><span class="land-bar block h-2.5 w-24 overflow-hidden rounded sm:w-40"><span class="block h-2.5" style={`width:${Math.round((c.ey - 900) / (maxEy - 900) * 100)}%`}></span></span><span class="tabular-nums">{n(c.ey)}</span></span></td>
+              <td class="tabular-nums border-b border-navy-100 py-2 text-right">{n(c.balkon)}</td>
+              <td class="tabular-nums border-b border-navy-100 py-2 text-right">{n(c.dichte, 1)}</td>
+            </tr>); })}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="mt-10 border-t border-navy-200 pt-6" aria-labelledby="regeln" data-chrome>
+    <h2 id="regeln" class="text-2xl font-bold text-navy-900">{de ? 'Die Regeln für Balkonkraftwerke 2026' : 'The 2026 rules for plug-in solar'}</h2>
+    <dl class="mt-4 grid gap-x-8 gap-y-5 sm:grid-cols-2">
+      {regeln.map((r) => (
+        <div class="border-l-2 border-accent-600 pl-4">
+          <dt class="font-serif text-lg font-semibold text-navy-900">{has(r.id) ? <a class="underline" href={route(r.id, lang)}>{r.t}</a> : r.t}</dt>
+          <dd class="mt-1 text-sm text-navy-700">{r.d}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+  <div class="prose prose-slate mt-10 max-w-none border-t border-navy-200 pt-4">
+    {parts.map((p, i) => i % 2 === 0 ? <Fragment set:html={p} /> : <MiniSim client:load kind={p} lang={lang} href={has('balkonkraftwerk-mit-speicher') ? route('balkonkraftwerk-mit-speicher', lang) : undefined} />)}
+  </div>
+</PageLayout>

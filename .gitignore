@@ -1,0 +1,7 @@
+node_modules
+dist
+.astro
+research/htw/
+research/pvgis-cache/
+research/*.log
+research/pvgis-stunden/

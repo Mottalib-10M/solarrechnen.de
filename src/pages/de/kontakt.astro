@@ -1,0 +1,20 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { CONTACT_EMAIL, SITE_NAMES } from '../../data/site-config';
+import { route } from '../../i18n/routes';
+import { contactPageSchema } from '../../lib/seo';
+const lang = 'de';
+const description = 'Schreiben Sie uns, wenn ein Fördersatz veraltet ist, Ihr Zähler mehr oder weniger zeigt als der Rechner, eine Postleitzahl falsch zugeordnet ist oder Sie einbinden wollen.';
+---
+<PageLayout title={`Kontakt zu ${SITE_NAMES[lang]}: Fehler melden, Rechner einbinden`} description={description} lang={lang} noindex={true} jsonLd={[contactPageSchema({ name: 'Kontakt', description, path: route('contact', lang), lang })]} breadcrumbs={[{ label: 'Kontakt' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Kontakt</h1>
+    <p>E-Mail: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Wir antworten in der Regel innerhalb einer Woche.</p>
+    <h2>Ihr Ertrag weicht vom Rechner ab</h2>
+    <p>Schicken Sie den Link zum Teilen aus dem Rechner und die Jahreswerte aus Ihrer App oder vom Zähler, gern mit einem Foto der Montage. Häufige Ursachen sind Schatten am Nachmittag, ein Wechselrichter mit 600 statt 800 VA oder ein Jahr mit wenig Sonne. Liegt der Fehler bei uns, korrigieren wir ihn und nehmen den Fall als Test auf.</p>
+    <h2>Rechner einbinden</h2>
+    <p>Energieagenturen, Mietervereine, Solarvereine und Redaktionen können die Rechner kostenlos einbinden: <a href={route('widget', lang)}>Rechner einbinden</a>.</p>
+    <h2>Was wir nicht leisten</h2>
+    <p>Keine Angebote, keine Vermittlung von Installateuren, keine Prüfung Ihres Dachs, keine Steuerberatung. Für eine unabhängige Beratung vor Ort ist die Energieberatung der Verbraucherzentrale da.</p>
+  </div>
+</PageLayout>
