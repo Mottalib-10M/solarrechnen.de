@@ -47,7 +47,7 @@ export default defineGuide({
 <h3>Schritt zwei: Sie als Anlagenbetreiber</h3>
 <p>Als Betreiber tragen Sie sich als natürliche Person ein, mit Name und Anschrift. Das Register vergibt dafür eine eigene Betreibernummer. Mieter sind selbst Betreiber, nicht der Vermieter.</p>
 <h3>Schritt drei: die Einheit Steckersolargerät</h3>
-<p>Für Balkonkraftwerke gibt es eine verkürzte Eingabe. Abgefragt werden der Standort, das Datum der Inbetriebnahme, die Modulleistung in Wp und die Wechselrichterleistung in VA. Bei mehreren Geräten an derselben Wohnung zählt die Summe: Zwei Sets mit je 1 200 Wp überschreiten zusammen die Grenze. Halten Sie Rechnung und Typenschild bereit, damit die Zahlen stimmen.</p>
+<p>Für Balkonkraftwerke gibt es eine verkürzte Eingabe; die ${h.src('bnetza_solar', 'Bundesnetzagentur')} spricht von einer stark vereinfachten Registrierung mit wenigen Angaben. Abgefragt werden der Standort, das Datum der Inbetriebnahme, die Modulleistung in Wp und die Wechselrichterleistung in VA. Bei mehreren Geräten an derselben Wohnung zählt die Summe: Zwei Sets mit je 1 200 Wp überschreiten zusammen die Grenze. Halten Sie Rechnung und Typenschild bereit, damit die Zahlen stimmen.</p>
 <h3>Schritt vier: Speicher als zweite Einheit</h3>
 <p>Ein Batteriespeicher ist keine Eigenschaft des Solargeräts, sondern eine eigene Einheit mit eigener Nummer. Sie legen ihn getrennt an, mit nutzbarer Kapazität und Leistung, und ordnen ihn dem Standort zu. Ein später nachgerüsteter Speicher löst wieder die Frist von einem Monat aus.</p>
 <h3>Schritt fünf: Bestätigung aufbewahren</h3>
@@ -68,7 +68,7 @@ ${h.table(['', '1 800 Wp, 800 VA', '2 400 Wp, 800 VA'], [
 
 <h2>Was nach dem Eintrag mit Ihren Daten geschieht</h2>
 <p>Der Eintrag ist kein Antrag, den jemand genehmigen müsste. Das Gerät darf vom ersten Tag an laufen, die Frist betrifft nur die Eintragung. Im Hintergrund läuft dann eine Kette, die das Gesetz in ${h.src('eeg_10a', '§ 10a Abs. 2 EEG')} beschreibt: Die Bundesnetzagentur fordert den Netzbetreiber auf, die im Register eingetragenen Daten zu prüfen. Danach stattet der Messstellenbetreiber Ihren Zählpunkt mit einem Zweirichtungszähler oder einem intelligenten Messsystem aus, ohne dass Sie ihn beauftragen. Der Tausch kann Monate dauern; bis dahin läuft das Gerät am alten Zähler weiter.</p>
-<p>Öffentlich sichtbar werden Leistung, Datum und die Gemeinde, nicht Ihr Name und nicht die genaue Adresse einer privaten Einheit. Aus genau diesen Einträgen stammen die ${h.num(imRegister)} Geräte, die das Register heute zählt.</p>
+<p>Öffentlich sichtbar werden Leistung, Datum, Postleitzahl und Ort, nicht aber Straße, Hausnummer und Koordinaten einer Einheit bis 30 Kilowatt und keine Daten zu Ihnen als Privatperson (${h.src('mastrv_15', '§ 15 MaStRV')}). Aus genau diesen Einträgen stammen die ${h.num(imRegister)} Geräte, die das Register heute zählt.</p>
 
 <h2>Frist verpasst: was jetzt zu tun ist</h2>
 <p>Wer ein Gerät seit Monaten betreibt und den Eintrag vergessen hat, trägt es jetzt nach, mit dem tatsächlichen Datum der ersten Inbetriebnahme, nicht mit dem heutigen. Ein falsches Datum wäre die eigentliche Unrichtigkeit. Für Steckersolargeräte gibt es keine Einspeisevergütung, die gekürzt werden könnte, weil der Überschuss unentgeltlich ins Netz geht. Der Nachtrag beseitigt den Verstoß gegen die Registrierungspflicht für die Zukunft. Gleiches gilt für den vergessenen Speicher: als zweite Einheit nachtragen und mit dem Solargerät am selben Standort verbinden.</p>`,
@@ -101,7 +101,7 @@ ${h.table(['', '1 800 Wp, 800 VA', '2 400 Wp, 800 VA'], [
 <h3>Step two: you as the operator</h3>
 <p>You enter yourself as a private individual operator (Anlagenbetreiber), with name and address, and receive an operator number. Tenants are operators themselves, not their landlord.</p>
 <h3>Step three: the plug-in solar unit</h3>
-<p>Balcony kits have a shortened form. It asks for the location, the commissioning date, the panel output in Wp and the inverter output in VA. With several devices at the same flat the total counts: two kits of 1,200 Wp each exceed the limit together. Keep the invoice and rating plate at hand so the numbers are right.</p>
+<p>Balcony kits have a shortened form; the ${h.src('bnetza_solar', 'Federal Network Agency')} describes a greatly simplified registration with few details. It asks for the location, the commissioning date, the panel output in Wp and the inverter output in VA. With several devices at the same flat the total counts: two kits of 1,200 Wp each exceed the limit together. Keep the invoice and rating plate at hand so the numbers are right.</p>
 <h3>Step four: the battery as a second unit</h3>
 <p>A battery is not a feature of the solar device but a separate unit with its own number. You create it separately, with usable capacity and power, and assign it to the same location. A battery added later triggers the one-month deadline again.</p>
 <h3>Step five: keep the confirmation</h3>
@@ -122,7 +122,7 @@ ${h.table(['', '1,800 Wp, 800 VA', '2,400 Wp, 800 VA'], [
 
 <h2>What happens to your data after the entry</h2>
 <p>The entry is not an application that anyone has to approve. The device may run from day one; the deadline only concerns the registration. In the background a chain starts that the law describes in ${h.src('eeg_10a', 'section 10a(2) EEG')}: the Federal Network Agency asks the grid operator to check the data in the register. The metering operator then fits your metering point with a bidirectional meter (Zweirichtungszähler) or a smart metering system, without you having to order it. The swap can take months; until then the device keeps running on the old meter.</p>
-<p>What becomes public is the output, the date and the municipality, not your name and not the exact address of a private unit. The ${h.num(imRegister)} devices the register counts today come from exactly these entries.</p>
+<p>What becomes public is the output, the date, the postcode and the town, but not the street, house number or coordinates of a unit up to 30 kilowatts, and no data about you as a private person (${h.src('mastrv_15', 'section 15 MaStRV')}). The ${h.num(imRegister)} devices the register counts today come from exactly these entries.</p>
 
 <h2>Missed the deadline: what to do now</h2>
 <p>If you have run a device for months and forgot the entry, add it now with the real date of first operation, not today's date. A wrong date would be the actual inaccuracy. Plug-in solar earns no feed-in tariff that could be cut, because the surplus goes to the grid unpaid. The late entry ends the breach of the registration duty for the future. The same goes for a forgotten battery: add it as a second unit and link it to the solar device at the same location.</p>`,

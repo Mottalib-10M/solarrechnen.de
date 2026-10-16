@@ -67,7 +67,7 @@ ${h.table(['Stadt', 'kWh je kWp (35° Süd)', '900 Wp senkrecht Süd', 'Ersparni
 
 <h2>Anmeldung, Zähler und Mietwohnung</h2>
 <p>Angemeldet wird ausschließlich im ${h.src('mastr', 'Marktstammdatenregister')}, innerhalb eines Monats nach der Inbetriebnahme (${h.src('mastrv_5', '§ 5 Abs. 5 MaStRV')}). Der Eintrag dauert etwa eine Viertelstunde; ein Speicher wird als zweite Einheit ergänzt. Am ${h.date(ST.source.mastr_retrieved_at)} waren dort bundesweit ${h.num(bundBalkon)} Steckersolargeräte in Betrieb registriert. Ein alter Drehstromzähler darf bis zum Tausch weiterlaufen, auch wenn er bei Überschuss rückwärts zählt (${h.src('eeg_10a', '§ 10a Abs. 3 EEG')}); den Zweirichtungszähler baut der Messstellenbetreiber ohne eigenen Auftrag ein.</p>
-<p>Mieter haben seit Oktober 2024 einen Anspruch auf die Erlaubnis (${h.src('bgb_554', '§ 554 BGB')}), Wohnungseigentümer auf den Beschluss der Gemeinschaft (${h.src('weg_20', '§ 20 WEG')}). Beim Kauf zahlen Sie keine Mehrwertsteuer auf Module, Wechselrichter und Speicher (${h.src('ustg_12', '§ 12 Abs. 3 UStG')}), und die Ersparnis ist kein Einkommen.</p>
+<p>Mieter haben seit dem 17. Oktober 2024 (${h.src('bgbl_2024_306', 'BGBl. 2024 I Nr. 306')}) einen Anspruch auf die Erlaubnis (${h.src('bgb_554', '§ 554 BGB')}), Wohnungseigentümer auf den Beschluss der Gemeinschaft (${h.src('weg_20', '§ 20 WEG')}). Beim Kauf zahlen Sie keine Mehrwertsteuer auf Module, Wechselrichter und Speicher (${h.src('ustg_12', '§ 12 Abs. 3 UStG')}), und die Ersparnis ist kein Einkommen.</p>
 
 <h2>Werte und Annahmen 2026</h2>
 ${h.table(['Wert', 'Stand', 'Quelle'], [
@@ -139,7 +139,7 @@ ${h.table(['City', 'kWh per kWp (35° south)', '900 Wp upright south', 'Saving/y
 
 <h2>Registration, meters and rented flats</h2>
 <p>The only registration is in the ${h.src('mastr', 'Market Master Data Register')}, within one month of commissioning (${h.src('mastrv_5', 'section 5(5) MaStRV')}). It takes about a quarter of an hour; a battery is added as a second unit. On ${h.date(ST.source.mastr_retrieved_at)}, ${h.num(bundBalkon)} plug-in devices in operation were registered there nationwide. An old electromechanical meter may keep running until it is replaced, even if it turns backwards when you export (${h.src('eeg_10a', 'section 10a(3) EEG')}); the metering operator fits the bidirectional meter without you ordering it.</p>
-<p>Since October 2024 tenants have a right to permission (${h.src('bgb_554', 'section 554 Civil Code')}) and flat owners to a decision by the owners' association (${h.src('weg_20', 'section 20 Condominium Act')}). You pay no VAT on panels, inverter or battery (${h.src('ustg_12', 'section 12(3) VAT Act')}), and the saving is not taxable income.</p>
+<p>Since 17 October 2024 (${h.src('bgbl_2024_306', 'Federal Law Gazette 2024 I no. 306')}) tenants have a right to permission (${h.src('bgb_554', 'section 554 Civil Code')}) and flat owners to a decision by the owners' association (${h.src('weg_20', 'section 20 Condominium Act')}). You pay no VAT on panels, inverter or battery (${h.src('ustg_12', 'section 12(3) VAT Act')}), and the saving is not taxable income.</p>
 
 <h2>Values and assumptions for 2026</h2>
 ${h.table(['Value', 'Figure', 'Source'], [
