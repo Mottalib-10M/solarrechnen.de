@@ -1,7 +1,7 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
 import LegalIdentity from '../../components/LegalIdentity.astro';
-import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, SITE_URL } from '../../data/site-config';
+import { AUTHOR_NAME, CLARITY_ID, CONTACT_EMAIL, GA4_ID, LAST_UPDATED, SITE_URL } from '../../data/site-config';
 import { route } from '../../i18n/routes';
 const lang = 'de';
 ---
@@ -21,6 +21,10 @@ const lang = 'de';
     <p>Die Werte werden vor jeder Veröffentlichung automatisch geprüft und bei jeder Änderung der Quellen abgeglichen; eine Gewähr für den Ertrag einer konkreten Anlage übernehmen wir nicht. Für verlinkte fremde Seiten sind deren Anbieter verantwortlich. Fehler melden Sie bitte über die <a href={route('contact', lang)}>Kontaktseite</a>.</p>
     <h2>Einbindung</h2>
     <p>Der Balkonkraftwerk-Rechner und der Photovoltaik-Rechner dürfen kostenlos per iframe genutzt werden, solange der Quellenlink sichtbar bleibt: <a href={route('widget', lang)}>Rechner einbinden</a>.</p>
+    {/* gen-legal-pages:terms */}
+    <h2>Datenschutz und Cookies</h2>
+    {GA4_ID ? (<p>Ihre Eingaben in den Rechnern verlassen Ihren Browser nicht. Die Seite setzt Cookies der Reichweitenmessung von Google Analytics (<code>_ga</code>, <code>_ga_{GA4_ID.replace('G-', '')}</code>, höchstens 13 Monate), ohne Werbung{CLARITY_ID && '; die Stabilität der Seiten wird mit Microsoft Clarity ohne Cookies gemessen'}. Einzelheiten, Rechtsgrundlage und Widerspruch: <a href={route('privacy', lang)}>Datenschutzerklärung</a> und Seite <a href={route('cookies', lang)}>Cookies</a>.</p>) : (<p>Ihre Eingaben in den Rechnern verlassen Ihren Browser nicht, und die Seite setzt keine Cookies{CLARITY_ID && '; die Stabilität der Seiten wird anonym mit Microsoft Clarity ohne Cookies gemessen'}. Siehe <a href={route('privacy', lang)}>Datenschutzerklärung</a> und Seite <a href={route('cookies', lang)}>Cookies</a>.</p>)}
+    {/* /gen-legal-pages:terms */}
     <h2>Verbraucherschlichtung</h2>
     <p>Zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle sind wir weder bereit noch verpflichtet. Zum Datenschutz: <a href={route('privacy', lang)}>Datenschutzerklärung</a> und <a href={route('cookies', lang)}>Cookies</a>. Stand: {LAST_UPDATED}.</p>
   </div>
