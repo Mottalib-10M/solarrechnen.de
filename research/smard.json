@@ -4,7 +4,7 @@
   "price": 4169,
   "pv": 4068
  },
- "retrieved_at": "2026-10-19",
+ "retrieved_at": "2026-10-26",
  "years": {
   "2024": {
    "hours": 8784,
@@ -173,11 +173,11 @@
    "pv_marktwert_ct": 4.61
   },
   "2026": {
-   "hours": 7007,
-   "neg_hours": 460,
-   "pv_mwh": 79719134,
-   "pv_neg_mwh": 17239811,
-   "pv_value_eur": 4782965659,
+   "hours": 7176,
+   "neg_hours": 462,
+   "pv_mwh": 80539377,
+   "pv_neg_mwh": 17251590,
+   "pv_value_eur": 4878197293,
    "months": {
     "1": {
      "neg_hours": 2,
@@ -234,14 +234,14 @@
      "pv_neg_share": 0.1355
     },
     "10": {
-     "neg_hours": 0,
-     "pv_mwh": 3498307,
-     "pv_neg_mwh": 0,
-     "pv_neg_share": 0.0
+     "neg_hours": 2,
+     "pv_mwh": 4318550,
+     "pv_neg_mwh": 11779,
+     "pv_neg_share": 0.0027
     }
    },
-   "pv_neg_share": 0.2163,
-   "pv_marktwert_ct": 6.0
+   "pv_neg_share": 0.2142,
+   "pv_marktwert_ct": 6.06
   }
  }
 }

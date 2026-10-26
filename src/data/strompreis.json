@@ -1,8 +1,8 @@
 {
  "source": "Eurostat nrg_pc_204, Germany, band DC 2 500-4 999 kWh, all taxes and levies included",
  "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_pc_204?format=JSON&geo=DE&nrg_cons=KWH2500-4999&unit=KWH&tax=I_TAX&currency=EUR&lang=EN",
- "eurostat_updated": "2026-10-19T11:00:00+0200",
- "retrieved_at": "2026-10-19",
+ "eurostat_updated": "2026-10-19T23:00:00+0200",
+ "retrieved_at": "2026-10-26",
  "letztes_halbjahr": "2026-S1",
  "eur_kwh": 0.3618,
  "reihe": {
