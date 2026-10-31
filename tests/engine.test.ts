@@ -127,7 +127,8 @@ describe('Rechnungen von Hand nachvollzogen', () => {
   });
   it('Entwurf EEG 2027: Übergangszahlung = anzulegender Wert − 1 ct für 36 Monate, ab 50 kW keine', () => {
     const v = vergleich2027(10, 5000);
-    expect(v.satz27).toBeCloseTo(7.7 + P.eeg.abzug_einspeiseverguetung_ct - 1, 6);
+    // BT-Drs. 21/7867, § 48 Abs. 1 (6,2 ct) und § 53 Abs. 1 (minus 1 ct) im Entwurf: 5,2 ct
+    expect(v.satz27).toBeCloseTo(5.2, 6);
     expect(v.summe27).toBeCloseTo(5000 * v.satz27 / 100 * 3, 6);
     expect(vergleich2027(50, 5000).summe27).toBe(0);
   });

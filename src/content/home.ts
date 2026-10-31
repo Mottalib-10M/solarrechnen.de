@@ -15,13 +15,14 @@ const city = (k: string) => (ST.staedte as Record<string, C>)[k];
 const HH = city('hamburg'), MU = city('muenchen');
 const bal = (plz: string, wp: number, tilt: number, az: number, sp = 0, vb = 2500) => rechneBalkon({ ort: ortVonPlz(plz), modulWp: wp, wechselrichterVa: 800, neigung: tilt, azimut: az, verschattung: 0, speicherKwh: sp, verbrauchKwh: vb, preisCt: STROMPREIS_CT, kostenEur: 450 });
 const hh90 = bal(HH.plz, 900, 90, 0), mu90 = bal(MU.plz, 900, 90, 0), mu35 = bal(MU.plz, 900, 35, 0), hhW = bal(HH.plz, 900, 90, 90);
-const be = ortVonPlz('10115')!;
-const beS90 = bal('10115', 900, 90, 0), beS35 = bal('10115', 900, 35, 0), beE = bal('10115', 900, 90, -90);
-const be1800 = bal('10115', 1800, 35, 0), be1800sp = bal('10115', 1800, 35, 0, 2);
-const v1500 = bal('10115', 900, 35, 0, 0, 1500), v4500 = bal('10115', 900, 35, 0, 0, 4500);
+const BE = city('berlin').plz;
+const be = ortVonPlz(BE)!;
+const beS90 = bal(BE, 900, 90, 0), beS35 = bal(BE, 900, 35, 0), beE = bal(BE, 900, 90, -90);
+const be1800 = bal(BE, 1800, 35, 0), be1800sp = bal(BE, 1800, 35, 0, 2);
+const v1500 = bal(BE, 900, 35, 0, 0, 1500), v4500 = bal(BE, 900, 35, 0, 0, 4500);
 const bundBalkon = ST.bund.balkon;
 const neg = SMARD.years[SMARD_JAHR];
-const BEISPIELE: Array<[string, string, number, number, number]> = [['Hamburg', HH.plz, 900, 90, 0], ['Berlin', '10115', 900, 35, 0], ['München', MU.plz, 900, 90, 0], ['Köln', city('koeln').plz, 1800, 35, 0], ['Dresden', city('dresden').plz, 1800, 35, 2]];
+const BEISPIELE: Array<[string, string, number, number, number]> = [['Hamburg', HH.plz, 900, 90, 0], ['Berlin', BE, 900, 35, 0], ['München', MU.plz, 900, 90, 0], ['Köln', city('koeln').plz, 1800, 35, 0], ['Dresden', city('dresden').plz, 1800, 35, 2]];
 
 export interface HomeText { title: string; description: string; h1: string; intro: string; resume: (h: Helpers) => string; faqs: (h: Helpers) => FAQ[]; body: (h: Helpers) => string }
 
@@ -50,7 +51,7 @@ export const HOME: Record<'de' | 'en', HomeText> = {
 <h2>Warum die Postleitzahl den Ertrag verändert</h2>
 <p>Deutschland ist für die Sonne kein einheitliches Land. Am Rasterpunkt bei Hamburg liefert ein Kilowatt Peak bei 35° Süd ${h.num(HH.ey)} kWh im Jahr, bei München ${h.num(MU.ey)} kWh, im Bundesdurchschnitt nach Einwohnern ${h.num(EY_BUND)} kWh. Zwischen dem schwächsten und dem stärksten Rasterpunkt liegen ${h.num(STANDORT.min)} und ${h.num(STANDORT.max)} kWh. Wer mit einem Mittelwert für ganz Deutschland rechnet, verschätzt sich im Norden nach oben und im Süden nach unten.</p>
 <p>Die gängigen Rechner fragen nach einer Region aus einer Liste oder nach dem Bundesland. Das reicht nicht: Innerhalb Bayerns trennt das Alpenvorland mit seinem Horizont und das Maintal mehr als zwischen manchem Nachbarland. PVGIS rechnet mit Satellitenstrahlung von 2005 bis 2023, mit Temperatur und Wind, und berücksichtigt Berge, die die tiefe Wintersonne verdecken. Ihre Hauswand oder der Baum gegenüber sind darin nicht enthalten; dafür gibt es unter dem Rechner die Verschattung.</p>
-${h.table(['Stadt', 'kWh je kWp (35° Süd)', '900 Wp senkrecht Süd', 'Ersparnis/Jahr'], BEISPIELE.slice(0, 3).map(([n, plz]) => { const r = bal(plz, 900, 90, 0); return [n, h.num(ortVonPlz(plz)!.ey), `${h.num(r.ertrag)} kWh`, h.eur(r.ersparnisJahr)]; }), `Verbrauch ${h.num(2500)} kWh, Strompreis ${h.num(STROMPREIS_CT, 1)} ct/kWh, ohne Speicher.`, ['l', 'r', 'r', 'r'])}
+${h.table(['Stadt', 'kWh je kWp (35° Süd)', '900 Wp senkrecht Süd', 'Ersparnis/Jahr'], BEISPIELE.slice(0, 3).map(([n, plz]) => { const r = bal(plz, 900, 90, 0); return [`${n} (${plz})`, h.num(ortVonPlz(plz)!.ey), `${h.num(r.ertrag)} kWh`, h.eur(r.ersparnisJahr)]; }), `Verbrauch ${h.num(2500)} kWh, Strompreis ${h.num(STROMPREIS_CT, 1)} ct/kWh, ohne Speicher.`, ['l', 'r', 'r', 'r'])}
 
 <h2>Eigenverbrauch: warum nicht jede Kilowattstunde zählt</h2>
 <p>Ein Balkonkraftwerk liefert seinen Strom zwischen zehn und sechzehn Uhr. In dieser Zeit laufen in vielen Wohnungen nur Kühlschrank, Router und Standby, zusammen vielleicht 100 bis 200 Watt. Die Simulation mit den 74 Haushalten zeigt, wie groß der Effekt ist: Mit 900 Wp aufgeständert in Berlin nutzt ein kleiner Haushalt mit ${h.num(1500)} kWh ${h.pct(v1500.eigenAnteil, 0)} des Stroms selbst, ein Haushalt mit ${h.num(4500)} kWh ${h.pct(v4500.eigenAnteil, 0)}.</p>
@@ -122,7 +123,7 @@ ${h.table(['Stadt', 'Anlage', 'Erzeugung', 'selbst genutzt', 'Ersparnis', 'Amort
 <h2>Why your postcode changes the yield</h2>
 <p>Germany is not one country as far as the sun is concerned. At the grid point near Hamburg, one kilowatt peak at 35° south yields ${h.num(HH.ey)} kWh a year; near Munich ${h.num(MU.ey)} kWh; the population-weighted national average is ${h.num(EY_BUND)} kWh. Between the weakest and the strongest grid point lie ${h.num(STANDORT.min)} and ${h.num(STANDORT.max)} kWh. Working from a single German average overestimates the north and underestimates the south.</p>
 <p>The usual German calculators ask you to pick a region from a list or your federal state. That is too coarse: within Bavaria, the Alpine foothills with their horizon and the Main valley differ by more than some neighbouring countries. PVGIS uses satellite radiation from 2005 to 2023, temperature and wind, and accounts for mountains that hide the low winter sun. Your own building or the tree opposite are not included; that is what the shading option under the calculator is for.</p>
-${h.table(['City', 'kWh per kWp (35° south)', '900 Wp upright south', 'Saving/year'], BEISPIELE.slice(0, 3).map(([n, plz]) => { const r = bal(plz, 900, 90, 0); return [n === 'München' ? 'Munich' : n, h.num(ortVonPlz(plz)!.ey), `${h.num(r.ertrag)} kWh`, h.eur(r.ersparnisJahr)]; }), `Consumption ${h.num(2500)} kWh, electricity price ${h.num(STROMPREIS_CT, 1)} ct/kWh, no battery.`, ['l', 'r', 'r', 'r'])}
+${h.table(['City', 'kWh per kWp (35° south)', '900 Wp upright south', 'Saving/year'], BEISPIELE.slice(0, 3).map(([n, plz]) => { const r = bal(plz, 900, 90, 0); return [`${n === 'München' ? 'Munich' : n} (${plz})`, h.num(ortVonPlz(plz)!.ey), `${h.num(r.ertrag)} kWh`, h.eur(r.ersparnisJahr)]; }), `Consumption ${h.num(2500)} kWh, electricity price ${h.num(STROMPREIS_CT, 1)} ct/kWh, no battery.`, ['l', 'r', 'r', 'r'])}
 
 <h2>Self-consumption: why not every kilowatt-hour counts</h2>
 <p>A balcony system delivers between ten in the morning and four in the afternoon. In many flats, only the fridge, router and standby devices run then, perhaps 100 to 200 watts together. The simulation with 74 households shows how big the effect is: with 900 Wp tilted south in Berlin, a small household using ${h.num(1500)} kWh uses ${h.pct(v1500.eigenAnteil, 0)} of the output itself, one using ${h.num(4500)} kWh uses ${h.pct(v4500.eigenAnteil, 0)}.</p>
