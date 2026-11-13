@@ -58,7 +58,7 @@ export default defineGuide({
 </ul>
 <p>Die installierte Leistung der Module ist die Bruttoleistung, die Wechselrichterleistung die Nettonennleistung. Beide Werte fragt das Register getrennt ab; wer sie verwechselt, bekommt eine Rückfrage des Netzbetreibers.</p>
 
-<h2>Die Registrierung in fünf Schritten</h2>
+<h2>Die Anmeldung im Marktstammdatenregister in fünf Schritten</h2>
 <h3>Benutzerkonto anlegen</h3>
 <p>Auf der Startseite des Registers legen Sie mit E-Mail-Adresse und Passwort ein Benutzerkonto an und bestätigen den Link aus der Bestätigungsmail. Das Konto ist der Zugang, mit dem Sie später auch Änderungen eintragen.</p>
 <h3>Sich als Anlagenbetreiber eintragen</h3>
@@ -141,7 +141,7 @@ ${h.table(['Case', 'not registered', 'registered later'], [
 <h2>Mistakes that trigger queries</h2>
 <p>Most grid operator queries have a handful of causes. Often the register shows the date of the meter change instead of the commissioning date; the report is what counts. Just as often, panel capacity and inverter rating are swapped, so a 10 kWp system appears as 8 kW. A third classic is the duplicate unit: the installer creates it with a power of attorney and the operator creates it again a few weeks later. Agree beforehand who registers. Finally, the battery is often forgotten because it sits in the same housing as the inverter. Each of these errors can be corrected through the account, and as long as the data was submitted on time, none of them leads to a section 52 payment.</p>
 
-<h2>After the entry</h2>
+<h2>After the entry in the Market Master Data Register</h2>
 <p>Registration is not a one-off. If anything changes, such as extra panels, a new battery, selling the house or decommissioning, enter it through your account; after a change of owner, the new operator registers themselves. A system without export must also be entered, as the page on ${h.a('nulleinspeisung', 'zero export')} explains. The register has no bearing on tax; the rules there are under ${h.a('photovoltaik-steuer', 'solar PV and tax')}. The ${h.src('bnetza_solar', 'Federal Network Agency')} answers common questions on its solar page.</p>`,
   },
 });

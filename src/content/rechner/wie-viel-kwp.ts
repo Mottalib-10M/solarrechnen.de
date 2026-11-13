@@ -46,7 +46,7 @@ export default defineGuide({
 <h2>Was der Größenrechner nebeneinanderstellt</h2>
 <p>Der Rechner lässt jede Größe von 3 bis 20 kWp durch dieselbe Jahressimulation laufen: Süddach mit 30° Neigung, Ertrag aus ${h.src('pvgis', 'PVGIS')} für Ihre Postleitzahl, Verbrauch aus den Viertelstundenprofilen der ${h.src('htw_lastprofile', 'HTW Berlin')}, Teileinspeisung zum Satz des aktuellen Zeitraums laut ${h.src('bnetza_saetze', 'Bundesnetzagentur')}. Ohne Smart Meter gilt für neue Anlagen die Begrenzung auf ${h.pct(P.solarspitzen.begrenzung_anteil, 0)} der Nennleistung (${h.src('eeg_9', '§ 9 Abs. 2 EEG')}), die große Anlagen mittags stärker trifft. Die Kosten setzen sich aus einem festen Betrag und einem Preis je kWp zusammen; beide tragen Sie selbst ein.</p>
 
-<h2>Das Beispiel Hannover</h2>
+<h2>Der kWp-Bedarf am Beispiel Hannover</h2>
 ${h.table(['Größe', 'Ertrag', 'Eigenverbrauch', 'Autarkie', 'Amortisation', 'Überschuss'], l4.map(({ k, r }) => [`${h.num(k)} kWp`, `${h.num(r.ertrag)} kWh`, h.pct(r.eigenAnteil, 0), h.pct(r.autarkie, 0), `${h.num(r.amortisationJahre ?? 0, 1)} J.`, h.eur(r.gewinn)]), `PLZ ${han.plz}, Verbrauch ${h.num(VB)} kWh, Kosten ${h.eur(FIX)} plus ${h.eur(JE_KWP)} je kWp, Strompreis ${h.num(STROMPREIS_CT, 1)} ct/kWh, Überschuss nach ${P.eeg.dauer_jahre} Jahren.`, ['l', 'r', 'r', 'r', 'r', 'r'])}
 <p>Die Autarkie wächst langsam: Von ${h.num(4)} auf ${h.num(10)} kWp steigt sie nur von ${h.pct(r4.autarkie, 0)} auf ${h.pct(r10.autarkie, 0)}, weil der Haushalt nachts und im Winter ohnehin Netzstrom braucht. Der Überschuss dagegen steigt bis ${h.num(b4.k)} kWp, danach überwiegt bei diesen Kosten der Abschlag beim Satz über 10 kWp und die 60-Prozent-Grenze.</p>
 

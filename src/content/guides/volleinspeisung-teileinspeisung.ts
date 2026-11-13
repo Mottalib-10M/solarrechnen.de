@@ -101,7 +101,7 @@ ${h.table(['Capacity band', 'Surplus feed-in', 'Full feed-in', 'Difference'], [
   ['over 40 to 100 kW', h.ct(AKTUELL.teil[2]), h.ct(AKTUELL.voll[2]), h.ct(AKTUELL.voll[2] - AKTUELL.teil[2])],
 ], `Rates for systems commissioned from ${h.date(AKTUELL.von)} to ${h.date(AKTUELL.bis)}, weighted by capacity, fixed for ${h.num(P.eeg.dauer_jahre)} years.`, ['l', 'r', 'r', 'r'])}
 
-<h2>The consumption threshold</h2>
+<h2>Full or surplus feed-in: the consumption threshold</h2>
 <p>The higher rate sounds tempting, but it replaces a saving worth much more. Every kilowatt-hour the house uses itself saves ${h.num(STROMPREIS_CT, 1)} ct; as full feed-in it earns only ${h.ct(AKTUELL.voll[0])}. Conversely, every kilowatt-hour that would be exported anyway earns ${h.ct(zuschlag)} more with full feed-in. Which side wins depends on the ratio of self-use to exports, and therefore on consumption.</p>
 ${h.table(['Annual consumption', 'Used at home', 'Surplus feed-in', 'Full feed-in'], reihe.map((r) => [`${h.num(r.vb)} kWh`, `${h.num(r.t.selbst)} kWh`, h.eur(r.t.nutzenJahr), h.eur(voll.nutzenJahr)]), '10 kWp at the German average, south 30°, no battery, no smart meter, benefit in year one.', ['l', 'r', 'r', 'r'])}
 <p>With 10 kWp and the national ${h.src('pvgis', 'PVGIS')} yield, the threshold is about ${h.num(schwelle)} kWh, close to the 4,000 kWh used in this site's examples, so for many homes the decision is a close one. Smaller systems shift it towards surplus feed-in: with 5 kWp and 4,000 kWh, surplus earns ${h.eur(k5t.nutzenJahr)} and full only ${h.eur(k5v.nutzenJahr)}, because a larger share stays in the house. A battery works the same way.</p>

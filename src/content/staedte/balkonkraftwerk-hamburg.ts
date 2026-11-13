@@ -134,7 +134,7 @@ ${h.table(['Orientation, upright', 'Yield', 'Used at home', 'Saving/year'], [
 ], `Electricity price ${h.num(STROMPREIS_CT, 1)} ct/kWh, no shading.`, ['l', 'r', 'r', 'r'])}
 <p>A west balcony loses noticeably on yield compared with south; on self-used power the gap is smaller, because the afternoon suits the routine of people who work. Trees in the courtyard or a building opposite weigh more in Hamburg than elsewhere, since the low winter sun never reaches many balconies in narrow streets. Enter how shaded your balcony is in the calculator above.</p>
 
-<h2>What to sort out before mounting in Hamburg</h2>
+<h2>What to sort out before mounting plug-in solar in Hamburg</h2>
 <p>Tenants are entitled to their landlord's permission under ${h.src('bgb_554', 'section 554 Civil Code')} unless it is unreasonable for the landlord; in owner-occupied flats the owners' association decides how, not whether. After switching on you have ${P.mastr.frist_monate === 1 ? 'one month' : `${P.mastr.frist_monate} months`} to register (${h.src('mastrv_5', 'section 5 MaStRV')}). With coastal storms, it is worth bolting the bracket firmly to the railing; that is not a legal rule, just common sense.</p>`,
   },
 });

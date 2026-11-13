@@ -72,7 +72,7 @@ ${h.table(['Kennzahl', 'Berlin', 'Quelle'], [
     title: `Plug-in Solar Berlin 2026: Yield and Saving per Balcony`,
     description: `Balcony solar in Berlin 2026: ${EN.num(C.ey)} kWh per kWp according to PVGIS, ${EN.num(C.balkon)} devices in the federal register, the yield by orientation, your yearly saving.`,
     h1: 'Plug-in solar in Berlin: yield and saving in 2026',
-    intro: `900 Wp hanging upright on a south-facing balcony produce about ${EN.num(sued.ertrag)} kWh a year in Berlin and save ${EN.eur(sued.ersparnisJahr)} for a household using 2,000 kWh.`,
+    intro: `A 900 Wp plug-in solar kit hanging upright on a south-facing balcony produces about ${EN.num(sued.ertrag)} kWh a year in Berlin and saves ${EN.eur(sued.ersparnisJahr)} for a household using 2,000 kWh.`,
     resume: `Berlin sits mid-table among Germany's big cities for solar yield: PVGIS gives ${EN.num(C.ey)} kWh per kilowatt peak at 35 degrees south for postcode ${C.plz}, rank ${rangEy} of the ${ALL.length} cities compared here. A plug-in system (Balkonkraftwerk) with two 450 Wp panels hanging upright on a south-facing railing therefore produces about ${EN.num(sued.ertrag)} kWh a year; facing west it is ${EN.num(west.ertrag)} kWh, facing east ${EN.num(ost.ertrag)} kWh. A two-person household using 2,000 kWh uses ${EN.pct(sued.eigenAnteil)} of the south-balcony output itself and saves ${EN.eur(sued.ersparnisJahr)} a year at ${EN.num(STROMPREIS_CT, 1)} cents per kWh. The federal Market Master Data Register lists ${EN.num(C.balkon)} plug-in devices in operation in Berlin, ${EN.num(dichte, 1)} per 1,000 residents, well below the national ${EN.num(dichteBund, 1)}: in a city of renters, uptake depends less on the sun than on landlords and balconies.`,
     faqs: [
       { q: 'How much does balcony solar produce in Berlin in winter?', a: `Little: November to February together deliver only ${EN.pct(winter)} of the annual yield in Berlin, about ${EN.num(dezember)} kWh in December for 900 Wp upright facing south. Upright panels lose less in winter than flat ones because they catch the low sun better. Almost all of the saving is made between March and October.` },
@@ -80,7 +80,7 @@ ${h.table(['Kennzahl', 'Berlin', 'Quelle'], [
       { q: 'Is a west-facing balcony in Berlin worth it?', a: `Yes, with less yield: ${EN.num(west.ertrag)} instead of ${EN.num(sued.ertrag)} kWh a year for 900 Wp upright. In return the power arrives in the afternoon and early evening, when working people are home. The self-consumption share is therefore ${EN.pct(west.eigenAnteil)} and the saving ${EN.eur(west.ersparnisJahr)} a year.` },
     ],
     body: (h) => `
-<h2>What the Berlin data show</h2>
+<h2>What the Berlin plug-in solar data show</h2>
 ${h.table(['Indicator', 'Berlin', 'Source'], [
   ['Yield per kWp, 35° south', `${h.num(C.ey)} kWh`, `PVGIS, postcode ${C.plz}`],
   [`Rank among ${h.num(ALL.length)} big cities`, `${rangEy}`, 'PVGIS'],

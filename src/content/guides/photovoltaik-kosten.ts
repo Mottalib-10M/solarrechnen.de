@@ -57,7 +57,7 @@ export default defineGuide({
       { q: 'Ist ein größeres PV-Angebot je Kilowattstunde günstiger?', a: `Meist ja, weil Gerüst, Elektroarbeiten und Anmeldung fast gleich viel kosten, egal wie viele Module aufs Dach kommen. Im Beispiel dieser Seite liefern angenommene ${DE.eur(angB.k)} für ${DE.num(angB.kwp, 1)} kWp die Kilowattstunde für ${DE.num(cB, 1)} ct, ${DE.eur(angA.k)} für ${DE.num(angA.kwp, 1)} kWp für ${DE.num(cA, 1)} ct. Der Zusatzstrom bringt aber nur dann viel, wenn Sie ihn selbst verbrauchen.` },
     ],
     body: (h) => `
-<h2>Wofür das Geld ausgegeben wird</h2>
+<h2>Wofür das Geld bei Photovoltaik ausgegeben wird</h2>
 <p>Ein Angebot für eine Dachanlage fasst Material und Arbeit zusammen, die sich gut getrennt prüfen lassen. Die Module liefern die Leistung in Kilowatt Peak und machen die Anlage erst vergleichbar. Der Wechselrichter wandelt Gleich- in Wechselstrom und ist das Bauteil, das am ehesten vor dem Ende der Laufzeit getauscht werden muss. Unterkonstruktion, Dachhaken und Kabel hängen von der Dachdeckung ab: Ziegel, Schiefer, Blech und Flachdach verlangen unterschiedliche Systeme. Dazu kommen die Elektroarbeiten, oft der Umbau des Zählerschranks, wenn der alte nicht mehr den heutigen Vorgaben entspricht, sowie Gerüst und Montage. Ein Speicher ist optional und wird am besten als eigener Posten ausgewiesen, damit sich seine Wirtschaftlichkeit getrennt beurteilen lässt.</p>
 <p>Eine Liste mit Marktpreisen geben wir bewusst nicht an: Preise je kWp schwanken nach Region, Dach, Anlagengröße und Auslastung der Betriebe, und jede Zahl ohne Quelle wäre eine Behauptung. Nützlicher ist ein Maßstab, an dem Sie jedes Angebot selbst messen können, und das ist der Preis je erzeugter Kilowattstunde.</p>
 
@@ -96,7 +96,7 @@ ${h.table(['Annahme je kWp', 'Gesamtpreis 10 kWp', 'Bundesmittel', 'München', '
       { q: 'Is a larger solar quote cheaper per kilowatt-hour?', a: `Usually, because scaffolding, electrical work and registration cost almost the same however many panels go on the roof. In this page's example, an assumed ${EN.eur(angB.k)} for ${EN.num(angB.kwp, 1)} kWp delivers power at ${EN.num(cB, 1)} ct per kWh, against ${EN.num(cA, 1)} ct for ${EN.eur(angA.k)} and ${EN.num(angA.kwp, 1)} kWp. The extra output only pays well if you use it yourself.` },
     ],
     body: (h) => `
-<h2>Where the money goes</h2>
+<h2>Where solar PV costs go</h2>
 <p>A quote for a rooftop system bundles material and labour that are easy to check one by one. The panels provide the capacity in kilowatts peak and are what makes systems comparable. The inverter turns direct current into alternating current and is the part most likely to need replacing before the end of the term. Mounting rails, roof hooks and cables depend on the roofing: clay tiles, slate, metal and flat roofs each need different systems. Then there is the electrical work, often an upgrade of the meter cabinet (Zählerschrank) if the old one no longer meets current standards, plus scaffolding and installation. A battery is optional and is best listed as a separate item so that its economics can be judged on their own.</p>
 <p>We deliberately do not give a list of market prices: prices per kWp vary by region, roof, system size and how busy installers are, and any figure without a source would be a claim. More useful is a yardstick you can apply to any quote yourself, and that is the price per kilowatt-hour generated.</p>
 

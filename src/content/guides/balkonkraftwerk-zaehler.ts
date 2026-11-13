@@ -76,7 +76,7 @@ ${h.table(['Modulleistung', ...VB.map((v) => `${h.num(v)} kWh Verbrauch`)], zeil
       { q: 'Do I need a smart meter for a balcony solar kit?', a: `No. Section 10a(2) EEG leaves the metering operator the choice between a bidirectional meter and a smart metering system; either is enough. The cap on feed-in at ${EN.pct(P.solarspitzen.begrenzung_anteil)} of output, which hits new rooftop systems without a smart meter, does not apply to plug-in devices. For a balcony kit a smart meter mainly gives you more precise consumption data, for example for a dynamic tariff.` },
     ],
     body: (h) => `
-<h2>Which meter you have</h2>
+<h2>Which meter your plug-in solar runs on</h2>
 <p>German meter cabinets hold three generations. The Ferraris meter has a spinning aluminium disc and a mechanical counter; some have a reverse-running lock (Rücklaufsperre), noted on the rating plate. The modern metering device (moderne Messeinrichtung) is a digital meter with a display that can record consumption and feed-in separately when set up as a bidirectional meter. The smart metering system (intelligentes Messsystem) is a modern meter with a communication unit, the smart meter gateway. Any of the three is fine for a balcony kit; the only question is what it shows.</p>
 
 <h2>What section 10a EEG says about the old meter</h2>
