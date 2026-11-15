@@ -77,3 +77,8 @@ h1 { font-weight: 700; } h2 { font-weight: 650; } h3 { font-weight: 600; }
   /* Monatsbalken der Erzeugung : Sonnengelb vers Bernstein. */
   .monat { background: linear-gradient(to top, var(--color-accent-700), #f4ae71); }
 }
+
+/* Champs en subgrid : quand le formulaire est étiré à la hauteur du résultat voisin, ses rangées ne doivent pas s'étirer (trous entre libellé, case et aide). */
+:where(form, div, fieldset):has(> .grid-rows-subgrid) { align-content: start; }
+/* Dans une grille, le cadre du formulaire s'arrête sous ses champs au lieu de s'étirer à la hauteur du résultat. */
+.grid > form:has(> .grid-rows-subgrid) { align-self: start; }
