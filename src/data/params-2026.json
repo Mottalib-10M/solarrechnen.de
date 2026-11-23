@@ -256,6 +256,13 @@
         "en": "HTW Berlin: representative household load profiles (74 households)"
       }
     },
+    "bt_kw46": {
+      "url": "https://www.bundestag.de/dokumente/textarchiv/2026/kw46-de-a-1232566",
+      "label": {
+        "de": "Bundestag, Textarchiv 12. November 2026: EEG 2023 nur bis 31. Dezember 2026 von der EU-Kommission genehmigt, EEG-Novelle noch im Verfahren",
+        "en": "Bundestag, text archive 12 November 2026: EEG 2023 approved by the European Commission only until 31 December 2026, EEG reform still before Parliament"
+      }
+    },
     "bt_eeg2027": {
       "url": "https://dserver.bundestag.de/btd/21/078/2107867.pdf",
       "label": {

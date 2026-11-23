@@ -33,7 +33,7 @@ export default defineGuide({
   mini: 'eeg2027',
   miniHref: 'einspeiseverguetung',
   related: ['einspeiseverguetung', 'solarspitzengesetz', 'nulleinspeisung', 'photovoltaik-lohnt-sich', 'stromspeicher-groesse'],
-  sources: ['bt_eeg2027', 'bnetza_saetze', 'eeg_48', 'eeg_21', 'eeg_100'],
+  sources: ['bt_eeg2027', 'bt_kw46', 'bnetza_saetze', 'eeg_48', 'eeg_21', 'eeg_100'],
   de: {
     slug: 'einspeiseverguetung-2027',
     nav: 'Einspeisevergütung 2027',
@@ -55,6 +55,7 @@ export default defineGuide({
 <h2>Zwei Rechtsstände nebeneinander</h2>
 <p>Wer im Herbst ${jahr(P.eeg.anwendbar_bis)} eine Dachanlage plant, rechnet mit zwei Gesetzen. Das eine gilt: Das EEG 2023 garantiert jeder Anlage, die bis zum ${h.date(P.eeg.anwendbar_bis)} in Betrieb geht, die Einspeisevergütung ihres Zeitraums (${h.src('eeg_21', '§ 21 EEG')}, ${h.src('eeg_48', '§ 48 EEG')}) für ${h.num(vgJahre)} Jahre ab Inbetriebnahme, verlängert bis zum 31. Dezember des letzten dieser Jahre (§ 25 EEG). Das andere ist ein Plan: Der ${h.src('bt_eeg2027', 'Regierungsentwurf zum EEG 2027')} liegt dem Bundestag seit dem ${h.date(E.datum)} vor und soll am ${h.date(start27)} in Kraft treten. Bis zur Verabschiedung kann sich jede Zahl darin noch ändern. Diese Seite rechnet deshalb mit dem geltenden Recht und stellt den Entwurf daneben, nie an dessen Stelle.</p>
 
+<p><strong>Stand ${tag('2026-11-23', 'de')}:</strong> Der Bundestag hat das EEG 2027 noch nicht beschlossen. Nach dem ${h.src('bt_kw46', 'Textarchiv des Bundestages')} ist das geltende EEG nur bis zum ${tag(P.eeg.anwendbar_bis, 'de')} von der EU-Kommission genehmigt; der Entwurf kann im parlamentarischen Verfahren noch geändert werden, auch bei der festen Vergütung für kleine Anlagen. Maßgeblich ist erst der Text im Bundesgesetzblatt; diese Seite wird an dem Tag aktualisiert, an dem er erscheint.</p>
 <h2>Welche Einspeisevergütung bis Jahresende gilt</h2>
 <p>Für Inbetriebnahmen vom ${h.date(AKTUELL.von)} bis ${h.date(AKTUELL.bis)} veröffentlicht die ${h.src('bnetza_saetze', 'Bundesnetzagentur')} bei Teileinspeisung ${h.ct(AKTUELL.teil[0])} für die ersten ${h.num(EEG.grenzen_kw[0])} kW, ${h.ct(AKTUELL.teil[1])} für den Teil bis ${h.num(EEG.grenzen_kw[1])} kW und ${h.ct(AKTUELL.teil[2])} darüber. Die Sätze sinken jedes halbe Jahr um ${h.pct(P.eeg.degression_halbjahr)}. Ohne Smart Meter gilt die Einspeisegrenze aus dem ${h.a('solarspitzengesetz', 'Solarspitzengesetz')}, mit Smart Meter entfällt die Vergütung bei negativen Preisen. Beides ist in der Rechnung unten enthalten.</p>
 
@@ -111,6 +112,7 @@ ${h.table(['Anlage', 'Einspeisung/Jahr', `Satz ${jahr(P.eeg.anwendbar_bis)}`, `S
 <h2>Two legal states side by side</h2>
 <p>Anyone planning a rooftop system in autumn ${jahr(P.eeg.anwendbar_bis)} is working with two laws. One is in force: the EEG 2023 guarantees every system commissioned by ${h.date(P.eeg.anwendbar_bis)} the feed-in tariff of its period (${h.src('eeg_21', 'section 21 EEG')}, ${h.src('eeg_48', 'section 48 EEG')}) for ${h.num(vgJahre)} years from commissioning, extended to 31 December of the last of those years (section 25 EEG). The other is a plan: the ${h.src('bt_eeg2027', 'government draft of the EEG 2027')} has been before the Bundestag since ${h.date(E.datum)} and is meant to take effect on ${h.date(start27)}. Until it is passed, any figure in it may change. This page therefore calculates with current law and sets the draft beside it, never in its place.</p>
 
+<p><strong>As of ${tag('2026-11-23', 'en')}:</strong> the Bundestag has not passed the EEG 2027. According to the ${h.src('bt_kw46', 'Bundestag text archive')}, the current EEG is approved by the European Commission only until ${tag(P.eeg.anwendbar_bis, 'en')}; the draft may still change before Parliament, including on the fixed tariff for small systems. Only the text in the Federal Law Gazette counts; this page will be updated on the day it appears.</p>
 <h2>Which feed-in tariff applies until the end of the year</h2>
 <p>For systems commissioned from ${h.date(AKTUELL.von)} to ${h.date(AKTUELL.bis)}, the ${h.src('bnetza_saetze', 'Federal Network Agency')} publishes, for surplus feed-in, ${h.ct(AKTUELL.teil[0])} for the first ${h.num(EEG.grenzen_kw[0])} kW, ${h.ct(AKTUELL.teil[1])} for the part up to ${h.num(EEG.grenzen_kw[1])} kW and ${h.ct(AKTUELL.teil[2])} above that. Rates fall by ${h.pct(P.eeg.degression_halbjahr)} every six months. Without a smart meter, the export limit of the ${h.a('solarspitzengesetz', 'solar peak law')} applies; with one, payment stops at negative prices. Both are included in the figures below.</p>
 
