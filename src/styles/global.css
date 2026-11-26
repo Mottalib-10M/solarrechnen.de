@@ -4,7 +4,7 @@
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url('/fonts/inter-var.woff2') format('woff2'); }
 @theme {
   --color-navy-50: #f8fafc; --color-navy-100: #f1f5f9; --color-navy-200: #e2e8f0; --color-navy-300: #cbd5e1; --color-navy-400: #94a3b8; --color-navy-500: #64748b; --color-navy-600: #475569; --color-navy-700: #334155; --color-navy-800: #1e293b; --color-navy-900: #0f172a; --color-navy-950: #020617;
-  --color-accent-50: #fdf4ec; --color-accent-100: #fce7d5; --color-accent-200: #f8ceaa; --color-accent-300: #f4ae71; --color-accent-400: #ef8d39; --color-accent-500: #A04A00; --color-accent-600: #883f00; --color-accent-700: #703400; --color-accent-800: #5a2900; --color-accent-900: #462100;
+  --color-accent-50: #F1F1F1; --color-accent-100: #E3E3E3; --color-accent-200: #B8B8B8; --color-accent-300: #7E7E7E; --color-accent-400: #434343; --color-accent-500: #141414; --color-accent-600: #141414; --color-accent-700: #0E0E0E; --color-accent-800: #0A0A0A; --color-accent-900: #0A0A0A;
   --color-success: #15803d; --color-warning: #b45309; --color-error: #dc2626;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
@@ -82,3 +82,45 @@ h1 { font-weight: 700; } h2 { font-weight: 650; } h3 { font-weight: 600; }
 :where(form, div, fieldset):has(> .grid-rows-subgrid) { align-content: start; }
 /* Dans une grille, le cadre du formulaire s'arrête sous ses champs au lieu de s'étirer à la hauteur du résultat. */
 .grid > form:has(> .grid-rows-subgrid) { align-self: start; }
+
+/* Charte de page aux couleurs du pays (refonte d'identité validée par l'éditeur, appliquée le 2026-11-25, MASTERFACTORY §10.5) :
+   en-tête et bandeau du H1 pleins dans la couleur forte, filet de la 2e couleur, sections alternées teintées,
+   simulateur en carte blanche à bord haut épais, chiffres-résultats grands, boutons pleins, pied sombre.
+   Échelle --color-accent-* dans @theme ci-dessus ; règles hors couche, elles priment sur les utilitaires Tailwind. */
+html, body { overflow-x: clip; }
+header nav[aria-label] { background: #141414; border-bottom: 5px solid #FFCE00; }
+header nav[aria-label] > div:first-child, header nav[aria-label] > div:first-child a, header nav[aria-label] > div:first-child button, header nav[aria-label] > div:first-child span { color: #FFFFFF; }
+header nav[aria-label] > div:first-child a:hover, header nav[aria-label] .nav-dropdown-trigger:hover { background: rgba(255,255,255,.14); }
+header nav[aria-label] .nav-dropdown-panel, header nav[aria-label] .nav-dropdown-panel * { color: #0F172A; }
+header nav[aria-label] .nav-dropdown-panel { background: #FFFFFF; }
+#mobile-menu { background: #FFFFFF; }
+#mobile-menu, #mobile-menu a, #mobile-menu span, #mobile-menu button { color: #0F172A; }
+header nav[aria-label] img { background: #FFFFFF; border-radius: 7px; padding: 2px; }
+main > div.max-w-6xl > header:has(h1) { background: #141414; box-shadow: 0 0 0 100vmax #141414; clip-path: inset(0 -100vmax); padding-top: 0; padding-bottom: 1rem; margin-bottom: 0; border: 0; }
+/* bandeau en tête de page (sans fil d'Ariane) : il couvre aussi la marge haute du conteneur, pas de bande blanche sous l'en-tête */
+main:not(:has(nav[aria-label])) > div.max-w-6xl > header:has(h1):first-child { clip-path: inset(-1.25rem -100vmax 0 -100vmax); }
+:is(main > div.max-w-6xl > header:has(h1)), :is(main > div.max-w-6xl > header:has(h1)) :not(svg, svg *) { color: #FFFFFF; border-color: rgba(255,255,255,.35); }
+:is(main > div.max-w-6xl > header:has(h1)) a { text-decoration: underline; text-decoration-color: #FFCE00; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+:is(main > div.max-w-6xl > header:has(h1)) h1 { letter-spacing: -0.02em; }
+:is(main > div.max-w-6xl > header:has(h1)) :is(a,li,div,span)[class*="bg-"]:not(h1) { background: rgba(255,255,255,.12); }
+:is(main > div.max-w-6xl > header:has(h1)) :is(a,button)[class*="bg-"] { background: #FFCE00; color: #111111; border-color: #FFCE00; text-decoration: none; }
+main astro-island > div[class*="rounded"]:first-child { background: #FFFFFF; border-top: 6px solid #FFCE00; }
+main > div.max-w-6xl > :is(section,div.prose,div.clamp):nth-of-type(odd) { background: #E3E3E3; box-shadow: 0 0 0 100vmax #E3E3E3; clip-path: inset(0 -100vmax); padding-top: 1.2rem; padding-bottom: 1.2rem; }
+main h2:not(footer h2) { color: #141414; text-decoration: none; border-bottom: 5px solid #FFCE00; padding-bottom: .3rem; width: fit-content; }
+main h3 { color: #141414; }
+main :is([class*="text-navy-400"], [class*="text-navy-500"]) { color: #3B4A5E; }
+main :is(button[type="submit"], :is(a,button):is([class~="bg-accent-500"],[class~="bg-accent-600"],[class~="bg-accent-700"],[class~="bg-navy-900"])) { background: #FFCE00; color: #111111; border-color: #FFCE00; }
+main :is(button[type="submit"], :is(a,button):is([class~="bg-accent-500"],[class~="bg-accent-600"],[class~="bg-accent-700"])):hover { background: #FFCE00; }
+main :is(.prose a, p > a, li > a):not([class*="bg-"], footer *, [class*="bg-navy-8"] *, [class*="bg-navy-9"] *, [class*="bg-accent-8"] *, [class*="bg-accent-9"] *) { color: #141414; text-decoration: underline; text-decoration-color: #FFCE00; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+/* liens du bandeau : blancs (la règle des liens soulignés du contenu les rendait bleus sur le bandeau) */
+main > div.max-w-6xl > header:has(h1) :is(.prose a, p > a, li > a):not([class*="bg-"]) { color: #fff; }
+main .bg-accent-50 { background: #F1F1F1; border-left: 6px solid #FFCE00; }
+main table thead th { color: #141414; border-bottom: 3px solid #FFCE00; }
+main table tbody tr:first-child > * { border-top: 4px solid #FFFFFF; }
+main :is([aria-live], [role="status"], output) :is([class*="text-2xl"], [class*="text-3xl"], [class*="text-4xl"]):not(h1,h2) { color: #B30000; font-size: 2.2rem; line-height: 1.15; }
+footer { background: #0A0A0A; border-top: 6px solid #FFCE00; }
+footer, footer *:not(svg, svg *) { color: #E5E7EB; border-color: rgba(255,255,255,.18); }
+footer [class*="bg-"]:not(footer) { background: transparent; }
+footer a { text-decoration-color: #FFCE00; }
+/* pages à mini-simulateur (article > header) : marge sous le titre ramenée à 1rem, le premier champ restait pile à la limite du premier écran (461 px) */
+main article > header:has(> h1) { margin-bottom: 1rem; }
